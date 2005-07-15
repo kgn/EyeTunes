@@ -1,0 +1,13 @@
+define aedesc
+  call (void *) malloc(4)
+  set $aed_malloc=$
+  call (long) AEPrintDescToHandle($arg0, $aed_malloc)
+  if $ == 0
+    printf "desc @ %p = {\n    type = '%.4s'\n    storage (%p) = %s\n}\n", \
+      $arg0, $arg0, ((long *) $arg0)[1], **(char ***) $aed_malloc
+    call (void) DisposeHandle(*(char ***) $aed_malloc)
+  else
+    printf "aedesc failed: error %d.\n", $
+  end
+  call (void) free($aed_malloc)
+end
