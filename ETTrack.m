@@ -65,6 +65,11 @@
 	NSData *pictData = [pboard dataForType:NSPICTPboardType];
 	[pboard releaseGlobally];
 	
+	if ([pictData length] < 512) {
+		NSLog(@"Unable to convert to PICT");
+		return NO;
+	}
+	
 	err = AEBuildDesc(&pictDesc, NULL, "'PICT'(@)",
 					  [pictData length],
 					  [pictData bytes]);
@@ -283,7 +288,7 @@ cleanup_reply:
 
 - (NSString *)location
 {
-	return [self getPropertyAsPathForDesc:pETTrackLocation];
+	return [self getPropertyAsPathURLForDesc:pETTrackLocation];
 }
 
 - (NSDate *)modificationDate

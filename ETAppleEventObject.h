@@ -76,7 +76,8 @@
 - (int)			getPropertyAsIntegerForDesc:(DescType)descType;
 - (NSString *)	getPropertyAsStringForDesc:(DescType)descType;
 - (NSDate *)	getPropertyAsDateForDesc:(DescType)descType;
-- (NSString *) getPropertyAsPathForDesc:(DescType)descType;
+- (NSString *)  getPropertyAsPathForDesc:(DescType)descType;
+- (NSString *)  getPropertyAsPathURLForDesc:(DescType)descType;
 - (BOOL)		setPropertyWithInteger:(int)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithString:(NSString *)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithDate:(NSDate *)value forDesc:(DescType)descType;

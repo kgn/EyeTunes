@@ -327,7 +327,7 @@
 							kAnyTransactionID,
 							&setEvent,
 							NULL,
-							[[self eventParameterStringForSettingElementOfClass:classType atIndex:index] lossyCString],
+							[[self eventParameterStringForSettingElementOfClass:classType atIndex:(index+1)] lossyCString],
 							value,
 							refDescriptor);
 	
@@ -362,7 +362,7 @@
 							kAnyTransactionID,
 							&setEvent,
 							NULL,
-							[[self eventParameterStringForSettingProperty:propertyType OfElementOfClass:classType atIndex:index] lossyCString],
+							[[self eventParameterStringForSettingProperty:propertyType OfElementOfClass:classType atIndex:(index+1)] lossyCString],
 							value,
 							refDescriptor);
 	
@@ -470,12 +470,21 @@ cleanup_reply:
 
 - (NSString *) getPropertyAsPathForDesc:(DescType)descType
 {
+	NSString *urlString = [self getPropertyAsPathURLForDesc:descType];
+	if (urlString && [[NSURL URLWithString:urlString] isFileURL]) {
+		return [[NSURL URLWithString:urlString] path];
+	}
+	return nil;
+}
+
+- (NSString *) getPropertyAsPathURLForDesc:(DescType)descType
+{
 	OSErr err;
 	
 	FSRef		fsRef;
 	DescType	resultType;
 	Size		resultSize;
-	NSString	*path = nil;
+	NSString	*urlString = nil;
 	
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	
@@ -496,12 +505,13 @@ cleanup_reply:
 	/* Convert Alias to NSString */
 	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
 	if (resolvedURL) {
-		path = (NSString *)CFURLCopyFileSystemPath(resolvedURL,kCFURLPOSIXPathStyle);
+		urlString = [(NSURL *)resolvedURL absoluteString];
 		CFRelease(resolvedURL);
 	}
 	
-	return [path autorelease];
+	return urlString;
 }
+
 
 - (NSDate *) getPropertyAsDateForDesc:(DescType)descType
 {
