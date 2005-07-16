@@ -67,6 +67,7 @@
 - (NSString *)genre;
 - (int)group;
 - (NSString *)kind;
+- (NSString *)location;
 - (NSDate *)modificationDate;
 - (int)playedCount;
 - (NSDate *)playedDate;

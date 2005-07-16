@@ -83,6 +83,9 @@ enum {
 	kETSpecialPlaylistPodcasts			= 'kSpP'
 };
 
+enum {
+	pETTrackLocation					= 'pLoc'
+};
 
 
 #define ET_ADD_FILE			'Add '

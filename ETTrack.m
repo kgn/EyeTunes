@@ -110,16 +110,16 @@
 		goto cleanup_reply;
 	}
 
-	NSLog(@"number of artworks: %d", elementCount);
+	//NSLog(@"number of artworks: %d", elementCount);
 	
 	/* get all the artwork data */
 	int i;
 	artworkArray = [NSMutableArray arrayWithCapacity:elementCount];
 	for (i = 0; i < elementCount; i++) {
 		AEDesc artworkDescriptor;
-		AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_ARTWORK atIndex:(i+1)];
+		AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_ARTWORK atIndex:i];
 		if (!replyEvent) {
-			NSLog(@"Failed to retrieve artwork number: %d", (i+1));
+			NSLog(@"Failed to retrieve artwork number: %d", i);
 			break;
 		}
 		
@@ -279,6 +279,11 @@ cleanup_reply:
 - (NSString *)kind
 {
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_KIND];
+}
+
+- (NSString *)location
+{
+	return [self getPropertyAsPathForDesc:pETTrackLocation];
 }
 
 - (NSDate *)modificationDate

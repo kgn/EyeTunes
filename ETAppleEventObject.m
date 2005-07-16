@@ -91,6 +91,23 @@
 	DisposeHandle(debug);
 }
 
++ (AliasHandle)newAliasHandleWithPath:(NSString *)path
+{
+	AliasHandle alias;
+	FSRef fsRef;
+	NSURL *url = [NSURL fileURLWithPath:path];
+
+	if (!CFURLGetFSRef((CFURLRef)url, &fsRef)) {
+		return nil;
+	}
+	
+	if (!FSNewAliasMinimal(&fsRef, &alias)) {
+		return alias;
+	}
+	return nil;
+}
+		
+
 #pragma mark -
 #pragma mark AEGizmo Strings
 #pragma mark -
@@ -230,7 +247,6 @@
 	AppleEvent *replyEvent = nil;
 	
 	
-	NSLog([self eventParameterStringForCountElementsOfClass:descType] );
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'cnte',
 							typeApplSignature,
@@ -450,6 +466,41 @@ cleanup_reply:
 	replyEvent = NULL;
 	
 	return replyString;
+}
+
+- (NSString *) getPropertyAsPathForDesc:(DescType)descType
+{
+	OSErr err;
+	
+	FSRef		fsRef;
+	DescType	resultType;
+	Size		resultSize;
+	NSString	*path = nil;
+	
+	AppleEvent *replyEvent = [self getPropertyOfType:descType];
+	
+	if (!replyEvent) {
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	/* Read Results */
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeFSRef, &resultType, 
+						&fsRef, sizeof(fsRef), &resultSize);
+	if (err != noErr) {
+		NSLog(@"Error extracting parameters from reply: %d", err);
+	}
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	/* Convert Alias to NSString */
+	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
+	if (resolvedURL) {
+		path = (NSString *)CFURLCopyFileSystemPath(resolvedURL,kCFURLPOSIXPathStyle);
+		CFRelease(resolvedURL);
+	}
+	
+	return [path autorelease];
 }
 
 - (NSDate *) getPropertyAsDateForDesc:(DescType)descType

@@ -1,6 +1,6 @@
-/* ET_APPLE_EVENT_OBJECT -- Proxy Object For AppleEvent iTunes Objects 
-					  Forwards parameter/element requests through AppleEvent
-					  transparently */
+/* ETAppleEventObject.h -- Proxy Object For AppleEvent iTunes Objects 
+					       forwards parameter/element requests through 
+						   AppleEvent transparently */
 
 /*
  
@@ -51,8 +51,9 @@
 - (AEDesc *)descriptor;
 + (void) printDescriptor:(AEDesc *)desc;
 
-// AEGizmo String Generation
++ (AliasHandle)newAliasHandleWithPath:(NSString *)path;
 
+// AEGizmo String Generation
 - (NSString *)	eventParameterStringForCountElementsOfClass:(DescType)classType;
 - (NSString *)	eventParameterStringForElementOfClass:(DescType)classType atIndex:(int)index;
 - (NSString *)	eventParameterStringForProperty:(DescType)descType;
@@ -75,6 +76,7 @@
 - (int)			getPropertyAsIntegerForDesc:(DescType)descType;
 - (NSString *)	getPropertyAsStringForDesc:(DescType)descType;
 - (NSDate *)	getPropertyAsDateForDesc:(DescType)descType;
+- (NSString *) getPropertyAsPathForDesc:(DescType)descType;
 - (BOOL)		setPropertyWithInteger:(int)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithString:(NSString *)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithDate:(NSDate *)value forDesc:(DescType)descType;

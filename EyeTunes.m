@@ -152,6 +152,44 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	[self sendCommand:ET_STOP];
 }
 
+- (void)playTrackWithPath:(NSString *)path
+{
+	OSErr err;
+	AppleEvent cmdEvent;
+	AliasHandle alias =  [EyeTunes newAliasHandleWithPath:path];
+	
+	if (!alias) {
+		NSLog(@"Unable to resolve path to alias");
+		return;
+	}
+	
+	err = AEBuildAppleEvent(iTunesSignature,
+							ET_PLAY,
+							typeApplSignature,
+							&iTunesSignature,
+							sizeof(iTunesSignature),
+							kAutoGenerateReturnID,
+							kAnyTransactionID,
+							&cmdEvent,
+							NULL,
+							"'----':alis(@@)",
+							alias);
+	
+	DisposeHandle((Handle)alias);
+	
+	
+	if (err != noErr) {
+		NSLog(@"Error creating Apple Event: %d", err);
+		return;
+	}
+	
+	err = AESendMessage(&cmdEvent, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		NSLog(@"Error sending AppleEvent: %d", err);
+	}
+	AEDisposeDesc(&cmdEvent);
+}
+
 #pragma mark -
 #pragma mark iTunes Properties
 #pragma mark -

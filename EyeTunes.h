@@ -63,6 +63,7 @@
 - (void)nextTrack;
 - (void)pause;
 - (void)play;
+- (void)playTrackWithPath:(NSString *)path;
 - (void)playPause;
 - (void)previousTrack;
 - (void)resume;
