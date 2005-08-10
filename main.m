@@ -20,24 +20,25 @@ int main (int argc, const char * argv[]) {
 	
 	ETPlaylist *curPlaylist = [e currentPlaylist];
 	NSLog(@"Playlist Name: %@", [curPlaylist name]);
-	NSArray *tracks = [e search:[e libraryPlaylist] forString:@"Twins" inField:kETSearchAttributeAlbums];
+	NSArray *tracks = [e search:[e libraryPlaylist] forString:@"Daniel Powter" inField:kETSearchAttributeArtist];
 	
 	NSEnumerator *ee = [tracks objectEnumerator];
 	ETTrack *t = nil;
-	NSString *location = nil;
 	while (t = [ee nextObject]) {
-		NSLog([t location]);
-		location = [t location];
+		NSArray *artworks = [t artwork];
+		if (artworks) {
+			NSImage *artwork = (NSImage *)[artworks objectAtIndex:0];
+			NSRect artRect = NSMakeRect(0, 0, [artwork size].width, [artwork size].height);
+			NSImage *jpeged = [[NSImage alloc] initWithSize:[artwork size]];
+			[jpeged lockFocus];
+			[[NSColor whiteColor] drawSwatchInRect:artRect];
+			[artwork drawInRect:artRect fromRect:artRect operation:NSCompositeCopy fraction:1.0];
+			NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:artRect] autorelease];
+			[jpeged unlockFocus];
+			[[bitmap representationUsingType:NSJPEGFileType properties:nil] writeToFile:@"/Users/liquidx/art.jpg" atomically:YES];
+			[jpeged release];
+		}
 	}
-	
-	[e playTrackWithPath:location];
-	//[e playTrackWithPath:@"McBook:Users:liquidx:Music:iTunes:iTunes Music:A1:Best Of A1:01 Caught In The Middle.mp3"];
-	
-	
-	//NSImage *testImage = [[[NSImage alloc] initWithContentsOfFile:@"/Users/liquidx/Desktop/liquidx.png"] autorelease];
-	//[curTrack setArtwork:testImage atIndex:1];
-	
-	//NSLog(@"artworkArray: %@", [curTrack artwork]);
 	
 	[pool release];
     return 0;
