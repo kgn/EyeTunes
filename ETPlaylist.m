@@ -50,5 +50,11 @@
 	return [self getPropertyAsStringForDesc:ET_ITEM_PROP_NAME];
 }
 
+- (NSArray *)tracks
+{
+	return [NSArray array];
+}
+
+
 
 @end

@@ -69,6 +69,9 @@
 // Count/Get/Set Object "Elements"
 - (AppleEvent *) getElementOfClass:(DescType)classType atIndex:(int)index;
 - (AppleEvent *) getCountOfElementsOfClass:(DescType)descType;
+- (AppleEvent *) deleteAllElementsOfClass:(DescType)descType;
+// not working yet
+//- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType;
 - (BOOL) setElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value;
 - (BOOL) setProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value;
 

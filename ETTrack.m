@@ -47,8 +47,14 @@
 - (void)setArtwork:(NSArray *)artworks
 {
 	int i = 0;
-	for (i = 0; i < [artworks count]; i++) {
-		[self setArtwork:[artworks objectAtIndex:i] atIndex:i];
+	
+	if (artworks == nil) { 
+		[self deleteAllElementsOfClass:ET_CLASS_ARTWORK];
+	}
+	else {
+		for (i = 0; i < [artworks count]; i++) {
+			[self setArtwork:[artworks objectAtIndex:i] atIndex:i];
+		}
 	}
 }
 
@@ -56,42 +62,52 @@
 {
 	AEDesc pictDesc;
 	OSErr err;
+	NSPasteboard *pboard = nil;
 	
-	// force NSPasteboard to do conversion for us?
-	NSPasteboard *pboard = [NSPasteboard pasteboardWithName:@"EyeTunes"];
-	[pboard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:nil];
-	[pboard setData:[artwork TIFFRepresentation] forType:NSTIFFPboardType];
-	[pboard types]; // need this for some reason to force pboard to present more datatypes
-	NSData *pictData = [pboard dataForType:NSPICTPboardType];
-	[pboard releaseGlobally];
-	
-	if ([pictData length] < 512) {
-		NSLog(@"Unable to convert to PICT");
-		return NO;
-	}
-	
-	err = AEBuildDesc(&pictDesc, NULL, "'PICT'(@)",
-					  [pictData length],
-					  [pictData bytes]);
-	
-	if (err != noErr) {
-		NSLog(@"Error with constructing PICT: %d", err);
-		return NO;
-	}
+	if (artwork != nil) {
+		
+		// force NSPasteboard to do conversion for us?
+		pboard = [NSPasteboard pasteboardWithName:@"EyeTunes"];
+		[pboard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:nil];
+		[pboard setData:[artwork TIFFRepresentation] forType:NSTIFFPboardType];
+		[pboard types]; // need this for some reason to force pboard to present more datatypes
+		NSData *pictData = [pboard dataForType:NSPICTPboardType];
+		[pboard releaseGlobally];
+		
+		if ([pictData length] < 512) {
+			NSLog(@"Unable to convert to PICT");
+			return NO;
+		}
+		
+		err = AEBuildDesc(&pictDesc, NULL, "'PICT'(@)",
+						  [pictData length],
+						  [pictData bytes]);
+		
+		if (err != noErr) {
+			NSLog(@"Error with constructing PICT: %d", err);
+			return NO;
+		}
 
-	/* execute send command */
-	BOOL success = NO;
-	success = [self setProperty:ET_ARTWORK_PROP_DATA OfElementOfClass:ET_CLASS_ARTWORK atIndex:index withValue:&pictDesc];
-	AEDisposeDesc(&pictDesc);
+		/* execute send command */
+		BOOL success = NO;
+		success = [self setProperty:ET_ARTWORK_PROP_DATA 
+				   OfElementOfClass:ET_CLASS_ARTWORK 
+							atIndex:index 
+						  withValue:&pictDesc];
+		AEDisposeDesc(&pictDesc);
 	
-	return success;
+		return success;		
+	}
+	
+	return NO;
+
 }
 
 
 - (NSArray *)artwork
 {
 	OSErr err;
-	NSMutableArray *artworkArray = nil;
+	NSMutableArray *artworkArray = [NSMutableArray array];
 	DescType	resultType;
 	Size		resultSize;
 	
@@ -111,7 +127,6 @@
 	}
 	
 	if (elementCount == 0) {
-		artworkArray = nil;
 		goto cleanup_reply;
 	}
 
@@ -119,7 +134,6 @@
 	
 	/* get all the artwork data */
 	int i;
-	artworkArray = [NSMutableArray arrayWithCapacity:elementCount];
 	for (i = 0; i < elementCount; i++) {
 		AEDesc artworkDescriptor;
 		AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_ARTWORK atIndex:i];

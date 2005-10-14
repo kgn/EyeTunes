@@ -44,5 +44,5 @@
 - (id) initWithDescriptor:(AEDesc *)desc;
 
 - (NSString *)name;
-
+- (NSArray *)tracks;
 @end

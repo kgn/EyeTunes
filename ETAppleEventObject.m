@@ -118,6 +118,13 @@
 	return parameterString;
 }
 
+- (NSString *)eventParameterStringForDeleteElementsOfClass:(DescType)classType
+{
+	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:abso('all '), from:@ }", 
+															NSFileTypeForHFSTypeCode(classType)];
+	return parameterString;
+}
+
 - (NSString *)eventParameterStringForElementOfClass:(DescType)classType atIndex:(int)index
 {
 	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:%d, from:@ }", NSFileTypeForHFSTypeCode(classType), index];
@@ -264,6 +271,78 @@
 		return nil;
 	}
 
+	replyEvent = malloc(sizeof(AppleEvent));
+	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	AEDisposeDesc(&getEvent);
+	if (err != noErr) {
+		NSLog(@"Error sending Apple Event: %d", err);
+		free(replyEvent);
+		return nil;
+	}
+	
+	return replyEvent;
+} 
+
+- (AppleEvent *) deleteAllElementsOfClass:(DescType)descType
+{
+	OSErr err;
+	AppleEvent getEvent;
+	AppleEvent *replyEvent = nil;
+	
+	
+	err = AEBuildAppleEvent(kAECoreSuite,
+							'delo',
+							typeApplSignature,
+							&targetApplCode,
+							sizeof(targetApplCode),
+							kAutoGenerateReturnID,
+							kAnyTransactionID,
+							&getEvent,
+							NULL,
+							[[self eventParameterStringForDeleteElementsOfClass:descType] lossyCString], 
+							refDescriptor);
+	
+	if (err != noErr) {
+		NSLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+	
+	replyEvent = malloc(sizeof(AppleEvent));
+	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	AEDisposeDesc(&getEvent);
+	if (err != noErr) {
+		NSLog(@"Error sending Apple Event: %d", err);
+		free(replyEvent);
+		return nil;
+	}
+	
+	return replyEvent;
+} 
+
+- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType
+{
+	OSErr err;
+	AppleEvent getEvent;
+	AppleEvent *replyEvent = nil;
+	
+	
+	err = AEBuildAppleEvent(kAECoreSuite,
+							'delo',
+							typeApplSignature,
+							&targetApplCode,
+							sizeof(targetApplCode),
+							kAutoGenerateReturnID,
+							kAnyTransactionID,
+							&getEvent,
+							NULL,
+							[[self eventParameterStringForElementOfClass:descType atIndex:(index+1)] lossyCString], 
+							refDescriptor);
+	
+	if (err != noErr) {
+		NSLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+	
 	replyEvent = malloc(sizeof(AppleEvent));
 	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	AEDisposeDesc(&getEvent);

@@ -8,8 +8,12 @@ int main (int argc, const char * argv[]) {
 	//[e playPause];
 	
 	ETTrack *curTrack = [e currentTrack];
-
+	
 	NSLog(@"Name: %@ Album: %@ Artist: %@ Rating: %d", [curTrack name], [curTrack album], [curTrack artist], [curTrack rating]);
+	
+	[curTrack setArtwork:nil atIndex:0];
+	
+	/*
 	if ([curTrack podcast] == YES) {
 		NSLog(@"isPodcast");
 	}
@@ -39,7 +43,8 @@ int main (int argc, const char * argv[]) {
 			[jpeged release];
 		}
 	}
-	
+	*/
 	[pool release];
     return 0;
 }
+
