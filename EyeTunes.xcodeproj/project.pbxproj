@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030BF9AD098CFFD100D68616 /* ETDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 030BF9AB098CFFD100D68616 /* ETDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		030BF9AE098CFFD100D68616 /* ETDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BF9AC098CFFD100D68616 /* ETDebug.m */; };
+		030BF9AF098CFFD100D68616 /* ETDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BF9AC098CFFD100D68616 /* ETDebug.m */; };
+		030BFB0B098D01BE00D68616 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
+		030BFB92098D517A00D68616 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
+		030BFB93098D517A00D68616 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
 		031B481A088429A60086F24B /* EyeTunes.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B4818088429A60086F24B /* EyeTunes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		031B481B088429A60086F24B /* EyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B4819088429A60086F24B /* EyeTunes.m */; };
 		031B484908843CAB0086F24B /* EyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B4819088429A60086F24B /* EyeTunes.m */; };
@@ -23,14 +29,13 @@
 		032E44B0098A4F2C00C55ECB /* ETTrackEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 032E44AD098A4F2B00C55ECB /* ETTrackEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */; };
 		032E476C098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */; };
-		032E476D098A8FDF00C55ECB /* ETPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */; };
+		032E476D098A8FDF00C55ECB /* ETPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */; };
 		035B6F2B0884824800D0B89E /* EyeTunesEventCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 035B6F2A0884824800D0B89E /* EyeTunesEventCodes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035B70B90885537800D0B89E /* ETTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 035B70B70885537800D0B89E /* ETTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035B70BA0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
 		035B70BB0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
-		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
@@ -58,6 +63,9 @@
 /* End PBXBuildStyle section */
 
 /* Begin PBXFileReference section */
+		030BF9AB098CFFD100D68616 /* ETDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETDebug.h; sourceTree = "<group>"; };
+		030BF9AC098CFFD100D68616 /* ETDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETDebug.m; sourceTree = "<group>"; };
+		030BFB91098D517A00D68616 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		031B4818088429A60086F24B /* EyeTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunes.h; sourceTree = "<group>"; };
 		031B4819088429A60086F24B /* EyeTunes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeTunes.m; sourceTree = "<group>"; };
 		031B484608843C940086F24B /* TestEyeTunes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestEyeTunes; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,13 +84,10 @@
 		035B70B80885537800D0B89E /* ETTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETTrack.m; sourceTree = "<group>"; };
 		03EF89D508883D900010AC2E /* EyeTunesEmbed-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "EyeTunesEmbed-Info.plist"; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* EyeTunes_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunes_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* EyeTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EyeTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				031B48AA088444F60086F24B /* ApplicationServices.framework in Frameworks */,
+				030BFB93098D517A00D68616 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,8 +104,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				030BFB0B098D01BE00D68616 /* Foundation.framework in Frameworks */,
 				031B48AB088444F60086F24B /* ApplicationServices.framework in Frameworks */,
+				030BFB92098D517A00D68616 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +178,8 @@
 				032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */,
 				032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */,
 				032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */,
+				030BF9AB098CFFD100D68616 /* ETDebug.h */,
+				030BF9AC098CFFD100D68616 /* ETDebug.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -178,8 +187,9 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				030BFB91098D517A00D68616 /* AppKit.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 				031B48A9088444F60086F24B /* ApplicationServices.framework */,
-				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -187,9 +197,6 @@
 		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
-				D2F7E79907B2D74100F64583 /* CoreData.framework */,
-				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -216,6 +223,7 @@
 				032CEB740886E48100F33185 /* ETPlaylist.h in Headers */,
 				032E44B0098A4F2C00C55ECB /* ETTrackEnumerator.h in Headers */,
 				032E476D098A8FDF00C55ECB /* ETPlaylistEnumerator.h in Headers */,
+				030BF9AD098CFFD100D68616 /* ETDebug.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +352,7 @@
 				032CEB730886E48100F33185 /* ETPlaylist.m in Sources */,
 				032E44AF098A4F2B00C55ECB /* ETTrackEnumerator.m in Sources */,
 				032E476C098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
+				030BF9AF098CFFD100D68616 /* ETDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +366,7 @@
 				032CEB750886E48100F33185 /* ETPlaylist.m in Sources */,
 				032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */,
 				032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
+				030BF9AE098CFFD100D68616 /* ETDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +398,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EyeTunes_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
@@ -488,6 +499,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
 				INSTALL_PATH = /usr/local/bin;
 				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";

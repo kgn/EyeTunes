@@ -34,7 +34,8 @@
  
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import "ETDebug.h"
 #import "EyeTunesEventCodes.h"
 #import "ETAppleEventObject.h"
 #import "ETTrack.h"

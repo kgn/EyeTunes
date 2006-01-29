@@ -78,7 +78,7 @@
 	OSErr err;
 	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &replyObject);
 	if (err != noErr) {
-		NSLog(@"Error extracting from reply event: %d", err);
+		ETLog(@"Error extracting from reply event: %d", err);
 		goto cleanup_reply_event;
 	}
 	

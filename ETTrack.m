@@ -75,7 +75,7 @@
 		[pboard releaseGlobally];
 		
 		if ([pictData length] < 512) {
-			NSLog(@"Unable to convert to PICT");
+			ETLog(@"Unable to convert to PICT");
 			return NO;
 		}
 		
@@ -84,7 +84,7 @@
 						  [pictData bytes]);
 		
 		if (err != noErr) {
-			NSLog(@"Error with constructing PICT: %d", err);
+			ETLog(@"Error with constructing PICT: %d", err);
 			return NO;
 		}
 
@@ -121,7 +121,7 @@
 		AEDesc artworkDescriptor;
 		AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_ARTWORK atIndex:i];
 		if (!replyEvent) {
-			NSLog(@"Failed to retrieve artwork number: %d", i);
+			ETLog(@"Failed to retrieve artwork number: %d", i);
 			break;
 		}
 		
@@ -129,20 +129,20 @@
 		AEDisposeDesc(replyEvent);
 		free(replyEvent);			
 		if (err != noErr) {
-			NSLog(@"Failed to get reference to artwork: %d", err);
+			ETLog(@"Failed to get reference to artwork: %d", err);
 			break;
 		}
 			
 		AppleEvent *dataReplyEvent = [self getPropertyOfType:ET_ARTWORK_PROP_DATA forObject:&artworkDescriptor];
 		if (!dataReplyEvent) {
-			NSLog(@"Failed to get data Reply Event: %d", err);
+			ETLog(@"Failed to get data Reply Event: %d", err);
 			AEDisposeDesc(&artworkDescriptor);
 			break;
 		}
 		
 		err = AESizeOfParam(dataReplyEvent, keyDirectObject, &resultType, &resultSize);
 		if (err != noErr) {
-			NSLog(@"Failed to get size and type of data returned: %d", err);
+			ETLog(@"Failed to get size and type of data returned: %d", err);
 			AEDisposeDesc(&artworkDescriptor);
 			AEDisposeDesc(dataReplyEvent);
 			free(dataReplyEvent);
@@ -153,7 +153,7 @@
 		err = AEGetParamPtr(dataReplyEvent, keyDirectObject, typePict, &resultType, 
 							pictBytes, resultSize, &resultSize);
 		if (err != noErr) {
-			NSLog(@"Failed to extract PICT data to buffer: %d", err);
+			ETLog(@"Failed to extract PICT data to buffer: %d", err);
 			AEDisposeDesc(&artworkDescriptor);
 			AEDisposeDesc(dataReplyEvent);
 			free(dataReplyEvent);

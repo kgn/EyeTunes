@@ -36,6 +36,7 @@
 
 
 #import "EyeTunes.h"
+#import "ETPlaylistEnumerator.h"
 
 const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 
@@ -70,7 +71,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 							"'----':'null'()");
 
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		free(cmdEvent);
 		return nil;
 	}
@@ -84,7 +85,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	AppleEvent *event = [self newCommandEvent:commandID];
 	err = AESendMessage(event, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
 	if (err != noErr) {
-		NSLog(@"Error sending AppleEvent: %d", err);
+		ETLog(@"Error sending AppleEvent: %d", err);
 	}
 	AEDisposeDesc(event);
 	free(event);
@@ -154,7 +155,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	AliasHandle alias =  [EyeTunes newAliasHandleWithPath:path];
 	
 	if (!alias) {
-		NSLog(@"Unable to resolve path to alias");
+		ETLog(@"Unable to resolve path to alias");
 		return;
 	}
 	
@@ -174,13 +175,42 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return;
 	}
 	
 	err = AESendMessage(&cmdEvent, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
 	if (err != noErr) {
-		NSLog(@"Error sending AppleEvent: %d", err);
+		ETLog(@"Error sending AppleEvent: %d", err);
+	}
+	AEDisposeDesc(&cmdEvent);
+}
+
+- (void)playTrack:(ETTrack *)track
+{
+	OSErr err;
+	AppleEvent cmdEvent;
+	
+	err = AEBuildAppleEvent(iTunesSignature,
+							ET_PLAY,
+							typeApplSignature,
+							&iTunesSignature,
+							sizeof(iTunesSignature),
+							kAutoGenerateReturnID,
+							kAnyTransactionID,
+							&cmdEvent,
+							NULL,
+							"'----':@",
+							[track descriptor]);
+	
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return;
+	}
+	
+	err = AESendMessage(&cmdEvent, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
 	}
 	AEDisposeDesc(&cmdEvent);
 }
@@ -211,14 +241,14 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 							"'----':obj { form:prop, want:type(prop), seld:type(pTrk), from:'null'() }");
 	
 	if (err != noErr) {
-		NSLog(@"Error creating AppleEvent: %d", err);
+		ETLog(@"Error creating AppleEvent: %d", err);
 		return nil;
 	}
 	
 	/* Send the Apple Event */
 	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	if (err != noErr) {
-		NSLog(@"Error sending AppleEvent: %d", err);
+		ETLog(@"Error sending AppleEvent: %d", err);
 		goto cleanup_get_event;
 	}
 
@@ -226,7 +256,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	/* Read Results */
 	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeWildCard, &replyObject);
 	if (err != noErr) {
-		NSLog(@"Error extracting from reply event: %d", err);
+		ETLog(@"Error extracting from reply event: %d", err);
 		goto cleanup_reply_event;
 	}
 	
@@ -261,14 +291,14 @@ cleanup_get_event:
 							"'----':obj { form:prop, want:type(prop), seld:type(pPla), from:null() }");
 	
 	if (err != noErr) {
-		NSLog(@"Error creating AppleEvent: %d", err);
+		ETLog(@"Error creating AppleEvent: %d", err);
 		return nil;
 	}
 	
 	/* Send the Apple Event */
 	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	if (err != noErr) {
-		NSLog(@"Error sending AppleEvent: %d", err);
+		ETLog(@"Error sending AppleEvent: %d", err);
 		goto cleanup_get_event;
 	}
 	
@@ -276,7 +306,7 @@ cleanup_get_event:
 	/* Read Results */
 	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeWildCard, &replyObject);
 	if (err != noErr) {
-		NSLog(@"Error extracting from reply event: %d", err);
+		ETLog(@"Error extracting from reply event: %d", err);
 		goto cleanup_reply_event;
 	}
 	
@@ -297,13 +327,13 @@ cleanup_get_event:
 	
 	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_LIBRARY_PLAYLIST atIndex:0];
 	if (!replyEvent) {
-		NSLog(@"Unable to get Library Playlist");
+		ETLog(@"Unable to get Library Playlist");
 		return nil;
 	}
 
 	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &replyObject);
 	if (err != noErr) {
-		NSLog(@"Error extracting from reply event: %d", err);
+		ETLog(@"Error extracting from reply event: %d", err);
 		goto cleanup_reply_event;
 	}
 	
@@ -357,27 +387,27 @@ cleanup_reply_event:
 	
 
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return nil;
 	}
 	
 	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	if (err != noErr) {
-		NSLog(@"Error sending AppleEvent: %d", err);
+		ETLog(@"Error sending AppleEvent: %d", err);
 		goto cleanup_get_event;
 	}
 	
 	/* Read Results */
 	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeAEList, &replyList);
 	if (err != noErr) {
-		NSLog(@"Error extracting from reply event: %d", err);
+		ETLog(@"Error extracting from reply event: %d", err);
 		goto cleanup_reply_event;
 	}
 	
 	long items, i;
 	err = AECountItems(&replyList, &items);
 	if (err != noErr) {
-		NSLog(@"Unable to access Reply List: %d", err);
+		ETLog(@"Unable to access Reply List: %d", err);
 		goto cleanup_reply_list;
 	}
 	
@@ -390,7 +420,7 @@ cleanup_reply_event:
 						   0,
 						   &trackDesc);
 		if (err != noErr) {
-			NSLog(@"Error rextracting from List: %d", err);
+			ETLog(@"Error rextracting from List: %d", err);
 			goto cleanup_reply_list;
 		}
 		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];

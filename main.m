@@ -9,15 +9,16 @@ int main (int argc, const char * argv[]) {
 	/*
 	ETTrack *curTrack = [e currentTrack];
 	
-	NSLog(@"Name: %@ Album: %@ Artist: %@ Rating: %d", [curTrack name], [curTrack album], [curTrack artist], [curTrack rating]);
+	ETLog(@"Name: %@ Album: %@ Artist: %@ Rating: %d", [curTrack name], [curTrack album], [curTrack artist], [curTrack rating]);
 
 	ETPlaylist *playlist = [e currentPlaylist];
-	NSLog(@"Playlist: %@", [playlist name]);
+	ETLog(@"Playlist: %@", [playlist name]);
 	
-	NSLog(@"Fixed Indexing: %d", [e fixedIndexing]);
+	ETLog(@"Fixed Indexing: %d", [e fixedIndexing]);
 	*/
-	ETTrack *t = [[e libraryPlaylist] trackFromLibrayWithDatabaseId:4141];
+	ETTrack *t = [[e libraryPlaylist] trackWithDatabaseId:4141];
 	NSLog(@"Title: %@", [t name]);
+	[e playTrack:t];
 	
 	/* 
 	// ### Test getting tracks of playlist and getting by databaseId
@@ -25,14 +26,14 @@ int main (int argc, const char * argv[]) {
 	int i = 0;
 	ETTrack *track = nil;
 	while (track = [en nextObject]) {
-		NSLog(@"Name: %@ Play Count: %d Database Id: %d", [track name], [track playedCount], [track databaseId]);
+		ETLog(@"Name: %@ Play Count: %d Database Id: %d", [track name], [track playedCount], [track databaseId]);
 		if (i > 10) break;
 		i++;
 	}
 	
 	if (track) {
 		ETTrack *thisTrackAgain = [playlist trackWithDatabaseId:[track databaseId]];
-		NSLog(@"track name: %@", [thisTrackAgain name]);
+		ETLog(@"track name: %@", [thisTrackAgain name]);
 	}
 	*/
 	
@@ -42,21 +43,21 @@ int main (int argc, const char * argv[]) {
 	NSEnumerator *ep = [allPlaylists objectEnumerator];
 	ETPlaylist *pl = nil;
 	while (pl = [ep nextObject]){
-		NSLog(@"Playlist Name: %@", [pl name]);
+		ETLog(@"Playlist Name: %@", [pl name]);
 	}
 	*/
 	
 	/*
 	if ([curTrack podcast] == YES) {
-		NSLog(@"isPodcast");
+		ETLog(@"isPodcast");
 	}
 	else if ([curTrack podcast] == NO) {
-		NSLog(@"is Not Podcast");
+		ETLog(@"is Not Podcast");
 	}
-	NSLog(@"Added Date: %@", [curTrack playedDate]);
+	ETLog(@"Added Date: %@", [curTrack playedDate]);
 	
 	ETPlaylist *curPlaylist = [e currentPlaylist];
-	NSLog(@"Playlist Name: %@", [curPlaylist name]);
+	ETLog(@"Playlist Name: %@", [curPlaylist name]);
 	NSArray *tracks = [e search:[e libraryPlaylist] forString:@"Daniel Powter" inField:kETSearchAttributeArtist];
 	
 	NSEnumerator *ee = [tracks objectEnumerator];

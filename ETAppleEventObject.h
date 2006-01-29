@@ -38,7 +38,8 @@
  
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import "ETDebug.h"
 
 #define ET_APPLE_EVENT_OBJECT_DEFAULT_APPL 'hook'
 

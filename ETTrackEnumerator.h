@@ -33,7 +33,9 @@
  POSSIBILITY OF SUCH DAMAGE.
  
  */
-#import <Cocoa/Cocoa.h>
+
+#import <Foundation/Foundation.h>
+#import "ETDebug.h"
 #import "EyeTunesEventCodes.h"
 #import "ETPlaylist.h"
 #import "ETTrack.h"

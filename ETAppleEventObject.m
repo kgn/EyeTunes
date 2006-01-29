@@ -92,11 +92,11 @@
 	Handle debug;
 	err = AEPrintDescToHandle(desc, &debug);
 	if (err != noErr) {
-		NSLog(@"Error printing desc: %d", err);
+		ETLog(@"Error printing desc: %d", err);
 		return;
 	}
-	NSLog(@"Apple Event Descriptor Dump:");
-	NSLog(@"%s", debug[0]);
+	ETLog(@"Apple Event Descriptor Dump:");
+	ETLog(@"%s", debug[0]);
 	DisposeHandle(debug);
 }
 
@@ -207,14 +207,14 @@
 							targetObject);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return NO;
 	}
 	
 	err = AESendMessage(&setEvent, NULL, kAENoReply, kAEDefaultTimeout);
 	AEDisposeDesc(&setEvent);	
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		return NO;
 	}
 	
@@ -241,7 +241,7 @@
 							targetObject);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return nil;
 	}
 	
@@ -249,7 +249,7 @@
 	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	AEDisposeDesc(&getEvent);	
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
 		return nil;
 	}
@@ -295,7 +295,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return -1;
 	}
 
@@ -303,7 +303,7 @@
 	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	AEDisposeDesc(&getEvent);
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
 		return -1;
 	}
@@ -311,7 +311,7 @@
 	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
 						&count, sizeof(count), &resultSize);
 	if (err != noErr) {
-		NSLog(@"Unable to get parameter of reply: %d", err);
+		ETLog(@"Unable to get parameter of reply: %d", err);
 		return -1;
 	}
 	
@@ -341,7 +341,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return nil;
 	}
 	
@@ -349,7 +349,7 @@
 	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	AEDisposeDesc(&getEvent);
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
 		return nil;
 	}
@@ -377,7 +377,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return nil;
 	}
 	
@@ -385,7 +385,7 @@
 	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	AEDisposeDesc(&getEvent);
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
 		return nil;
 	}
@@ -413,7 +413,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return nil;
 	}
 
@@ -422,7 +422,7 @@
 	AEDisposeDesc(&getEvent);
 	
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
 		return nil;
 	}
@@ -453,7 +453,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return nil;
 	}
 	
@@ -462,7 +462,7 @@
 	AEDisposeDesc(&getEvent);
 	
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
 		return nil;
 	}
@@ -489,7 +489,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return NO;
 	}
 	
@@ -497,7 +497,7 @@
 	err = AESendMessage(&setEvent, NULL, kAENoReply, kAEDefaultTimeout);
 	AEDisposeDesc(&setEvent);
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		return NO;
 	}
 	
@@ -523,7 +523,7 @@
 							refDescriptor);
 	
 	if (err != noErr) {
-		NSLog(@"Error creating Apple Event: %d", err);
+		ETLog(@"Error creating Apple Event: %d", err);
 		return NO;
 	}
 	
@@ -531,7 +531,7 @@
 	err = AESendMessage(&setEvent, NULL, kAENoReply, kAEDefaultTimeout);
 	AEDisposeDesc(&setEvent);
 	if (err != noErr) {
-		NSLog(@"Error sending Apple Event: %d", err);
+		ETLog(@"Error sending Apple Event: %d", err);
 		return NO;
 	}
 	
@@ -565,7 +565,7 @@
 	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
 						&replyValue, sizeof(replyValue), &resultSize);
 	if (err != noErr) {
-		NSLog(@"Error extracting parameters from reply: %d", err);
+		ETLog(@"Error extracting parameters from reply: %d", err);
 	}
 	
 	AEDisposeDesc(replyEvent);
@@ -590,14 +590,14 @@
 	
 	err = AESizeOfParam(replyEvent, keyDirectObject, &resultType, &resultSize);
 	if (err != noErr) {
-		NSLog(@"Unable to find length of reply string: %d", err);
+		ETLog(@"Unable to find length of reply string: %d", err);
 		goto cleanup_reply;
 	}
 	
 	replyValue = malloc(resultSize + 1);
 	if (replyValue == NULL) {
 		// TODO: raise No Memory Exception
-		NSLog(@"No Memory Available");
+		ETLog(@"No Memory Available");
 		goto cleanup_reply;
 	}
 	
@@ -606,7 +606,7 @@
 						replyValue, resultSize, &resultSize);
 	if (err != noErr) {
 		// TODO: raise error
-		NSLog(@"Unable to get parameter of reply: %d", err);
+		ETLog(@"Unable to get parameter of reply: %d", err);
 		goto cleanup_reply_and_tempstring;
 	}
 	
@@ -653,7 +653,7 @@ cleanup_reply:
 	err = AEGetParamPtr(replyEvent, keyDirectObject, typeFSRef, &resultType, 
 						&fsRef, sizeof(fsRef), &resultSize);
 	if (err != noErr) {
-		NSLog(@"Error extracting parameters from reply: %d", err);
+		ETLog(@"Error extracting parameters from reply: %d", err);
 	}
 	AEDisposeDesc(replyEvent);
 	free(replyEvent);
@@ -692,12 +692,12 @@ cleanup_reply:
 	err = AEGetParamPtr(replyEvent, keyDirectObject, typeLongDateTime, &resultType, 
 						&replyValue, sizeof(replyValue), &resultSize);
 	if (err != noErr) {
-		NSLog(@"Error extracting parameters from reply: %d", err);
+		ETLog(@"Error extracting parameters from reply: %d", err);
 	}
 	
 	err = UCConvertLongDateTimeToCFAbsoluteTime(replyValue, &absoluteDate);
 	if (err != noErr) {
-		NSLog(@"Error converting Long Date to CFAbsoluteTime");
+		ETLog(@"Error converting Long Date to CFAbsoluteTime");
 	}
 	
 	resultDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteDate];
@@ -716,7 +716,7 @@ cleanup_reply:
 	
 	err = AEBuildDesc(&valueDesc, NULL, "long(@)", value);
 	if (err != noErr) {
-		NSLog(@"Error constructing parameters for set command: %d", err);
+		ETLog(@"Error constructing parameters for set command: %d", err);
 		return NO;
 	}
 	
@@ -735,7 +735,7 @@ cleanup_reply:
 	
 	err = AEBuildDesc(&valueDesc, NULL, "'utxt'(@)", len,  [value cStringUsingEncoding:NSUnicodeStringEncoding]);
 	if (err != noErr) {
-		NSLog(@"Error constructing parameters for set command: %d", err);
+		ETLog(@"Error constructing parameters for set command: %d", err);
 		return NO;
 	}
 	
@@ -754,13 +754,13 @@ cleanup_reply:
 	
 	err = UCConvertCFAbsoluteTimeToLongDateTime([value timeIntervalSinceReferenceDate], &longDate);
 	if (err != noErr) {
-		NSLog(@"Error converting Date: %d", err);
+		ETLog(@"Error converting Date: %d", err);
 		return NO;
 	}
 	
 	err = AEBuildDesc(&valueDesc, NULL, "'ldt '(@)", sizeof(longDate), &longDate);
 	if (err != noErr) {
-		NSLog(@"Error constructing parameters for set command: %d", err);
+		ETLog(@"Error constructing parameters for set command: %d", err);
 		return NO;
 	}
 	

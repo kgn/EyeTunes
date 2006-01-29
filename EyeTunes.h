@@ -44,7 +44,7 @@
  
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import <ApplicationServices/ApplicationServices.h>
 
 // guard against exporting features that are not in earlier version
@@ -56,11 +56,11 @@
 #define		ITUNES_VERSION ITUNES_6_0_2
 #endif
 
+#import "ETDebug.h"
 #import "EyeTunesEventCodes.h"
 #import "ETAppleEventObject.h"
 #import "ETTrack.h"
 #import "ETPlaylist.h"
-#import "ETPlaylistEnumerator.h"
 
 @interface EyeTunes : ETAppleEventObject {
 }
@@ -88,6 +88,7 @@
 - (void)nextTrack;
 - (void)pause;
 - (void)play;
+- (void)playTrack:(ETTrack *)track;
 - (void)playTrackWithPath:(NSString *)path;
 - (void)playPause;
 - (void)previousTrack;
