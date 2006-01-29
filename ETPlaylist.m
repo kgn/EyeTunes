@@ -52,7 +52,43 @@
 
 - (NSArray *)tracks
 {
-	return [NSArray array];
+	return [[self trackEnumerator] allObjects];
+}
+
+- (int) trackCount
+{
+	return [self getCountOfElementsOfClass:ET_CLASS_TRACK];
+}
+
+- (NSEnumerator *)trackEnumerator
+{
+	return [[[ETTrackEnumerator alloc] initWithPlaylist:self] autorelease];
+}
+
+- (ETTrack *)trackWithDatabaseId:(int)databaseId
+{
+	
+	ETTrack *foundTrack = nil;
+	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_TRACK 
+											   byKey:ET_TRACK_PROP_DATABASE_ID 
+										withIntValue:databaseId];
+	
+	/* Read Results */
+	AEDesc replyObject;
+	OSErr err;
+	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &replyObject);
+	if (err != noErr) {
+		NSLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	
+cleanup_reply_event:
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return foundTrack;
 }
 
 

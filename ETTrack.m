@@ -108,32 +108,15 @@
 {
 	OSErr err;
 	NSMutableArray *artworkArray = [NSMutableArray array];
+	int i;
 	DescType	resultType;
-	Size		resultSize;
+	Size		resultSize;	
 	
 	/* count the number of artworks */	
-	int			elementCount = -1;
-	AppleEvent *countReplyEvent = [self getCountOfElementsOfClass:ET_CLASS_ARTWORK];
-	if (!countReplyEvent) {
-		return nil;
-	}
-	
-	err = AEGetParamPtr(countReplyEvent, keyDirectObject, typeInteger, &resultType, 
-						&elementCount, sizeof(elementCount), &resultSize);
-	if (err != noErr) {
-		// TODO: raise error
-		NSLog(@"Unable to get parameter of reply: %d", err);
-		goto cleanup_reply;
-	}
-	
-	if (elementCount == 0) {
-		goto cleanup_reply;
-	}
-
-	//NSLog(@"number of artworks: %d", elementCount);
+	int			elementCount = [self getCountOfElementsOfClass:ET_CLASS_ARTWORK];
 	
 	/* get all the artwork data */
-	int i;
+
 	for (i = 0; i < elementCount; i++) {
 		AEDesc artworkDescriptor;
 		AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_ARTWORK atIndex:i];
@@ -191,12 +174,6 @@
 		free(dataReplyEvent);
 	}
 
-	
-cleanup_reply:
-	AEDisposeDesc(countReplyEvent);
-	free(countReplyEvent);
-	countReplyEvent = NULL;
-	
 	return artworkArray;
 }
 
@@ -245,7 +222,7 @@ cleanup_reply:
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_COMPOSER];
 }
 
-- (int)databaseID
+- (int)databaseId
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_DATABASE_ID];
 }
@@ -290,9 +267,9 @@ cleanup_reply:
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_GENRE];
 }
 
-- (int)group
+- (NSString *)grouping
 {
-	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_GROUP];
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_GROUPING];
 }
 
 - (NSString *)kind
@@ -441,9 +418,9 @@ cleanup_reply:
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_GENRE];
 }
 
-- (void)setGroup:(int)newValue
+- (void)setGrouping:(NSString *)newValue
 {
-	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_GROUP];
+	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_GROUPING];
 }
 
 - (void)setPlayedCount:(int)newValue

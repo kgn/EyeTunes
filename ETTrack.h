@@ -56,7 +56,7 @@
 - (NSString *)comment;
 - (BOOL)compilation;
 - (NSString *)composer;
-- (int)databaseID;
+- (int)databaseId;
 - (NSDate *)dateAdded;
 - (int)discCount;
 - (int)discNumber;
@@ -65,7 +65,7 @@
 - (NSString *)eq;
 - (int)finish;
 - (NSString *)genre;
-- (int)group;
+- (NSString *)grouping;
 - (NSString *)kind;
 - (NSString *)location;
 - (NSDate *)modificationDate;
@@ -95,7 +95,7 @@
 - (void)setEq:(NSString *)newValue;
 - (void)setFinish:(int)newValue;
 - (void)setGenre:(NSString *)newValue;
-- (void)setGroup:(int)newValue;
+- (void)setGrouping:(NSString *)newValue;
 - (void)setPlayedCount:(int)newValue;
 - (void)setPlayedDate:(NSDate *)newValue;
 - (void)setRating:(int)newValue;

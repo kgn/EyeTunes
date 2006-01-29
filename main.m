@@ -6,12 +6,45 @@ int main (int argc, const char * argv[]) {
 	EyeTunes *e = [EyeTunes sharedInstance];
 	
 	//[e playPause];
-	
+	/*
 	ETTrack *curTrack = [e currentTrack];
 	
 	NSLog(@"Name: %@ Album: %@ Artist: %@ Rating: %d", [curTrack name], [curTrack album], [curTrack artist], [curTrack rating]);
+
+	ETPlaylist *playlist = [e currentPlaylist];
+	NSLog(@"Playlist: %@", [playlist name]);
 	
-	[curTrack setArtwork:nil atIndex:0];
+	NSLog(@"Fixed Indexing: %d", [e fixedIndexing]);
+	*/
+	ETTrack *t = [[e libraryPlaylist] trackFromLibrayWithDatabaseId:4141];
+	NSLog(@"Title: %@", [t name]);
+	
+	/* 
+	// ### Test getting tracks of playlist and getting by databaseId
+	NSEnumerator *en = [[playlist tracks] objectEnumerator];
+	int i = 0;
+	ETTrack *track = nil;
+	while (track = [en nextObject]) {
+		NSLog(@"Name: %@ Play Count: %d Database Id: %d", [track name], [track playedCount], [track databaseId]);
+		if (i > 10) break;
+		i++;
+	}
+	
+	if (track) {
+		ETTrack *thisTrackAgain = [playlist trackWithDatabaseId:[track databaseId]];
+		NSLog(@"track name: %@", [thisTrackAgain name]);
+	}
+	*/
+	
+	/* 
+	// ### Test getting Playlists 
+	NSArray *allPlaylists = [e playlists];
+	NSEnumerator *ep = [allPlaylists objectEnumerator];
+	ETPlaylist *pl = nil;
+	while (pl = [ep nextObject]){
+		NSLog(@"Playlist Name: %@", [pl name]);
+	}
+	*/
 	
 	/*
 	if ([curTrack podcast] == YES) {

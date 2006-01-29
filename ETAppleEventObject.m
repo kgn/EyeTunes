@@ -34,6 +34,15 @@
  
 */
 
+/* Notes about generating AEGizmo Strings
+ - If you can, use AEMonitor (free for 10 days)
+ - If not, use the TN2056's gdb trick, but beware of a few gotchas:
+   exmn($$) -> exmn()
+   form: always expects a character code, eg: form:enum('indx') or form:'indx' or form:indx. These are equiv.
+   never care about the &cxxx ones, they are not needed.
+
+*/
+
 #import "ETAppleEventObject.h"
 
 
@@ -156,6 +165,23 @@
 	return parameterString;	
 }
 
+- (NSString *)eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forIntValue:(int)value
+{
+	NSString *parameterString = [NSString stringWithFormat:@"obj { form:test, want:type(%@), from:@, seld:cmpd{relo:=, 'obj1': obj{ form:prop, want:type(prop), seld:type(%@), from:exmn()}, obj2:%d}}",
+		 NSFileTypeForHFSTypeCode(objectType),
+		NSFileTypeForHFSTypeCode(propertyType),
+		value];
+	return parameterString;		
+}
+
+- (NSString *)eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString
+{
+	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:'abso'('any '), from:%@ }",
+		NSFileTypeForHFSTypeCode(objectType),
+		testString];
+	return parameterString;
+}
+
 
 
 #pragma mark -
@@ -166,7 +192,7 @@
 {
 	OSErr err;
 	AppleEvent setEvent;
-	
+
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'setd',
 							typeApplSignature,
@@ -247,12 +273,14 @@
 #pragma mark Count/Get/Set Object Elements
 #pragma mark -
 
-- (AppleEvent *) getCountOfElementsOfClass:(DescType)descType
+- (int) getCountOfElementsOfClass:(DescType)descType
 {
 	OSErr err;
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
-	
+	DescType	resultType;
+	Size		resultSize;	
+	int count;
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'cnte',
@@ -268,7 +296,7 @@
 	
 	if (err != noErr) {
 		NSLog(@"Error creating Apple Event: %d", err);
-		return nil;
+		return -1;
 	}
 
 	replyEvent = malloc(sizeof(AppleEvent));
@@ -277,10 +305,20 @@
 	if (err != noErr) {
 		NSLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
-		return nil;
+		return -1;
 	}
 	
-	return replyEvent;
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
+						&count, sizeof(count), &resultSize);
+	if (err != noErr) {
+		NSLog(@"Unable to get parameter of reply: %d", err);
+		return -1;
+	}
+	
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return count;
 } 
 
 - (AppleEvent *) deleteAllElementsOfClass:(DescType)descType
@@ -392,6 +430,46 @@
 	return replyEvent;
 }
 
+- (AppleEvent *)	getElementOfClass:(DescType)classType byKey:(DescType)key withIntValue:(int)value
+{
+	OSErr err;
+	AppleEvent getEvent;
+	AppleEvent *replyEvent = nil;
+	
+	// TODO: make this generic (not specific to just int values)
+	NSString *testString = [self eventParameterStringForTestObject:classType forProperty:key forIntValue:value];
+	NSString *eventString = [self eventParameterStringForSearchingType:classType withTest:testString];
+	
+	err = AEBuildAppleEvent(kAECoreSuite,
+							'getd',
+							typeApplSignature,
+							&targetApplCode,
+							sizeof(targetApplCode),
+							kAutoGenerateReturnID,
+							kAnyTransactionID,
+							&getEvent,
+							NULL,
+							[eventString lossyCString],
+							refDescriptor);
+	
+	if (err != noErr) {
+		NSLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+	
+	replyEvent = malloc(sizeof(AppleEvent));
+	err = AESendMessage(&getEvent, replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	AEDisposeDesc(&getEvent);
+	
+	if (err != noErr) {
+		NSLog(@"Error sending Apple Event: %d", err);
+		free(replyEvent);
+		return nil;
+	}
+	
+	return replyEvent;
+}
+
 - (BOOL) setElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value
 {
 	OSErr err;
@@ -431,7 +509,6 @@
 	OSErr err;
 	AppleEvent setEvent;
 	
-	NSLog([self eventParameterStringForSettingProperty:propertyType OfElementOfClass:classType atIndex:index]);
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'setd',
 							typeApplSignature,

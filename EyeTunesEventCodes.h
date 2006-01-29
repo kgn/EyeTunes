@@ -76,18 +76,30 @@ enum {
 	kETSearchAttributeSongs		= 'kSrs'	
 };
 
+#if ITUNES_COMPAT < ITUNES_6_0
 enum {
 	kETSpecialPlaylistNone				= 'kSpN',
-	kETSpecialPlaylistPurchasedMusic	= 'kSpM',
 	kETSpecialPlaylistPartyShuffle		= 'kSpS',
-	kETSpecialPlaylistPodcasts			= 'kSpP'
-};
+	kETSpecialPlaylistPodcasts			= 'kSpP',
+	kETSpecialPlaylistPurchasedMusic	= 'kSpM',
+}; 
+#else
+enum {
+	kETSpecialPlaylistNone				= 'kSpN',
+	kETSpecialPlaylistFolder			= 'kSpF',
+	kETSpecialPlaylistPartyShuffle		= 'kSpS',
+	kETSpecialPlaylistPodcasts			= 'kSpP',
+	kETSpecialPlaylistPurchasedMusic	= 'kSpM',
+	kETSpecialPlaylistVideo				= 'kSpV',	
+}; // ET_PLAYLIST_SPECIAL_KIND (eSpK)
+#endif
 
 enum {
 	pETTrackLocation					= 'pLoc'
 };
 
 
+// --- itunes commmands start ---
 #define ET_ADD_FILE			'Add '
 #define ET_BACK_TRACK		'Back'
 #define ET_CONVERT			'Conv'
@@ -106,8 +118,16 @@ enum {
 #define ET_EJECT			'Ejct'
 #define ET_SUBSCRIBE		'pSub'
 
-#define ET_CLASS_LIBRARY_PLAYLIST	'cLiP'
+#if ITUNES_VERSION >= ITUNES_6_0
+#define ET_UPDATE_ALL_PODCASTS	'Updp'
+#define ET_UPDATE_ONE_PODCAST	'Upd1'
+#define ET_DOWNLOAD_PODCAST		'Dwnl'
+#endif
+// --- itunes commmands end ---
 
+
+// --- itunes application parameters start ---
+#define ET_CLASS_LIBRARY_PLAYLIST	'cLiP'
 #define ET_APP_ENCODER				'pEnc'
 #define ET_APP_EQ_PRESET			'pEQP'
 #define ET_APP_CURRENT_PLAYLIST		'pPla'
@@ -115,19 +135,26 @@ enum {
 #define ET_APP_CURRENT_STREAM_URL	'pStU'
 #define ET_APP_CURRENT_TRACK		'pTrk'
 #define ET_APP_CURRENT_VISUAL		'pVis'
-// todo .. more
+#define ET_APP_FIXED_INDEXING		'pFix'
+// --- itunes application parameters end ---
 
+// --- track artwork start ---
 #define ET_CLASS_ARTWORK			'cArt'
 #define ET_ARTWORK_PROP_FORMAT		'pFmt' // type (r)
 #define ET_ARTWORK_PROP_DATA		'pPCT' // PICT (rw)
 #define ET_ARTWORK_PROP_KIND		'pKnd' // integer (rw)
+// --- track artwork end ---
 
-// todo .. more
-
+// --- generic applescript item codes start ---
 #define ET_CLASS_ITEM				'cobj'
 #define ET_ITEM_PROP_CONTAINER		'cntr' // object (r)
 #define ET_ITEM_PROP_NAME			'pnam' // utxt (rw)
+#if ITUNES_VER >= ITUNES_6_0_2
+#define	ET_ITEM_PROP_PERSISTENT_ID	'pPID' // double int (r)
+#endif
+// --- generic applescript item codes end ---
 
+// --- itunes track parameters start ---
 #define ET_CLASS_TRACK				'cTrk'
 #define ET_TRACK_PROP_ALBUM			'pAlb' // utxt
 #define ET_TRACK_PROP_ARTIST		'pArt' // utxt
@@ -145,10 +172,10 @@ enum {
 #define ET_TRACK_PROP_EQ			'pEQp' // utxt
 #define ET_TRACK_PROP_FINISH		'pStp' // integer
 #define ET_TRACK_PROP_GENRE			'pGen' // utxt
-#define ET_TRACK_PROP_GROUP			'pGrp' // integer
+#define ET_TRACK_PROP_GROUPING		'pGrp' // utxt
 #define ET_TRACK_PROP_KIND			'pKnd' // utxt
 #define ET_TRACK_PROP_MOD_DATE		'asmo' // ldt
-#define ET_TRACK_PROP_PLAYED_COUNT	'pPlc' // integer
+#define ET_TRACK_PROP_PLAYED_COUNT	'pPlC' // integer
 #define ET_TRACK_PROP_PLAYED_DATE	'pPlD' // ldt
 #define ET_TRACK_PROP_PODCAST		'pTPc' // bool
 #define ET_TRACK_PROP_RATING		'pRte' // integer
@@ -161,11 +188,36 @@ enum {
 #define ET_TRACK_PROP_VOLUME_ADJ	'pAdj' // integer
 #define ET_TRACK_PROP_YEAR			'pYr ' // integer
 
+#if ITUNES_VER >= ITUNES_6_0_2
+#define ET_TRACK_PROP_BOOKMARK		'pBkt' // integer
+#define ET_TRACK_PROP_BOOKMARKABLE	'pBkm' // boolean
+#define ET_TRACK_PROP_CATEGORY		'pCat' // utxt
+#define ET_TRACK_PROP_DESCRIPTION	'pDes' // utxt
+#define ET_TRACK_PROP_LONG_DESCRIPTION 'pLds' // utxt
+#define ET_TRACK_PROP_LYRICS		'pLyr' // utxt
+#define ET_TRACK_PROP_SHUFFABLE		'pSfa'	// bool
+#endif 
+// --- itunes track parameters end ---
+
+// --- other track classes start ---
 #define ET_CLASS_FILE_TRACK			'cFlT'
 #define ET_CLASS_URL_TRACK			'cURT'
 #define ET_CLASS_CD_TRACK			'cCDT'
-
-#define ET_URL_TRACK_PROP_ADDRESS	'pURL' // utxt
 #define ET_FILE_TRACK_PROP_LOCATION 'pLoc' // alis
+#define ET_URL_TRACK_PROP_ADDRESS	'pURL' // utxt
 #define ET_CD_TRACK_PROP_LOCATION	'pLoc' // alis
+// --- other track classes end ---
+
+// generic playlist properies ---
+#define ET_CLASS_PLAYLIST				'cPly'
+#define ET_PLAYLIST_PROP_DURATION		'pDur'	// integer (r)
+#define ET_PLAYLIST_PROP_INTERNAL_INDEX	'pidx'	// integer (r)
+#define ET_PLAYLIST_PROP_SHUFFLE		'pShf'	// bool  (rw)
+#define ET_PLAYLIST_PROP_SIZE			'pSiz'	// longlong (double int) (r)
+#define ET_PLAYLIST_PROP_REPEAT			'pRpt'	// eRpt? (rw)
+#define ET_PLAYLIST_PROP_SPECIAL_KIND	'pSpK'	// eSpk? (r)
+#define ET_PLAYLIST_PROP_TIME			'pTim'	// utxt (r)
+#define ET_PLAYLIST_PROP_VISIBLE		'pvis'	// bool (r)
+// generic playlist properies ---
+
 

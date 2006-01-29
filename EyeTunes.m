@@ -78,12 +78,6 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	return cmdEvent;
 }
 
-- (void) releaseEvent:(AppleEvent *)finishedEvent
-{
-	AEDisposeDesc(finishedEvent);
-	free(finishedEvent);
-}
-
 - (void)sendCommand:(AEEventID)commandID
 {
 	OSErr err;
@@ -92,7 +86,8 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	if (err != noErr) {
 		NSLog(@"Error sending AppleEvent: %d", err);
 	}
-	[self releaseEvent:event];
+	AEDisposeDesc(event);
+	free(event);
 	
 }
 
@@ -263,7 +258,7 @@ cleanup_get_event:
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							"'----':obj { form:prop, want:type(prop), seld:type(pPla), from:'null'() }");
+							"'----':obj { form:prop, want:type(prop), seld:type(pPla), from:null() }");
 	
 	if (err != noErr) {
 		NSLog(@"Error creating AppleEvent: %d", err);
@@ -319,6 +314,17 @@ cleanup_reply_event:
 	free(replyEvent);
 	return libraryPlaylist;
 }
+
+- (BOOL) fixedIndexing
+{
+	return (BOOL)[self getPropertyAsIntegerForDesc:ET_APP_FIXED_INDEXING];
+}
+
+- (void) setFixedIndexing:(BOOL)useFixedIndexing
+{
+	[self setPropertyWithInteger:useFixedIndexing forDesc:ET_APP_FIXED_INDEXING];
+}
+
 
 - (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode
 {
@@ -399,6 +405,23 @@ cleanup_get_event:
 	
 	return trackList;
 	
+}
+
+
+
+- (int) playlistCount
+{
+	return [self getCountOfElementsOfClass:ET_CLASS_PLAYLIST];
+}
+
+- (NSArray *)playlists
+{
+	return [[self playlistEnumerator] allObjects];
+}
+
+- (NSEnumerator *)playlistEnumerator
+{
+	return [[[ETPlaylistEnumerator alloc] init] autorelease];
 }
 
 @end

@@ -36,13 +36,31 @@
  
 */
 
+/*
+0.2 : backwards incompatible changes
+  * ETAppleEventObject : getCountofElementClass.. returns int rather than AppleEvent*
+  * ETTrack : databaseID renamed to databaseId
+	          group renamed to grouping, type changed from int to NSString*
+ 
+*/
+
 #import <Cocoa/Cocoa.h>
 #import <ApplicationServices/ApplicationServices.h>
+
+// guard against exporting features that are not in earlier version
+
+#define ITUNES_6_0_2	0x0602
+#define ITUNES_6_0		0x0600
+#define ITUNES_4_0		0x0400
+#ifndef ITUNES_VERSION
+#define		ITUNES_VERSION ITUNES_6_0_2
+#endif
 
 #import "EyeTunesEventCodes.h"
 #import "ETAppleEventObject.h"
 #import "ETTrack.h"
 #import "ETPlaylist.h"
+#import "ETPlaylistEnumerator.h"
 
 @interface EyeTunes : ETAppleEventObject {
 }
@@ -52,10 +70,17 @@
 // things that return a Track object
 - (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode;
 
+// get all playlists
+- (int)playlistCount;
+- (NSArray *)playlists;
+- (NSEnumerator *)playlistEnumerator;
+
 // parameters
 - (ETTrack *)currentTrack;
 - (ETPlaylist *)currentPlaylist;
 - (ETPlaylist *)libraryPlaylist;
+- (BOOL) fixedIndexing;
+- (void) setFixedIndexing:(BOOL)useFixedIndexing;
 
 // no return value
 - (void)backTrack;

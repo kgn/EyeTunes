@@ -19,6 +19,12 @@
 		032CEB730886E48100F33185 /* ETPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 032CEB720886E48100F33185 /* ETPlaylist.m */; };
 		032CEB740886E48100F33185 /* ETPlaylist.h in Headers */ = {isa = PBXBuildFile; fileRef = 032CEB710886E48100F33185 /* ETPlaylist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		032CEB750886E48100F33185 /* ETPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 032CEB720886E48100F33185 /* ETPlaylist.m */; };
+		032E44AF098A4F2B00C55ECB /* ETTrackEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */; };
+		032E44B0098A4F2C00C55ECB /* ETTrackEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 032E44AD098A4F2B00C55ECB /* ETTrackEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */; };
+		032E476C098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */; };
+		032E476D098A8FDF00C55ECB /* ETPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */; };
+		032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */; };
 		035B6F2B0884824800D0B89E /* EyeTunesEventCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 035B6F2A0884824800D0B89E /* EyeTunesEventCodes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035B70B90885537800D0B89E /* ETTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 035B70B70885537800D0B89E /* ETTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035B70BA0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
@@ -61,6 +67,10 @@
 		032CE8530886594100F33185 /* ETAppleEventObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETAppleEventObject.m; sourceTree = "<group>"; };
 		032CEB710886E48100F33185 /* ETPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPlaylist.h; sourceTree = "<group>"; };
 		032CEB720886E48100F33185 /* ETPlaylist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPlaylist.m; sourceTree = "<group>"; };
+		032E44AD098A4F2B00C55ECB /* ETTrackEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETTrackEnumerator.h; sourceTree = "<group>"; };
+		032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETTrackEnumerator.m; sourceTree = "<group>"; };
+		032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPlaylistEnumerator.h; sourceTree = "<group>"; };
+		032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPlaylistEnumerator.m; sourceTree = "<group>"; };
 		035B6F2A0884824800D0B89E /* EyeTunesEventCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunesEventCodes.h; sourceTree = "<group>"; };
 		035B70B70885537800D0B89E /* ETTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETTrack.h; sourceTree = "<group>"; };
 		035B70B80885537800D0B89E /* ETTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETTrack.m; sourceTree = "<group>"; };
@@ -157,6 +167,10 @@
 				032CE8530886594100F33185 /* ETAppleEventObject.m */,
 				032CEB710886E48100F33185 /* ETPlaylist.h */,
 				032CEB720886E48100F33185 /* ETPlaylist.m */,
+				032E44AD098A4F2B00C55ECB /* ETTrackEnumerator.h */,
+				032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */,
+				032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */,
+				032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -200,6 +214,8 @@
 				035B70B90885537800D0B89E /* ETTrack.h in Headers */,
 				032CE8550886594100F33185 /* ETAppleEventObject.h in Headers */,
 				032CEB740886E48100F33185 /* ETPlaylist.h in Headers */,
+				032E44B0098A4F2C00C55ECB /* ETTrackEnumerator.h in Headers */,
+				032E476D098A8FDF00C55ECB /* ETPlaylistEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +342,8 @@
 				035B70BB0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8540886594100F33185 /* ETAppleEventObject.m in Sources */,
 				032CEB730886E48100F33185 /* ETPlaylist.m in Sources */,
+				032E44AF098A4F2B00C55ECB /* ETTrackEnumerator.m in Sources */,
+				032E476C098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +355,8 @@
 				035B70BA0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8560886594100F33185 /* ETAppleEventObject.m in Sources */,
 				032CEB750886E48100F33185 /* ETPlaylist.m in Sources */,
+				032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */,
+				032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,8 +391,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "@executable_path/AlbumArtPlugin.widgetplugin/Contents/Frameworks/";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				PREBINDING = NO;
 				PRODUCT_NAME = EyeTunes;
 				SKIP_INSTALL = YES;
@@ -384,7 +405,10 @@
 		031B481E088429A70086F24B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -397,8 +421,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "@loader_path/../Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				PRODUCT_NAME = EyeTunes;
@@ -423,6 +448,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/AlbumArtPlugin.widgetplugin/Contents/Frameworks/";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				PREBINDING = NO;
 				PRODUCT_NAME = EyeTunes;
 				SKIP_INSTALL = YES;
@@ -433,18 +459,24 @@
 		031B4821088429A70086F24B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Debug;
 		};
 		031B4822088429A70086F24B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};
 		031B4823088429A70086F24B /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Default;
 		};
@@ -565,6 +597,7 @@
 				031B484E08843CB20086F24B /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
 		};
 /* End XCConfigurationList section */
 	};

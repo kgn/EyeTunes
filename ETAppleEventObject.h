@@ -59,6 +59,8 @@
 - (NSString *)	eventParameterStringForProperty:(DescType)descType;
 - (NSString *)	eventParameterStringForSettingProperty:(DescType)descType;
 - (NSString *)	eventParameterStringForSettingProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index;
+- (NSString *)	eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forIntValue:(int)value;
+- (NSString *)eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString;
 
 // Get/Set Object "Properties"
 - (AppleEvent *) getPropertyOfType:(DescType)descType forObject:(AEDesc *)targetObject;
@@ -67,9 +69,11 @@
 - (BOOL) setPropertyWithValue:(AEDesc *)valueDesc ofType:(DescType)descType;
 
 // Count/Get/Set Object "Elements"
-- (AppleEvent *) getElementOfClass:(DescType)classType atIndex:(int)index;
-- (AppleEvent *) getCountOfElementsOfClass:(DescType)descType;
-- (AppleEvent *) deleteAllElementsOfClass:(DescType)descType;
+- (int)				getCountOfElementsOfClass:(DescType)descType;
+- (AppleEvent *)	getElementOfClass:(DescType)classType atIndex:(int)index;
+- (AppleEvent *)	deleteAllElementsOfClass:(DescType)descType;
+- (AppleEvent *)	getElementOfClass:(DescType)classType byKey:(DescType)key withIntValue:(int)value;
+
 // not working yet
 //- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType;
 - (BOOL) setElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value;

@@ -3,7 +3,7 @@
  EyeTunes.framework - Cocoa iTunes Interface
  http://www.liquidx.net/eyetunes/
  
- Copyright (c) 2005, Alastair Tse <alastair@liquidx.net>
+ Copyright (c) 2005,2006 Alastair Tse <alastair@liquidx.net>
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -26,31 +26,61 @@
  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+						SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+						INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
-*/
+ */
 
-#import <Cocoa/Cocoa.h>
-#import "EyeTunesEventCodes.h"
-#import "ETAppleEventObject.h"
-#import "ETTrack.h"
 
-@class ETTrackEnumerator;
+#import "ETPlaylistEnumerator.h"
 
-@interface ETPlaylist : ETAppleEventObject {
+
+@implementation ETPlaylistEnumerator
+
+- (id) init
+{
+	self = [super init];
+	if (self) {
+		count = (int)[[EyeTunes sharedInstance] playlistCount];
+		seq = 0;
+	}
+	return self;
 }
 
-- (id) initWithDescriptor:(AEDesc *)desc;
+- (id) nextObject
+{
+	OSErr err;
+	AEDesc playlistDescriptor;
+	
+	if (seq >= count)
+		return nil;
+	
+	AppleEvent *replyEvent = [[EyeTunes sharedInstance] getElementOfClass:ET_CLASS_PLAYLIST atIndex:seq];
+	if (!replyEvent)
+		return nil;
+	
+	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &playlistDescriptor);
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);			
+	if (err != noErr)
+		return nil;
+	
+	ETPlaylist *thisPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&playlistDescriptor] autorelease];
+	seq++;
+	return thisPlaylist;
+}
 
-- (NSString *)name;
+- (NSArray *)allObjects
+{
+	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:(count - seq)];
+	ETPlaylist *playlist = nil;
+	while (playlist = [self nextObject]) {
+		[objects addObject:playlist];
+	}
+	return objects;
+}
 
-
-- (NSArray *)tracks;
-- (int) trackCount;
-- (NSEnumerator *)trackEnumerator;
-- (ETTrack *)trackWithDatabaseId:(int)databaseId;
 @end
