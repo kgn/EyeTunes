@@ -46,6 +46,8 @@
 #import "ETAppleEventObject.h"
 
 
+
+
 @implementation ETAppleEventObject
 
 #pragma mark -
@@ -86,6 +88,8 @@
 	return refDescriptor;
 }
 
+#ifdef ET_DEBUG
+
 + (void) printDescriptor:(AEDesc *)desc
 {
 	OSErr err;
@@ -99,6 +103,37 @@
 	ETLog(@"%s", debug[0]);
 	DisposeHandle(debug);
 }
+
++ (NSString *) debugHexDump:(void *)ptr ofLength:(int)len
+{
+	unsigned char *p = (unsigned char *)ptr;
+	int i = 0;
+	unsigned char line[16];
+	int size = 8;
+	NSMutableString *dump = [NSMutableString string];
+		
+		
+	memset(line, 0, size);
+	memset(line + size, 0x2e, size);
+	while (i < len) {
+		line[i%size] = p[i];
+		if ((p[i] > 0x1f) && (p[i] < 0x7f))
+			line[i%size + size] = p[i];
+		else 
+			line[i%size + size] = 0x2e;
+		if ((i > 0) && ((i % size == (size - 1)) || (i + 1 == len))) {
+			[dump appendString:[NSString stringWithFormat:@"%02x %02x %02x %02x %02x %02x %02x %02x | %c%c%c%c%c%c%c%c\n",
+				line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7],
+				line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15]]];
+			memset(line, 0, size);
+			memset(line + size, 0x2e, size);
+		}
+		i++;
+	}
+	return dump;
+}
+
+#endif
 
 + (AliasHandle)newAliasHandleWithPath:(NSString *)path
 {
@@ -123,53 +158,53 @@
 
 - (NSString *)eventParameterStringForCountElementsOfClass:(DescType)classType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"kocl:type(%@) , '----':@", NSFileTypeForHFSTypeCode(classType)];
+	NSString *parameterString = [NSString stringWithFormat:@"kocl:type(%@) , '----':@", UTCreateStringForOSType(classType)];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForDeleteElementsOfClass:(DescType)classType
 {
 	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:abso('all '), from:@ }", 
-															NSFileTypeForHFSTypeCode(classType)];
+															UTCreateStringForOSType(classType)];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForElementOfClass:(DescType)classType atIndex:(int)index
 {
-	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:%d, from:@ }", NSFileTypeForHFSTypeCode(classType), index];
+	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:%d, from:@ }", UTCreateStringForOSType(classType), index];
 	return parameterString;	
 }
 
 - (NSString *)eventParameterStringForProperty:(DescType)descType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", NSFileTypeForHFSTypeCode(descType)];
+	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", UTCreateStringForOSType(descType)];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForSettingProperty:(DescType)descType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", NSFileTypeForHFSTypeCode(descType)];
+	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", UTCreateStringForOSType(descType)];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForSettingElementOfClass:(DescType)classType atIndex:(int)index
 {
-	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:indx, want:type(%@), seld:%d, from:@ }", NSFileTypeForHFSTypeCode(classType), index];
+	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:indx, want:type(%@), seld:%d, from:@ }", UTCreateStringForOSType(classType), index];
 	return parameterString;	
 }
 
 - (NSString *)eventParameterStringForSettingProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index
 {
 	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:prop, want:type(prop), seld:type(%@), from:obj { form:indx, want:type(%@), seld:%d, from:@ }}", 
-		NSFileTypeForHFSTypeCode(propertyType), NSFileTypeForHFSTypeCode(classType), index];
+		UTCreateStringForOSType(propertyType), UTCreateStringForOSType(classType), index];
 	return parameterString;	
 }
 
 - (NSString *)eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forIntValue:(int)value
 {
 	NSString *parameterString = [NSString stringWithFormat:@"obj { form:test, want:type(%@), from:@, seld:cmpd{relo:=, 'obj1': obj{ form:prop, want:type(prop), seld:type(%@), from:exmn()}, obj2:%d}}",
-		 NSFileTypeForHFSTypeCode(objectType),
-		NSFileTypeForHFSTypeCode(propertyType),
+		 UTCreateStringForOSType(objectType),
+		UTCreateStringForOSType(propertyType),
 		value];
 	return parameterString;		
 }
@@ -177,7 +212,7 @@
 - (NSString *)eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString
 {
 	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:'abso'('any '), from:%@ }",
-		NSFileTypeForHFSTypeCode(objectType),
+		UTCreateStringForOSType(objectType),
 		testString];
 	return parameterString;
 }
@@ -202,7 +237,7 @@
 							kAnyTransactionID,
 							&setEvent,
 							NULL,
-							[[self eventParameterStringForSettingProperty:descType] lossyCString], 
+							[[self eventParameterStringForSettingProperty:descType] UTF8String], 
 							valueDesc,
 							targetObject);
 	
@@ -237,7 +272,7 @@
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[[self eventParameterStringForProperty:descType] lossyCString], 
+							[[self eventParameterStringForProperty:descType] UTF8String], 
 							targetObject);
 	
 	if (err != noErr) {
@@ -291,7 +326,7 @@
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[[self eventParameterStringForCountElementsOfClass:descType] lossyCString], 
+							[[self eventParameterStringForCountElementsOfClass:descType] UTF8String], 
 							refDescriptor);
 	
 	if (err != noErr) {
@@ -337,7 +372,7 @@
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[[self eventParameterStringForDeleteElementsOfClass:descType] lossyCString], 
+							[[self eventParameterStringForDeleteElementsOfClass:descType] UTF8String], 
 							refDescriptor);
 	
 	if (err != noErr) {
@@ -373,7 +408,7 @@
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[[self eventParameterStringForElementOfClass:descType atIndex:(index+1)] lossyCString], 
+							[[self eventParameterStringForElementOfClass:descType atIndex:(index+1)] UTF8String], 
 							refDescriptor);
 	
 	if (err != noErr) {
@@ -409,7 +444,7 @@
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[[self eventParameterStringForElementOfClass:classType atIndex:(index+1)] lossyCString], 
+							[[self eventParameterStringForElementOfClass:classType atIndex:(index+1)] UTF8String], 
 							refDescriptor);
 	
 	if (err != noErr) {
@@ -449,7 +484,7 @@
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[eventString lossyCString],
+							[eventString UTF8String],
 							refDescriptor);
 	
 	if (err != noErr) {
@@ -484,7 +519,7 @@
 							kAnyTransactionID,
 							&setEvent,
 							NULL,
-							[[self eventParameterStringForSettingElementOfClass:classType atIndex:(index+1)] lossyCString],
+							[[self eventParameterStringForSettingElementOfClass:classType atIndex:(index+1)] UTF8String],
 							value,
 							refDescriptor);
 	
@@ -518,7 +553,7 @@
 							kAnyTransactionID,
 							&setEvent,
 							NULL,
-							[[self eventParameterStringForSettingProperty:propertyType OfElementOfClass:classType atIndex:(index+1)] lossyCString],
+							[[self eventParameterStringForSettingProperty:propertyType OfElementOfClass:classType atIndex:(index+1)] UTF8String],
 							value,
 							refDescriptor);
 	
@@ -581,6 +616,7 @@
 	DescType	resultType;
 	Size		resultSize;
 	NSString	*replyString = nil;
+	int i = 0;
 	
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	if (!replyEvent) {
@@ -609,15 +645,18 @@
 		ETLog(@"Unable to get parameter of reply: %d", err);
 		goto cleanup_reply_and_tempstring;
 	}
+
+	for (i = 0; i < resultSize/2; i++)
+		replyValue[i] = CFSwapInt16BigToHost(replyValue[i]);
 	
 	replyString = [[[NSString alloc] initWithBytes:replyValue 
 											length:resultSize 
 										  encoding:NSUnicodeStringEncoding] autorelease];
 	
 cleanup_reply_and_tempstring:
-		free(replyValue);
+	free(replyValue);
 cleanup_reply:
-		AEDisposeDesc(replyEvent);
+	AEDisposeDesc(replyEvent);
 	free(replyEvent);
 	replyEvent = NULL;
 	
@@ -644,10 +683,8 @@ cleanup_reply:
 	
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	
-	if (!replyEvent) {
-		// TODO: raise exception?
-		return nil;
-	}
+	if (!replyEvent) 
+		return nil; // TODO: raise exception?
 	
 	/* Read Results */
 	err = AEGetParamPtr(replyEvent, keyDirectObject, typeFSRef, &resultType, 
@@ -683,10 +720,8 @@ cleanup_reply:
 		
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	
-	if (!replyEvent) {
-		// TODO: raise exception?
-		return nil;
-	}
+	if (!replyEvent)
+		return nil; // TODO: raise exception?
 	
 	/* Read Results */
 	err = AEGetParamPtr(replyEvent, keyDirectObject, typeLongDateTime, &resultType, 
@@ -739,7 +774,6 @@ cleanup_reply:
 		return NO;
 	}
 	
-	
 	success = [self setPropertyWithValue:&valueDesc ofType:descType];
 	AEDisposeDesc(&valueDesc);
 	return success;
@@ -770,6 +804,187 @@ cleanup_reply:
 	return success;
 }
 
+#pragma mark -
+#pragma mark Debug Code
+#pragma mark -
+
+#ifdef ET_DEBUG
+
+- (NSArray *) getPropertyAsIntegerWithDumpForDesc:(DescType)descType
+{
+	OSErr err;
+	
+	int			replyValue = -1;
+	DescType	resultType;
+	Size		resultSize;
+	
+	AppleEvent *replyEvent = [self getPropertyOfType:descType];
+	
+	if (!replyEvent) {
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	/* Read Results */
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
+						&replyValue, sizeof(replyValue), &resultSize);
+	if (err != noErr) {
+		ETLog(@"Error extracting parameters from reply: %d", err);
+	}
+
+	NSArray *valueAndDump = [NSArray arrayWithObjects:[NSNumber numberWithInt:replyValue],
+		[ETAppleEventObject debugHexDump:(void *)&replyValue ofLength:sizeof(int)], nil];
+	
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return valueAndDump;
+}
+
+- (NSArray *)getPropertyAsStringWithDumpForDesc:(DescType)descType
+{
+	OSErr err;
+	
+	UniChar		*replyValue = NULL;
+	DescType	resultType;
+	Size		resultSize;
+	NSString	*replyString = nil;
+	
+	AppleEvent *replyEvent = [self getPropertyOfType:descType];
+	if (!replyEvent) {
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	err = AESizeOfParam(replyEvent, keyDirectObject, &resultType, &resultSize);
+	if (err != noErr) {
+		ETLog(@"Unable to find length of reply string: %d", err);
+		goto cleanup_reply;
+	}
+	
+	replyValue = malloc(resultSize + 1);
+	if (replyValue == NULL) {
+		// TODO: raise No Memory Exception
+		ETLog(@"No Memory Available");
+		goto cleanup_reply;
+	}
+	
+	
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeUnicodeText, &resultType, 
+						replyValue, resultSize, &resultSize);
+	if (err != noErr) {
+		// TODO: raise error
+		ETLog(@"Unable to get parameter of reply: %d", err);
+		goto cleanup_reply_and_tempstring;
+	}
+	
+	// swap bigendian to host
+	int i = 0;
+	for (i = 0; i < resultSize/2; i++)
+		replyValue[i] = CFSwapInt16BigToHost(replyValue[i]);
+	
+	
+	replyString = [[[NSString alloc] initWithBytes:replyValue 
+											length:resultSize 
+										  encoding:NSUnicodeStringEncoding] autorelease];
+	
+	NSArray *valueAndDump = [NSArray arrayWithObjects:replyString,
+		[ETAppleEventObject debugHexDump:replyValue ofLength:resultSize], nil];
+	
+	
+cleanup_reply_and_tempstring:
+	free(replyValue);
+cleanup_reply:
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	replyEvent = NULL;
+	
+	return valueAndDump;
+}
+
+- (NSArray *) getPropertyAsPathURLWithDumpForDesc:(DescType)descType
+{
+	OSErr err;
+	
+	FSRef		fsRef;
+	DescType	resultType;
+	Size		resultSize;
+	NSString	*urlString = nil;
+	
+	AppleEvent *replyEvent = [self getPropertyOfType:descType];
+	
+	if (!replyEvent) {
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	/* Read Results */
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeFSRef, &resultType, 
+						&fsRef, sizeof(fsRef), &resultSize);
+	if (err != noErr) {
+		ETLog(@"Error extracting parameters from reply: %d", err);
+	}
+		
+	/* Convert Alias to NSString */
+	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
+	if (resolvedURL) {
+		urlString = [(NSURL *)resolvedURL absoluteString];
+		CFRelease(resolvedURL);
+	}
+	
+	NSArray *valueAndDump = [NSArray arrayWithObjects:(NSURL *)resolvedURL,
+		[ETAppleEventObject debugHexDump:(void *)&fsRef ofLength:sizeof(fsRef)], nil];
+	
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return valueAndDump;
+}
+
+
+- (NSArray *) getPropertyAsDateWithDumpForDesc:(DescType)descType
+{
+	OSErr err;
+	
+	LongDateTime replyValue;	
+	DescType	resultType;
+	Size		resultSize;
+	
+	CFAbsoluteTime absoluteDate;
+	NSDate		*resultDate = nil;
+	
+	
+	AppleEvent *replyEvent = [self getPropertyOfType:descType];
+	
+	if (!replyEvent) {
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	/* Read Results */
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeLongDateTime, &resultType, 
+						&replyValue, sizeof(replyValue), &resultSize);
+	if (err != noErr) {
+		ETLog(@"Error extracting parameters from reply: %d", err);
+	}
+	
+	err = UCConvertLongDateTimeToCFAbsoluteTime(replyValue, &absoluteDate);
+	if (err != noErr) {
+		ETLog(@"Error converting Long Date to CFAbsoluteTime");
+	}
+	
+	resultDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteDate];
+	
+	NSArray *valueAndDump = [NSArray arrayWithObjects:resultDate,
+		[ETAppleEventObject debugHexDump:(void *)&replyValue ofLength:sizeof(LongDateTime)], nil];
+	
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	return valueAndDump;
+}
+
+#endif
+
 /* OLD RETIRED CODE -- HERE JUST IN CASE I NEED IT */
 
 #pragma mark -
@@ -779,7 +994,7 @@ cleanup_reply:
 
 - (NSString *)_parameterStringForProperty:(DescType)descType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"'obj '{ form:'prop', want:type('prop'), seld:type(%@), from:@ }", NSFileTypeForHFSTypeCode(descType)];
+	NSString *parameterString = [NSString stringWithFormat:@"'obj '{ form:'prop', want:type('prop'), seld:type(%@), from:@ }", UTCreateStringForOSType(descType)];
 	return parameterString;
 }
 
@@ -802,7 +1017,7 @@ cleanup_reply:
 	/* Build Params */
 	AEDesc parameterDescriptor;
 	err = AEBuildDesc(&parameterDescriptor, NULL,
-					  [[self _parameterStringForProperty:descType] lossyCString],
+					  [[self _parameterStringForProperty:descType] UTF8String],
 					  trackDescriptor);
 	if (err != noErr) {
 		NSDictionary *errorDict = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:err] forKey:@"Error Code"];

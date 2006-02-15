@@ -49,7 +49,6 @@
 
 - (NSString *)name;
 
-
 - (NSArray *)tracks;
 - (int) trackCount;
 - (NSEnumerator *)trackEnumerator;

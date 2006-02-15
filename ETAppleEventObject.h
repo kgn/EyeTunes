@@ -50,7 +50,7 @@
 
 - (id) initWithDescriptor:(AEDesc *)aDesc applCode:(OSType)applCode;
 - (AEDesc *)descriptor;
-+ (void) printDescriptor:(AEDesc *)desc;
+
 
 + (AliasHandle)newAliasHandleWithPath:(NSString *)path;
 
@@ -89,4 +89,14 @@
 - (BOOL)		setPropertyWithInteger:(int)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithString:(NSString *)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithDate:(NSDate *)value forDesc:(DescType)descType;
+
+// Debug functions
+#ifdef ET_DEBUG
++ (void) printDescriptor:(AEDesc *)desc;
++ (NSString *) debugHexDump:(void *)ptr ofLength:(int)len;
+- (NSArray *)	getPropertyAsIntegerWithDumpForDesc:(DescType)descType;
+- (NSArray *)	getPropertyAsStringWithDumpForDesc:(DescType)descType;
+- (NSArray *)	getPropertyAsDateWithDumpForDesc:(DescType)descType;
+- (NSArray *)  getPropertyAsPathURLWithDumpForDesc:(DescType)descType;
+#endif
 @end

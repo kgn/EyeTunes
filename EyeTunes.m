@@ -356,6 +356,7 @@ cleanup_reply_event:
 }
 
 
+
 - (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode
 {
 	OSErr err;
@@ -368,7 +369,7 @@ cleanup_reply_event:
 		gizmo = @"'----':@, pTrm:'utxt'(@)";
 	}
 	else {
-		gizmo = [NSString stringWithFormat:@"'----':@, pTrm:'utxt'(@), pAre:%@", NSFileTypeForHFSTypeCode(typeCode)];
+		gizmo = [NSString stringWithFormat:@"'----':@, pTrm:'utxt'(@), pAre:%@", UTCreateStringForOSType(typeCode)];
 	}
 	
 	err = AEBuildAppleEvent(iTunesSignature,
@@ -380,7 +381,7 @@ cleanup_reply_event:
 							kAnyTransactionID,
 							&getEvent,
 							NULL,
-							[gizmo lossyCString],
+							[gizmo UTF8String],
 							[playlist descriptor],
 							[searchString lengthOfBytesUsingEncoding:NSUnicodeStringEncoding],
 							[searchString cStringUsingEncoding:NSUnicodeStringEncoding]);
@@ -452,6 +453,8 @@ cleanup_get_event:
 - (NSEnumerator *)playlistEnumerator
 {
 	return [[[ETPlaylistEnumerator alloc] init] autorelease];
+
 }
+
 
 @end
