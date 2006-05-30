@@ -50,7 +50,12 @@
 - (NSString *)name;
 
 - (NSArray *)tracks;
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+- (long long int)persistentId;
+- (ETTrack *)trackWithPersistentId:(long long int)persistentId;
+#endif
 - (int) trackCount;
 - (NSEnumerator *)trackEnumerator;
 - (ETTrack *)trackWithDatabaseId:(int)databaseId;
+
 @end

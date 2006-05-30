@@ -287,6 +287,14 @@
 	return [self getPropertyAsDateForDesc:ET_TRACK_PROP_MOD_DATE];
 }
 
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+- (long long int) persistentId
+{
+	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+	
+}
+#endif
+
 - (int)playedCount
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_PLAYED_COUNT];

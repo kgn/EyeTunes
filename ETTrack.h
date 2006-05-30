@@ -71,6 +71,9 @@
 - (NSString *)kind;
 - (NSString *)location;
 - (NSDate *)modificationDate;
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+- (long long int)persistentId;
+#endif
 - (int)playedCount;
 - (NSDate *)playedDate;
 - (BOOL)podcast;

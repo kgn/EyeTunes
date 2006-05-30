@@ -25,11 +25,12 @@ void test_get_playlists(EyeTunes *e) {
 	NSEnumerator *en = [e playlistEnumerator];
 	ETPlaylist *pl = nil;
 	while (pl = [en nextObject]) {
-		NSLog([pl name]);
-		
+		NSLog(@"%@ - %lld", [pl name], [pl persistentId]);
+		/*
 		if ([[pl name] isEqualTo:@"Chi 5 - Male"]) {
 			test_get_tracks_of_playlist(e, pl);
 		}
+		*/
 	}
 }
 
@@ -42,9 +43,9 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
 	EyeTunes *e = [EyeTunes sharedInstance];
 	
-	//test_get_playlists(e);
+	test_get_playlists(e);
 	//test_get_track(e);
-	test_get_tracks_by_search(e);
+	//test_get_tracks_by_search(e);
 	
 	[pool release];
     return 0;

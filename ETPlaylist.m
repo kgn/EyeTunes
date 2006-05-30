@@ -55,6 +55,15 @@
 	return [[self trackEnumerator] allObjects];
 }
 
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+- (long long int) persistentId
+{
+	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+
+}
+#endif
+
+
 - (int) trackCount
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_TRACK];
@@ -91,6 +100,35 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+
+- (ETTrack *)trackWithPersistentId:(long long int)persistentId
+{
+	
+	ETTrack *foundTrack = nil;
+	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_TRACK 
+											   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+									withLongIntValue:persistentId];
+	
+	/* Read Results */
+	AEDesc replyObject;
+	OSErr err;
+	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &replyObject);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	
+cleanup_reply_event:
+		AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return foundTrack;
+}
+
+#endif
 
 
 @end

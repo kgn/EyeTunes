@@ -456,5 +456,34 @@ cleanup_get_event:
 
 }
 
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+- (ETPlaylist *)playlistWithPersistentId:(int)persistentId
+{
+	
+	ETPlaylist *foundPlaylist = nil;
+	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+											   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+									withLongIntValue:persistentId];
+	
+	/* Read Results */
+	AEDesc replyObject;
+	OSErr err;
+	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &replyObject);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	foundPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	
+cleanup_reply_event:
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return foundPlaylist;
+}
+
+#endif
+
 
 @end

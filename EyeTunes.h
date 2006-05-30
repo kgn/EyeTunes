@@ -50,11 +50,14 @@
 // guard against exporting features that are not in earlier version
 
 #define ITUNES_6_0_2	0x0602
+#define ITUNES_6_0_1	0x0601
 #define ITUNES_6_0		0x0600
 #define ITUNES_4_0		0x0400
 #ifndef ITUNES_VERSION
 #define		ITUNES_VERSION ITUNES_6_0_2
 #endif
+
+#define	ET_EXPERIMENTAL_PERSISTENT_ID 0
 
 #import "ETDebug.h"
 #import "EyeTunesEventCodes.h"
@@ -74,6 +77,11 @@
 - (int)playlistCount;
 - (NSArray *)playlists;
 - (NSEnumerator *)playlistEnumerator;
+
+// search for playlist by reference
+#if ET_EXPERIMENTAL_PERSISTENT_ID
+- (ETPlaylist *)playlistWithPersistentId:(int)persistentId;
+#endif
 
 // parameters
 - (ETTrack *)currentTrack;

@@ -149,7 +149,7 @@ enum {
 #define ET_CLASS_ITEM				'cobj'
 #define ET_ITEM_PROP_CONTAINER		'cntr' // object (r)
 #define ET_ITEM_PROP_NAME			'pnam' // utxt (rw)
-#if ITUNES_VER >= ITUNES_6_0_2
+#if ITUNES_VERSION >= ITUNES_6_0_1
 #define	ET_ITEM_PROP_PERSISTENT_ID	'pPID' // double int (r)
 #endif
 // --- generic applescript item codes end ---
