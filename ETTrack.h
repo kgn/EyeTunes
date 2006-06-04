@@ -70,6 +70,9 @@
 - (NSString *)grouping;
 - (NSString *)kind;
 - (NSString *)location;
+#if ITUNES_VER >= ITUNES_6_0_2
+- (NSString *)lyrics;
+#endif
 - (NSDate *)modificationDate;
 #if ET_EXPERIMENTAL_PERSISTENT_ID
 - (long long int)persistentId;
@@ -101,6 +104,9 @@
 - (void)setFinish:(int)newValue;
 - (void)setGenre:(NSString *)newValue;
 - (void)setGrouping:(NSString *)newValue;
+#if ITUNES_VER >= ITUNES_6_0_2
+- (void)setLyrics:(NSString *)newValue;
+#endif
 - (void)setPlayedCount:(int)newValue;
 - (void)setPlayedDate:(NSDate *)newValue;
 - (void)setRating:(int)newValue;

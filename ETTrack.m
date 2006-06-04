@@ -282,6 +282,13 @@
 	return [self getPropertyAsPathURLForDesc:pETTrackLocation];
 }
 
+#if ITUNES_VER >= ITUNES_6_0_2
+- (NSString *)lyrics
+{
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_LYRICS];
+}
+#endif
+
 - (NSDate *)modificationDate
 {
 	return [self getPropertyAsDateForDesc:ET_TRACK_PROP_MOD_DATE];
@@ -430,6 +437,13 @@
 {
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_GROUPING];
 }
+
+#if ITUNES_VER >= ITUNES_6_0_2
+- (void)setLyrics:(NSString *)newValue
+{
+	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_LYRICS];
+}
+#endif
 
 - (void)setPlayedCount:(int)newValue
 {
