@@ -34,7 +34,7 @@
  
  */
 
-
+#import "EyeTunes.h"
 #import "ETPlaylistEnumerator.h"
 
 

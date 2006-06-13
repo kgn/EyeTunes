@@ -35,7 +35,7 @@
 */
 
 #import "ETPlaylist.h"
-
+#import "ETTrackEnumerator.h"
 
 @implementation ETPlaylist
 

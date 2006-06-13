@@ -438,6 +438,76 @@ cleanup_get_event:
 	
 }
 
+- (NSArray *)selectedTracks
+{
+	OSErr err;
+	AppleEvent getEvent, replyEvent;
+	AEDescList replyList;
+	NSMutableArray *trackList = nil;
+	
+	/* create the apple event to GET something*/
+	err = AEBuildAppleEvent(kAECoreSuite,
+							'getd',
+							typeApplSignature,
+							&iTunesSignature,
+							sizeof(iTunesSignature),
+							kAutoGenerateReturnID,
+							kAnyTransactionID,
+							&getEvent,
+							NULL,
+							"'----':obj { form:prop, want:type(prop), seld:type(sele), from:'null'() }");	
+	
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+	
+	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
+		goto cleanup_get_event;
+	}
+	
+	/* Read Results */
+	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeAEList, &replyList);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	long items, i;
+	err = AECountItems(&replyList, &items);
+	if (err != noErr) {
+		ETLog(@"Unable to access Reply List: %d", err);
+		goto cleanup_reply_list;
+	}
+	
+	trackList = [NSMutableArray arrayWithCapacity:items];
+	for (i = 1; i < items + 1; i++) {
+		AEDesc trackDesc;
+		err = AEGetNthDesc(&replyList,
+						   i,
+						   typeWildCard,
+						   0,
+						   &trackDesc);
+		if (err != noErr) {
+			ETLog(@"Error rextracting from List: %d", err);
+			goto cleanup_reply_list;
+		}
+		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];
+	}
+	
+cleanup_reply_list:
+		AEDisposeDesc(&replyList);
+cleanup_reply_event:
+		AEDisposeDesc(&replyEvent);
+cleanup_get_event:
+		AEDisposeDesc(&getEvent);
+	
+	return trackList;
+	
+}
+
 
 
 - (int) playlistCount

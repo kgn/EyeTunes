@@ -89,6 +89,7 @@
 - (ETPlaylist *)libraryPlaylist;
 - (BOOL) fixedIndexing;
 - (void) setFixedIndexing:(BOOL)useFixedIndexing;
+- (NSArray *)selectedTracks;
 
 // no return value
 - (void)backTrack;
