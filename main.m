@@ -66,15 +66,32 @@ void test_get_track(EyeTunes *e) {
 	NSLog(@"Title: %@", [t name]);
 }
 
+void test_set_track_details(EyeTunes *e) {
+	NSArray *selected  = [e selectedTracks];
+	ETTrack *t = nil;
+	if ([selected count] > 0) {
+		t = [selected objectAtIndex:0];
+	}
+	
+	NSString *trackName = [t name];
+	NSLog(@"Selected Track: %@", [t name]);
+	[t setName:@"EyeTunes Test !!! ~~~"];
+	NSLog(@"Selected Track Renamed To: %@", [t name]);
+	[t setName:trackName];
+	NSLog(@"Selected Track Renamed back to: %@", [t name]);
+}
+
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
 	EyeTunes *e = [EyeTunes sharedInstance];
 	
-	test_get_playlists(e);
-	test_get_track(e);
-	test_get_tracks_by_search(e);
-	test_get_selected(e);
-	test_dupe_selected_image(e);
+	//test_get_playlists(e);
+	//test_get_track(e);
+	//test_get_tracks_by_search(e);
+	//test_get_selected(e);
+	//test_dupe_selected_image(e);
+	
+	test_set_track_details(e);
 	
 	[pool release];
     return 0;
