@@ -156,55 +156,66 @@
 #pragma mark AEGizmo Strings
 #pragma mark -
 
+- (NSString *) stringForOSType: (DescType) descType;
+{
+    NSString * descString = (NSString *) UTCreateStringForOSType(descType);
+    [descString autorelease];
+    return descString;
+}
+
 - (NSString *)eventParameterStringForCountElementsOfClass:(DescType)classType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"kocl:type(%@) , '----':@", UTCreateStringForOSType(classType)];
+	NSString *parameterString = [NSString stringWithFormat:@"kocl:type(%@) , '----':@", [self stringForOSType: classType]];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForDeleteElementsOfClass:(DescType)classType
 {
 	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:abso('all '), from:@ }", 
-															UTCreateStringForOSType(classType)];
+        [self stringForOSType: classType]];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForElementOfClass:(DescType)classType atIndex:(int)index
 {
-	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:%d, from:@ }", UTCreateStringForOSType(classType), index];
+	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:%d, from:@ }", [self stringForOSType: classType], index];
 	return parameterString;	
 }
 
 - (NSString *)eventParameterStringForProperty:(DescType)descType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", UTCreateStringForOSType(descType)];
+	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", [self stringForOSType: descType]];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForSettingProperty:(DescType)descType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }", UTCreateStringForOSType(descType)];
+	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:prop, want:type(prop), seld:type(%@), from:@ }",
+        [self stringForOSType: descType]];
 	return parameterString;
 }
 
 - (NSString *)eventParameterStringForSettingElementOfClass:(DescType)classType atIndex:(int)index
 {
-	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:indx, want:type(%@), seld:%d, from:@ }", UTCreateStringForOSType(classType), index];
-	return parameterString;	
+	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:indx, want:type(%@), seld:%d, from:@ }",
+        [self stringForOSType: classType], index];
+    return parameterString;
 }
 
 - (NSString *)eventParameterStringForSettingProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index
 {
 	NSString *parameterString = [NSString stringWithFormat:@"data:@, '----':obj { form:prop, want:type(prop), seld:type(%@), from:obj { form:indx, want:type(%@), seld:%d, from:@ }}", 
-		UTCreateStringForOSType(propertyType), UTCreateStringForOSType(classType), index];
+		[self stringForOSType: propertyType],
+        [self stringForOSType: classType],
+        index];
 	return parameterString;	
 }
 
 - (NSString *)eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forIntValue:(int)value
 {
 	NSString *parameterString = [NSString stringWithFormat:@"obj { form:test, want:type(%@), from:@, seld:cmpd{relo:=, 'obj1': obj{ form:prop, want:type(prop), seld:type(%@), from:exmn()}, obj2:%d}}",
-		 UTCreateStringForOSType(objectType),
-		UTCreateStringForOSType(propertyType),
+        [self stringForOSType: objectType],
+		[self stringForOSType: propertyType],
 		value];
 	return parameterString;		
 }
@@ -214,8 +225,8 @@
 - (NSString *)eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forLongIntValue:(long long int)value
 {
 	NSString *parameterString = [NSString stringWithFormat:@"obj { form:test, want:type(%@), from:@, seld:cmpd{relo:=, 'obj1': obj{ form:prop, want:type(prop), seld:type(%@), from:exmn()}, obj2:long(%d)}}",
-		UTCreateStringForOSType(objectType),
-		UTCreateStringForOSType(propertyType),
+		[self stringForOSType: objectType],
+		[self stringForOSType: propertyType],
 		value];
 	return parameterString;		
 }
@@ -225,7 +236,7 @@
 - (NSString *)eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString
 {
 	NSString *parameterString = [NSString stringWithFormat:@"'----':obj { form:indx, want:type(%@), seld:'abso'('any '), from:%@ }",
-		UTCreateStringForOSType(objectType),
+		[self stringForOSType: objectType],
 		testString];
 	return parameterString;
 }
@@ -1106,7 +1117,8 @@ cleanup_reply:
 
 - (NSString *)_parameterStringForProperty:(DescType)descType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"'obj '{ form:'prop', want:type('prop'), seld:type(%@), from:@ }", UTCreateStringForOSType(descType)];
+	NSString *parameterString = [NSString stringWithFormat:@"'obj '{ form:'prop', want:type('prop'), seld:type(%@), from:@ }",
+        [self stringForOSType: descType]];
 	return parameterString;
 }
 

@@ -45,6 +45,22 @@ void test_get_selected(EyeTunes *e) {
 	}
 }
 
+void test_dupe_selected_image(EyeTunes *e) {
+	NSLog(@"Selected Playlists:");
+	NSArray *selected = [e selectedTracks];
+	NSEnumerator *en = [selected objectEnumerator];
+	ETTrack *t = nil;
+	
+	while (t = [en nextObject]) {
+		NSArray *artwork = [t artwork];
+		if ([artwork count] > 0) {
+			NSImage *image = [artwork objectAtIndex:0];
+			[t setArtwork:image atIndex:1];
+		}
+		NSLog(@"> %@", [t name]);
+	}
+}
+
 void test_get_track(EyeTunes *e) {
 	ETTrack *t = [[e libraryPlaylist] trackWithDatabaseId:4141];
 	NSLog(@"Title: %@", [t name]);
@@ -54,10 +70,12 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
 	EyeTunes *e = [EyeTunes sharedInstance];
 	
-	//test_get_playlists(e);
-	//test_get_track(e);
-	//test_get_tracks_by_search(e);
+	test_get_playlists(e);
+	test_get_track(e);
+	test_get_tracks_by_search(e);
 	test_get_selected(e);
+	test_dupe_selected_image(e);
+	
 	[pool release];
     return 0;
 }

@@ -55,6 +55,7 @@
 + (AliasHandle)newAliasHandleWithPath:(NSString *)path;
 
 // AEGizmo String Generation
+- (NSString *) stringForOSType: (DescType) descType;
 - (NSString *)	eventParameterStringForCountElementsOfClass:(DescType)classType;
 - (NSString *)	eventParameterStringForElementOfClass:(DescType)classType atIndex:(int)index;
 - (NSString *)	eventParameterStringForProperty:(DescType)descType;
