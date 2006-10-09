@@ -526,8 +526,8 @@ cleanup_get_event:
 
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-- (ETPlaylist *)playlistWithPersistentId:(int)persistentId
+//#if ITUNES_VERSION > ITUNES_6_0
+- (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId
 {
 	
 	ETPlaylist *foundPlaylist = nil;
@@ -553,7 +553,11 @@ cleanup_reply_event:
 	return foundPlaylist;
 }
 
-#endif
+- (ETTrack *)trackWithPersistentId:(long long int)persistentId
+{
+	return [[self libraryPlaylist] trackWithPersistentId:persistentId];
+}
+//#endif
 
 
 @end

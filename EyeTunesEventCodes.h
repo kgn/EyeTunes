@@ -76,7 +76,7 @@ enum {
 	kETSearchAttributeSongs		= 'kSrs'	
 };
 
-#if ITUNES_COMPAT < ITUNES_6_0
+#if ITUNES_VERSION < ITUNES_6_0
 enum {
 	kETSpecialPlaylistNone				= 'kSpN',
 	kETSpecialPlaylistPartyShuffle		= 'kSpS',
@@ -189,7 +189,7 @@ enum {
 #define ET_TRACK_PROP_VOLUME_ADJ	'pAdj' // integer
 #define ET_TRACK_PROP_YEAR			'pYr ' // integer
 
-#if ITUNES_VER >= ITUNES_6_0_2
+#if ITUNES_VERSION >= ITUNES_6_0_2
 #define ET_TRACK_PROP_BOOKMARK		'pBkt' // integer
 #define ET_TRACK_PROP_BOOKMARKABLE	'pBkm' // boolean
 #define ET_TRACK_PROP_CATEGORY		'pCat' // utxt

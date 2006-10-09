@@ -55,15 +55,6 @@
 	return [[self trackEnumerator] allObjects];
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-- (long long int) persistentId
-{
-	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
-
-}
-#endif
-
-
 - (int) trackCount
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_TRACK];
@@ -100,8 +91,7 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-
+//#if ITUNES_VERSION > ITUNES_6_0
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId
 {
 	
@@ -128,7 +118,13 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
-#endif
+- (long long int) persistentId
+{
+	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+	
+}
+
+//#endif
 
 
 @end

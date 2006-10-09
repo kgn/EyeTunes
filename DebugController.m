@@ -28,7 +28,7 @@
 	NSEnumerator *iter = [e playlistEnumerator];
 	ETPlaylist *pl = nil;
 	while (pl = [iter nextObject]) {
-		NSString *playlistName = [NSString stringWithFormat:@"Playlist: %@\n", [pl name]];
+		NSString *playlistName = [NSString stringWithFormat:@"Playlist: %@ %lld\n", [pl name], [pl persistentId]];
 		NSAttributedString *astr = [[[NSAttributedString alloc] initWithString:playlistName attributes:attr] autorelease];
 		[text appendAttributedString:astr];
 		NSLog(@"Playlist Name: %@", [pl name]);

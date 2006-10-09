@@ -81,6 +81,34 @@ void test_set_track_details(EyeTunes *e) {
 	NSLog(@"Selected Track Renamed back to: %@", [t name]);
 }
 
+void test_track_persistent_id(EyeTunes *e) {
+	NSEnumerator *iter = [[e selectedTracks] objectEnumerator];
+	ETTrack *t = nil;
+	while (t = [iter nextObject]) {
+		long long int persistentId = [t persistentId];
+		NSLog(@"Track Persistent ID (%llx): %@", persistentId, [t name]);
+	}
+}
+
+void test_playlist_persistent_id(EyeTunes *e) {
+	ETPlaylist *pl;
+	NSEnumerator *iter = [e playlistEnumerator];
+	
+	while (pl = [iter nextObject]) {
+		long long int persistentId = [pl persistentId];
+		NSString *name = [pl name];
+		NSLog(@"Playlist: %@ (%llx): %lld", name, persistentId, persistentId);
+		ETPlaylist *fetchTry = [e playlistWithPersistentId:persistentId];
+		if (fetchTry)
+			NSLog(@"Fetch successful: %@", [fetchTry name]);
+	}
+}
+/*
+void test_select_playlist_by_persistent_id(EyeTunes *e) {
+	ETPlaylist *pl = [e playlistWithPersistentId:(long long int)0x226503a94aec44b2];
+	NSLog(@"Playlist : %@", [pl name]);
+}
+*/
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
 	EyeTunes *e = [EyeTunes sharedInstance];
@@ -90,8 +118,10 @@ int main (int argc, const char * argv[]) {
 	//test_get_tracks_by_search(e);
 	//test_get_selected(e);
 	//test_dupe_selected_image(e);
-	
-	test_set_track_details(e);
+	//test_set_track_details(e);
+	//test_playlist_persistent_id(e);
+	//test_select_playlist_by_persistent_id(e);
+	test_track_persistent_id(e);
 	
 	[pool release];
     return 0;

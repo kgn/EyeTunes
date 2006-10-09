@@ -282,25 +282,24 @@
 	return [self getPropertyAsPathURLForDesc:pETTrackLocation];
 }
 
-#if ITUNES_VER >= ITUNES_6_0_2
+//#if ITUNES_VERSION > ITUNES_6_0_1
 - (NSString *)lyrics
 {
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_LYRICS];
 }
-#endif
+//#endif
 
 - (NSDate *)modificationDate
 {
 	return [self getPropertyAsDateForDesc:ET_TRACK_PROP_MOD_DATE];
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
+//#if ITUNES_VERSION > ITUNES_6_0
 - (long long int) persistentId
 {
-	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
-	
+	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
 }
-#endif
+//#endif
 
 - (int)playedCount
 {
@@ -438,12 +437,12 @@
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_GROUPING];
 }
 
-#if ITUNES_VER >= ITUNES_6_0_2
+//#if ITUNES_VERSION > ITUNES_6_0_1
 - (void)setLyrics:(NSString *)newValue
 {
 	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_LYRICS];
 }
-#endif
+//#endif
 
 - (void)setPlayedCount:(int)newValue
 {

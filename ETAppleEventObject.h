@@ -38,6 +38,11 @@
  
 */
 
+// Important URLs: 
+// http://developer.apple.com/documentation/mac/IAC/IAC-230.html
+// http://developer.apple.com/documentation/AppleScript/Conceptual/AppleEvents/appendix3_aepg/chapter_12_section_1.html
+
+
 #import <Foundation/Foundation.h>
 #import "ETDebug.h"
 
@@ -61,7 +66,12 @@
 - (NSString *)	eventParameterStringForProperty:(DescType)descType;
 - (NSString *)	eventParameterStringForSettingProperty:(DescType)descType;
 - (NSString *)	eventParameterStringForSettingProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index;
-- (NSString *)	eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forIntValue:(int)value;
+- (NSString *)	eventParameterStringForTestObject:(DescType)objectType 
+									  forProperty:(DescType)propertyType 
+									  forIntValue:(int)value;
+- (NSString *)	eventParameterStringForTestObject:(DescType)objectType 
+									  forProperty:(DescType)propertyType;
+
 - (NSString *)	eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString;
 
 // Get/Set Object "Properties"
@@ -74,7 +84,12 @@
 - (int)				getCountOfElementsOfClass:(DescType)descType;
 - (AppleEvent *)	getElementOfClass:(DescType)classType atIndex:(int)index;
 - (AppleEvent *)	deleteAllElementsOfClass:(DescType)descType;
-- (AppleEvent *)	getElementOfClass:(DescType)classType byKey:(DescType)key withIntValue:(int)value;
+- (AppleEvent *)	getElementOfClass:(DescType)classType 
+								byKey:(DescType)key 
+						 withIntValue:(int)value;
+- (AppleEvent *)	getElementOfClass:(DescType)classType 
+								byKey:(DescType)key 
+					 withLongIntValue:(long long int)value;
 
 // not working yet
 //- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType;
@@ -83,11 +98,13 @@
 
 // Get/Set Properties directly
 - (int)			getPropertyAsIntegerForDesc:(DescType)descType;
+- (long long int)	getPropertyAsLongIntegerForDesc:(DescType)descType;
 - (NSString *)	getPropertyAsStringForDesc:(DescType)descType;
 - (NSDate *)	getPropertyAsDateForDesc:(DescType)descType;
 - (NSString *)  getPropertyAsPathForDesc:(DescType)descType;
 - (NSString *)  getPropertyAsPathURLForDesc:(DescType)descType;
 - (BOOL)		setPropertyWithInteger:(int)value forDesc:(DescType)descType;
+- (BOOL)		setPropertyWithLongInteger:(long long int)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithString:(NSString *)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithDate:(NSDate *)value forDesc:(DescType)descType;
 
@@ -101,11 +118,5 @@
 - (NSArray *)  getPropertyAsPathURLWithDumpForDesc:(DescType)descType;
 #endif
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-- (NSString *)	eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forLongIntValue:(long long int)value;
-- (AppleEvent *)	getElementOfClass:(DescType)classType byKey:(DescType)key withLongIntValue:(long long int)value;
-- (long long int)	getPropertyAsLongIntegerForDesc:(DescType)descType;
-- (BOOL)		setPropertyWithLongInteger:(long long int)value forDesc:(DescType)descType;
-#endif
 
 @end

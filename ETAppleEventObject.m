@@ -220,18 +220,15 @@
 	return parameterString;		
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-
-- (NSString *)eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType forLongIntValue:(long long int)value
+// Generic Apple Event Parameter GizmoString.
+- (NSString *)eventParameterStringForTestObject:(DescType)objectType forProperty:(DescType)propertyType
 {
-	NSString *parameterString = [NSString stringWithFormat:@"obj { form:test, want:type(%@), from:@, seld:cmpd{relo:=, 'obj1': obj{ form:prop, want:type(prop), seld:type(%@), from:exmn()}, obj2:long(%d)}}",
+	NSString *parameterString = [NSString stringWithFormat:@"obj { form:test, want:type(%@), from:@, seld:cmpd{relo:=, 'obj1': obj{ form:prop, want:type(prop), seld:type(%@), from:exmn()}, obj2:@}}",
 		[self stringForOSType: objectType],
-		[self stringForOSType: propertyType],
-		value];
+		[self stringForOSType: propertyType]
+		];
 	return parameterString;		
 }
-
-#endif
 
 - (NSString *)eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString
 {
@@ -529,17 +526,27 @@
 	return replyEvent;
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-
-- (AppleEvent *)	getElementOfClass:(DescType)classType byKey:(DescType)key withLongIntValue:(long long int)value
+- (AppleEvent *)	getElementOfClass:(DescType)classType 
+								byKey:(DescType)key 
+					 withLongIntValue:(long long int)value
 {
 	OSErr err;
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
+	AEDesc	   longValue = {typeNull,nil};
+
+	// Construct AEDesc manually rather than using AEBuildAppleEvent because
+	// AEGizmo don't support 64 bit reps.
+	err = AECreateDesc(typeSInt64, &value, 8, &longValue);
+	if (err != noErr) {
+		ETLog(@"Error constructing 64 bit integer descriptor: %d", err);
+		return nil;
+	}
 	
-	// TODO: make this generic (not specific to just int values)
-	NSString *testString = [self eventParameterStringForTestObject:classType forProperty:key forLongIntValue:value];
-	NSString *eventString = [self eventParameterStringForSearchingType:classType withTest:testString];
+	NSString *testString = [self eventParameterStringForTestObject:classType 
+													   forProperty:key];
+	NSString *eventString = [self eventParameterStringForSearchingType:classType 
+															  withTest:testString];
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
@@ -551,7 +558,10 @@
 							&getEvent,
 							NULL,
 							[eventString UTF8String],
-							refDescriptor);
+							refDescriptor,
+							&longValue);
+
+	AEDisposeDesc(&longValue);
 	
 	if (err != noErr) {
 		ETLog(@"Error creating Apple Event: %d", err);
@@ -565,13 +575,12 @@
 	if (err != noErr) {
 		ETLog(@"Error sending Apple Event: %d", err);
 		free(replyEvent);
+
 		return nil;
 	}
 	
 	return replyEvent;
 }
-
-#endif
 
 - (BOOL) setElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value
 {
@@ -676,8 +685,6 @@
 	return replyValue;
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-
 - (long long int) getPropertyAsLongIntegerForDesc:(DescType)descType
 {
 	OSErr err;
@@ -692,22 +699,18 @@
 		// TODO: raise exception?
 		return -1;
 	}
-	
+		
 	/* Read Results */
-	err = AEGetParamPtr(replyEvent, keyDirectObject, typeLongInteger, &resultType, 
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeSInt64, &resultType, 
 						&replyValue, sizeof(replyValue), &resultSize);
 	if (err != noErr) {
 		ETLog(@"Error extracting parameters from reply: %d", err);
 	}
 	
-	NSLog(@"long int size: %d", resultSize);
-	
 	AEDisposeDesc(replyEvent);
 	free(replyEvent);
 	return replyValue;
 }
-
-#endif
 
 - (NSString *)getPropertyAsStringForDesc:(DescType)descType
 {
@@ -861,15 +864,12 @@ cleanup_reply:
 	return success;
 }
 
-#if ET_EXPERIMENTAL_PERSISTENT_ID
-
 - (BOOL) setPropertyWithLongInteger:(long long int)value forDesc:(DescType)descType;
 {
 	OSErr err;
 	AEDesc valueDesc;
 	BOOL success;
-	
-	err = AEBuildDesc(&valueDesc, NULL, "doub(@)", value);
+	err = AECreateDesc(typeSInt64, &value, 8, &valueDesc);
 	if (err != noErr) {
 		ETLog(@"Error constructing parameters for set command: %d", err);
 		return NO;
@@ -879,8 +879,6 @@ cleanup_reply:
 	AEDisposeDesc(&valueDesc);
 	return success;
 }
-
-#endif
 
 
 - (BOOL) setPropertyWithString:(NSString *)value forDesc:(DescType)descType;
