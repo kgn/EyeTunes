@@ -136,6 +136,8 @@ enum {
 #define ET_APP_CURRENT_TRACK		'pTrk'
 #define ET_APP_CURRENT_VISUAL		'pVis'
 #define ET_APP_FIXED_INDEXING		'pFix'
+#define ET_APP_PLAYER_POSITION      'pPos'
+#define ET_APP_PLAYER_STATE         'pPlS'
 #define ET_APP_SELECTION			'sele'
 // --- itunes application parameters end ---
 

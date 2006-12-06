@@ -94,6 +94,10 @@
 - (void) setFixedIndexing:(BOOL)useFixedIndexing;
 - (NSArray *)selectedTracks;
 
+// state info. playerState returns kETPlayerState* in EyeTunesEventCode.h
+- (int)playerPosition;
+- (DescType)playerState;
+
 // no return value
 - (void)backTrack;
 - (void)fastForward;

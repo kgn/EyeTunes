@@ -40,10 +40,9 @@
 
 // Important URLs: 
 // http://developer.apple.com/documentation/mac/IAC/IAC-230.html
-// http://developer.apple.com/documentation/AppleScript/Conceptual/AppleEvents/appendix3_aepg/chapter_12_section_1.html
-
 
 #import <Foundation/Foundation.h>
+#import "EyeTunesEventCodes.h"
 #import "ETDebug.h"
 
 #define ET_APPLE_EVENT_OBJECT_DEFAULT_APPL 'hook'
@@ -97,6 +96,7 @@
 - (BOOL) setProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value;
 
 // Get/Set Properties directly
+- (DescType)    getPropertyAsEnumForDesc:(DescType)descType;
 - (int)			getPropertyAsIntegerForDesc:(DescType)descType;
 - (long long int)	getPropertyAsLongIntegerForDesc:(DescType)descType;
 - (NSString *)	getPropertyAsStringForDesc:(DescType)descType;

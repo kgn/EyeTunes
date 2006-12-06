@@ -658,6 +658,34 @@
 #pragma mark -
 
 
+- (DescType) getPropertyAsEnumForDesc:(DescType)descType
+{
+    OSErr err;
+
+    DescType        replyValue = kETPlayerStateStopped;
+    DescType        resultType;
+    Size            resultSize;
+
+    AppleEvent *replyEvent = [self getPropertyOfType:descType];
+
+    if (!replyEvent) {
+        // TODO: raise exception?
+        return -1;
+    }
+
+    /* Read Results */
+    err = AEGetParamPtr(replyEvent, keyDirectObject, typeEnumerated,  &resultType,
+                                &replyValue, sizeof(replyValue),  &resultSize);
+    if (err != noErr) {
+        ETLog(@"Error extracting parameters from reply: %d", err);
+    }
+
+    AEDisposeDesc(replyEvent);
+    free(replyEvent);
+    return replyValue;
+}
+
+
 - (int) getPropertyAsIntegerForDesc:(DescType)descType
 {
 	OSErr err;
