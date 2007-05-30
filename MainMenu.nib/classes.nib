@@ -1,10 +1,21 @@
 {
     IBClasses = (
         {
-            ACTIONS = {goButtonPressed = id; }; 
+            ACTIONS = {goButtonPressed = id; next = id; playPause = id; prev = id; }; 
             CLASS = DebugController; 
             LANGUAGE = ObjC; 
-            OUTLETS = {goButton = NSButton; output = NSTextView; window = NSWindow; }; 
+            OUTLETS = {
+                albumName = NSTextField; 
+                artistName = NSTextField; 
+                goButton = NSButton; 
+                imageView = NSImageView; 
+                nextButton = NSButton; 
+                output = NSTextView; 
+                playButton = NSButton; 
+                prevButton = NSButton; 
+                trackName = NSTextField; 
+                window = NSWindow; 
+            }; 
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }

@@ -7,13 +7,25 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "EyeTunes.h"
+#import <EyeTunes/EyeTunes.h>
 
 @interface DebugController : NSObject {
 	IBOutlet	NSWindow	*window;
 	IBOutlet	NSTextView	*output;
 	IBOutlet	NSButton	*goButton;
+	
+	IBOutlet	NSButton	*prevButton;
+	IBOutlet	NSButton	*playButton;
+	IBOutlet	NSButton	*nextButton;
+	IBOutlet	NSImageView	*imageView;
+	IBOutlet	NSTextField	*albumName;
+	IBOutlet	NSTextField	*artistName;
+	IBOutlet	NSTextField	*trackName;
 }
+
+- (IBAction) prev:(id)sender;
+- (IBAction) next:(id)sender;
+- (IBAction) playPause:(id)sender;
 
 - (IBAction) goButtonPressed:(id)sender;
 
