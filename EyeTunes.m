@@ -3,7 +3,7 @@
  EyeTunes.framework - Cocoa iTunes Interface
  http://www.liquidx.net/eyetunes/
  
- Copyright (c) 2005, Alastair Tse <alastair@liquidx.net>
+ Copyright (c) 2005-2007, Alastair Tse <alastair@liquidx.net>
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -37,6 +37,8 @@
 
 #import "EyeTunes.h"
 #import "ETPlaylistEnumerator.h"
+#import "EyeTunesEventCodes.h"
+#import "ETDebug.h"
 
 const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 
@@ -559,7 +561,7 @@ cleanup_get_event:
 	else {
 		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							 withStringValue:[NSString stringWithFormat:@"%llx", persistentId]];
+							 withStringValue:[NSString stringWithFormat:@"%llX", persistentId]];
 	}
 	
 	/* Read Results */

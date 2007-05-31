@@ -3,7 +3,7 @@
  EyeTunes.framework - Cocoa iTunes Interface
  http://www.liquidx.net/eyetunes/
  
- Copyright (c) 2005, Alastair Tse <alastair@liquidx.net>
+ Copyright (c) 2005-2007, Alastair Tse <alastair@liquidx.net>
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,9 @@
 */
 
 #import "ETPlaylist.h"
+#import "EyeTunesEventCodes.h"
 #import "ETTrackEnumerator.h"
+#import "ETDebug.h"
 
 @implementation ETPlaylist
 
@@ -107,7 +109,7 @@ cleanup_reply_event:
 	else {
 		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							 withStringValue:[NSString stringWithFormat:@"%llx", persistentId]];
+							 withStringValue:[NSString stringWithFormat:@"%llX", persistentId]];
 	}
 	/* Read Results */
 	AEDesc replyObject;
@@ -121,7 +123,7 @@ cleanup_reply_event:
 	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
 	
 cleanup_reply_event:
-		AEDisposeDesc(replyEvent);
+	AEDisposeDesc(replyEvent);
 	free(replyEvent);
 	
 	return foundTrack;
@@ -151,7 +153,7 @@ cleanup_reply_event:
 	}
 	
 	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) 
-		return [[NSString stringWithFormat:@"%llx",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+		return [[NSString stringWithFormat:@"%llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
 }

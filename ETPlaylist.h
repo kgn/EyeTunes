@@ -3,7 +3,7 @@
  EyeTunes.framework - Cocoa iTunes Interface
  http://www.liquidx.net/eyetunes/
  
- Copyright (c) 2005, Alastair Tse <alastair@liquidx.net>
+ Copyright (c) 2005-2007, Alastair Tse <alastair@liquidx.net>
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -34,13 +34,11 @@
  
 */
 
-#import <Foundation/Foundation.h>
-#import "ETDebug.h"
 #import "EyeTunesEventCodes.h"
 #import "ETAppleEventObject.h"
-#import "ETTrack.h"
 
 @class ETTrackEnumerator;
+@class ETTrack;
 
 @interface ETPlaylist : ETAppleEventObject {
 }

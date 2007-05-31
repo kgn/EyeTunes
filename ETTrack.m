@@ -3,7 +3,7 @@
  EyeTunes.framework - Cocoa iTunes Interface
  http://www.liquidx.net/eyetunes/
  
- Copyright (c) 2005, Alastair Tse <alastair@liquidx.net>
+ Copyright (c) 2005-2007, Alastair Tse <alastair@liquidx.net>
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,8 @@
 
 #import "ETTrack.h"
 #import "NSString+LongLongValue.h"
+#import "EyeTunesEventCodes.h"
+#import "ETDebug.h"
 
 @implementation ETTrack
 
@@ -320,7 +322,7 @@
 	}
 	
 	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) 
-		return [[NSString stringWithFormat:@"%llx",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+		return [[NSString stringWithFormat:@"%llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
 }

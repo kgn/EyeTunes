@@ -86,7 +86,7 @@ void test_track_persistent_id(EyeTunes *e) {
 	ETTrack *t = nil;
 	while (t = [iter nextObject]) {
 		long long int persistentId = [t persistentId];
-		NSLog(@"Track Persistent ID (%llx): %@", persistentId, [t name]);
+		NSLog(@"Track Persistent ID (%llX): %@", persistentId, [t name]);
 	}
 }
 
@@ -97,7 +97,7 @@ void test_playlist_persistent_id(EyeTunes *e) {
 	while (pl = [iter nextObject]) {
 		long long int persistentId = [pl persistentId];
 		NSString *name = [pl name];
-		NSLog(@"Playlist: %@ (%llx): %lld", name, persistentId, persistentId);
+		NSLog(@"Playlist: %@ (%llX): %lld", name, persistentId, persistentId);
 		ETPlaylist *fetchTry = [e playlistWithPersistentId:persistentId];
 		if (fetchTry)
 			NSLog(@"Fetch successful: %@", [fetchTry name]);
