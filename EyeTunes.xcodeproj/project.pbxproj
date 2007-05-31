@@ -213,8 +213,6 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				039620970C0DE71600786326 /* NSString+LongLongValue.h */,
-				039620980C0DE71600786326 /* NSString+LongLongValue.m */,
 				035B6F2A0884824800D0B89E /* EyeTunesEventCodes.h */,
 				031B4818088429A60086F24B /* EyeTunes.h */,
 				031B4819088429A60086F24B /* EyeTunes.m */,
@@ -230,6 +228,8 @@
 				032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */,
 				030BF9AB098CFFD100D68616 /* ETDebug.h */,
 				030BF9AC098CFFD100D68616 /* ETDebug.m */,
+				039620970C0DE71600786326 /* NSString+LongLongValue.h */,
+				039620980C0DE71600786326 /* NSString+LongLongValue.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

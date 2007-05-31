@@ -90,6 +90,7 @@
 	[self _append:[[e currentTrack] persistentIdAsString]];
 	[self _append:@"\n"];
 	long long int trackId = [[e currentTrack] persistentId];
+	NSString *trackIdString = [[e currentTrack] persistentIdAsString];
 	[self _append:[NSString stringWithFormat:@"%lld",trackId]];
 	[self _append:@"\n"];
 	
@@ -103,10 +104,16 @@
 
 	
 	ETTrack *track = [e trackWithPersistentId:trackId];
-	[self _append:@"Fetched track using persistent ID: "];
+	[self _append:@"Fetched track using persistent ID by long long int: "];
 	[self _append:[track name]];
 	[self _append:@"\n"];
+
 	
+	track = [e trackWithPersistentIdString:trackIdString];
+	[self _append:@"Fetched track using persistent ID by NSString: "];
+	[self _append:[track name]];
+	[self _append:@"\n"];
+
 }
 
 @end

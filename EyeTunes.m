@@ -595,6 +595,12 @@ cleanup_reply_event:
 	return [[self libraryPlaylist] trackWithPersistentId:persistentId];
 }
 
+- (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId
+{
+	return [[self libraryPlaylist] trackWithPersistentIdString:persistentId];
+}
+
+
 #pragma mark -
 #pragma mark Version Checking
 
@@ -608,8 +614,8 @@ cleanup_reply_event:
 }
 
 // generic version comparison 
-// versionLeft < versionRight = -1 (NSOrderedAscending
-// versionLeft > versionRight = 1 (NSOrderedDescending
+// versionLeft < versionRight = -1 (NSOrderedAscending)
+// versionLeft > versionRight = 1 (NSOrderedDescending)
 // versionLeft == versionRight = 0
 - (NSComparisonResult)compareVersion:(NSString *)versionLeft withVersion:(NSString *)versionRight
 {
@@ -656,6 +662,5 @@ cleanup_reply_event:
 	NSComparisonResult comparison = [self compareVersion:thisVersion withVersion:version];
 	return (comparison == NSOrderedAscending);
 }
-
 
 @end

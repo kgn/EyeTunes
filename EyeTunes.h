@@ -83,6 +83,7 @@
 // search for playlist by reference
 - (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId;
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;
+- (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId;
 
 // parameters
 - (ETTrack *)currentTrack;

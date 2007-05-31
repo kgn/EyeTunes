@@ -822,7 +822,7 @@
 		goto cleanup_reply;
 	}
 	
-	if (resultType == typeUnicodeText) {
+	if ((resultType == typeUnicodeText) || (resultType == typeVersion)) {
 		// unicode text
 		err = AEGetParamPtr(replyEvent, keyDirectObject, typeUnicodeText, &resultType, 
 							replyValue, resultSize, &resultSize);

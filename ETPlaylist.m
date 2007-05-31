@@ -37,6 +37,7 @@
 #import "ETPlaylist.h"
 #import "EyeTunesEventCodes.h"
 #import "ETTrackEnumerator.h"
+#import "NSString+LongLongValue.h"
 #import "ETDebug.h"
 
 @implementation ETPlaylist
@@ -128,6 +129,43 @@ cleanup_reply_event:
 	
 	return foundTrack;
 }
+
+- (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId
+{
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
+		return nil;
+	
+	ETTrack *foundTrack = nil;
+	AppleEvent *replyEvent;
+	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) {
+		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
+									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+							withLongIntValue:[persistentId longlongValue]];
+	}
+	else {
+		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+							 withStringValue:persistentId];
+	}
+	/* Read Results */
+	AEDesc replyObject;
+	OSErr err;
+	err = AEGetParamDesc(replyEvent, keyDirectObject, typeWildCard, &replyObject);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	foundTrack = [[[ETTrack alloc] initWithDescriptor:&replyObject] autorelease];
+	
+cleanup_reply_event:
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return foundTrack;
+}
+
 
 - (long long int) persistentId
 {

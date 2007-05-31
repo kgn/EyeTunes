@@ -53,6 +53,8 @@
 - (ETTrack *)trackWithDatabaseId:(int)databaseId;
 
 - (long long int)persistentId;
-- (ETTrack *)trackWithPersistentId:(long long int)persistentId;
 - (NSString *) persistentIdAsString;
+
+- (ETTrack *)trackWithPersistentId:(long long int)persistentId;
+- (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId;
 @end
