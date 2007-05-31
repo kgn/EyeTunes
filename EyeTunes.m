@@ -534,15 +534,33 @@ cleanup_get_event:
 
 }
 
+// Applescript example:
+// 
+// tell application "iTunes"
+//		set theId to persistent ID of current playlist
+//		playlist whose persistent ID is theId
+// end tell
+//
+// However, this doesn't work in ScriptEditor + iTunes 7.2?
+
 - (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId
 {
 	if (![self versionGreaterThan:@"6.0"])
 		return nil;
 	
 	ETPlaylist *foundPlaylist = nil;
-	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
-											   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-									withLongIntValue:persistentId];
+	AppleEvent *replyEvent;
+	
+	if ([self versionLessThan:@"7.2"]) {
+		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+							withLongIntValue:persistentId];
+	}
+	else {
+		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+							 withStringValue:[NSString stringWithFormat:@"%llx", persistentId]];
+	}
 	
 	/* Read Results */
 	AEDesc replyObject;
@@ -561,6 +579,14 @@ cleanup_reply_event:
 	
 	return foundPlaylist;
 }
+
+// Applescript Example:
+//
+// tell application "iTunes"
+//		set theId to persistent ID of current track
+//		track of current playlist whose persistent ID is theId
+// end tell
+//
 
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId
 {

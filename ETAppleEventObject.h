@@ -69,6 +69,9 @@
 									  forProperty:(DescType)propertyType 
 									  forIntValue:(int)value;
 - (NSString *)	eventParameterStringForTestObject:(DescType)objectType 
+									  forProperty:(DescType)propertyType 
+									  forStringValue:(NSString *)value;
+- (NSString *)	eventParameterStringForTestObject:(DescType)objectType 
 									  forProperty:(DescType)propertyType;
 
 - (NSString *)	eventParameterStringForSearchingType:(DescType)objectType withTest:(NSString *)testString;
@@ -89,6 +92,9 @@
 - (AppleEvent *)	getElementOfClass:(DescType)classType 
 								byKey:(DescType)key 
 					 withLongIntValue:(long long int)value;
+- (AppleEvent *)	getElementOfClass:(DescType)classType 
+								byKey:(DescType)key 
+					  withStringValue:(NSString *)value;
 
 // not working yet
 //- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType;

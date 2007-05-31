@@ -56,5 +56,5 @@
 
 - (long long int)persistentId;
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;
-
+- (NSString *) persistentIdAsString;
 @end

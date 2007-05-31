@@ -89,8 +89,22 @@
 	[self _append:@"\n"];	
 	[self _append:[[e currentTrack] persistentIdAsString]];
 	[self _append:@"\n"];
-	long long int x = [[e currentTrack] persistentId];
-	[self _append:[NSString stringWithFormat:@"%lld",x]];
+	long long int trackId = [[e currentTrack] persistentId];
+	[self _append:[NSString stringWithFormat:@"%lld",trackId]];
+	[self _append:@"\n"];
+	
+	long long int playlistId = [[e libraryPlaylist] persistentId];
+	[self _append:[NSString stringWithFormat:@"%lld",playlistId]];
+	[self _append:@"\n"];
+	ETPlaylist *playlist = [e playlistWithPersistentId:playlistId];
+	[self _append:@"Fetched playlist using persistent ID: "];
+	[self _append:[playlist name]];
+	[self _append:@"\n"];
+
+	
+	ETTrack *track = [e trackWithPersistentId:trackId];
+	[self _append:@"Fetched track using persistent ID: "];
+	[self _append:[track name]];
 	[self _append:@"\n"];
 	
 }

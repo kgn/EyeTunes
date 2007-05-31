@@ -93,14 +93,22 @@ cleanup_reply_event:
 
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId
 {
-	ETTrack *foundTrack = nil;
 	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
 		return nil;
-	
-	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_TRACK 
-											   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-									withLongIntValue:persistentId];
-	
+
+	ETTrack *foundTrack = nil;
+	AppleEvent *replyEvent;
+
+	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) {
+		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
+									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+							withLongIntValue:persistentId];
+	}
+	else {
+		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
+							 withStringValue:[NSString stringWithFormat:@"%llx", persistentId]];
+	}
 	/* Read Results */
 	AEDesc replyObject;
 	OSErr err;
@@ -121,12 +129,31 @@ cleanup_reply_event:
 
 - (long long int) persistentId
 {
-	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"]) {
+		ETLog(@"persistentId Unsupported");
 		return -1;
-		
-	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+	}
 	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"])
+		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
+	else {
+		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
+		return [persistentId longlongValue];
+	}
 }
 
+- (NSString *) persistentIdAsString
+{
+	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"]) {
+		ETLog(@"persistentIdAsString Unsupported");
+		return nil;
+	}
+	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) 
+		return [[NSString stringWithFormat:@"%llx",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+	else 
+		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+}
 
 @end
