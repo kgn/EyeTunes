@@ -835,6 +835,11 @@ cleanup_reply:
 // From looking at the dump, it determined that the magic number of bytes
 // to skip in the data that is returned is 7 bytes, and the string is not
 // a Unichar array, but a unsigned char.
+//
+// Ability to coerce typeVersion into typeUnicodeText was supposed to be in
+// Mac OS X 10.4 according to this:
+//
+// http://developer.apple.com/releasenotes/AppleScript/RN-AppleScript/index.html#//apple_ref/doc/uid/TP40000982-DontLinkElementID_17
 
 #define ET_TYPE_VERSION_MAGIC_BYTE_SKIP 7
 
