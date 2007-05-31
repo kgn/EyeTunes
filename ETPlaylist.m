@@ -108,7 +108,7 @@ cleanup_reply_event:
 							withLongIntValue:persistentId];
 	}
 	else {
-		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							 withStringValue:[NSString stringWithFormat:@"%llX", persistentId]];
 	}
@@ -144,7 +144,7 @@ cleanup_reply_event:
 							withLongIntValue:[persistentId longlongValue]];
 	}
 	else {
-		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
+		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							 withStringValue:persistentId];
 	}
