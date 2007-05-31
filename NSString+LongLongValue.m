@@ -8,13 +8,11 @@
 
 #import "NSString+LongLongValue.h"
 
-
 @implementation NSString (LongLongValue)
+
 - (long long int)longlongValue
 {
-	long long int v=0;
-	NSScanner* scanner = [NSScanner scannerWithString:self];
-	[scanner scanLongLong:&v];
+	long long int v = strtoull([self cString], NULL, 16);
 	return v;
 }
 @end

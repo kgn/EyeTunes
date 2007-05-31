@@ -79,7 +79,7 @@
 		031B4819088429A60086F24B /* EyeTunes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeTunes.m; sourceTree = "<group>"; };
 		031B486808843CF90086F24B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		031B48A9088444F60086F24B /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
-		032C0D9C0C0DEA3100E2FE97 /* TestEyeTunes */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = TestEyeTunes; sourceTree = BUILT_PRODUCTS_DIR; };
+		032C0D9C0C0DEA3100E2FE97 /* TestEyeTunes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestEyeTunes; sourceTree = BUILT_PRODUCTS_DIR; };
 		032CE8520886594100F33185 /* ETAppleEventObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETAppleEventObject.h; sourceTree = "<group>"; };
 		032CE8530886594100F33185 /* ETAppleEventObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETAppleEventObject.m; sourceTree = "<group>"; };
 		032CEB710886E48100F33185 /* ETPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPlaylist.h; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 		035B6F2A0884824800D0B89E /* EyeTunesEventCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunesEventCodes.h; sourceTree = "<group>"; };
 		035B70B70885537800D0B89E /* ETTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETTrack.h; sourceTree = "<group>"; };
 		035B70B80885537800D0B89E /* ETTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETTrack.m; sourceTree = "<group>"; };
-		03748E7A099D8AD4002F09C3 /* EyeTunesDebug.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EyeTunesDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03748E7A099D8AD4002F09C3 /* EyeTunesDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeTunesDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03748E7C099D8AD4002F09C3 /* EyeTunesDebug-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "EyeTunesDebug-Info.plist"; sourceTree = "<group>"; };
 		03749077099D8B48002F09C3 /* debug_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = debug_main.m; sourceTree = "<group>"; };
 		03749090099D8BEB002F09C3 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };

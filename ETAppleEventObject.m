@@ -748,7 +748,7 @@
 	DescType	resultType;
 	Size		resultSize;
 	NSString	*replyString = nil;
-	int i = 0;
+	int i;
 	
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	if (!replyEvent) {
@@ -769,21 +769,121 @@
 		goto cleanup_reply;
 	}
 	
+	if (resultType == typeUnicodeText) {
+		// unicode text
+		err = AEGetParamPtr(replyEvent, keyDirectObject, typeUnicodeText, &resultType, 
+							replyValue, resultSize, &resultSize);
 	
-	err = AEGetParamPtr(replyEvent, keyDirectObject, typeUnicodeText, &resultType, 
-						replyValue, resultSize, &resultSize);
+		if (err != noErr) {
+			ETLog(@"Unable to get coerce type of reply: %d", err);
+			goto cleanup_reply_and_tempstring;
+		}
+	
+		for (i = 0; i < resultSize/2; i++)
+			replyValue[i] = CFSwapInt16BigToHost(replyValue[i]);
+		
+		replyString = [[[NSString alloc] initWithBytes:replyValue 
+												length:resultSize 
+											  encoding:NSUnicodeStringEncoding] autorelease];
+	}
+	else if (resultType == typeChar) {
+		err =  AEGetParamPtr(replyEvent, keyDirectObject, typeChar, &resultType, 
+							 replyValue, resultSize, &resultSize);
+
+		if (err != noErr) {
+			ETLog(@"Unable to get coerce type of reply: %d", err);
+			goto cleanup_reply_and_tempstring;
+		}
+		
+		replyString = [[[NSString alloc] initWithBytes:replyValue 
+												length:resultSize
+											  encoding:NSASCIIStringEncoding] autorelease];
+	}
+	
+
+cleanup_reply_and_tempstring:
+	free(replyValue);
+cleanup_reply:
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	replyEvent = NULL;
+	
+	return replyString;
+}
+
+
+// NOTE: THIS IS A REALLY BIG HACK!
+// 
+// It is nearly impossible to cleanly get the version of an iTunes application.
+// In most Cocoa applications, this would return a typeUnicodeText:
+//
+// tell application "Safari"
+//		version
+// end tell
+// 
+// However, with iTunes, it returns a typeVersion. However, in Script Editor
+// it is able to coerce this into unicode text (typeUnicodeText) using this:
+//
+// tell application "iTunes"
+//		version as Unicode text
+// end tell
+//
+// But, it is impossible to do properly using AEGetParamPtr. Looking at the
+// data dump from AEMonitor, it does return back a typeVersion, so the
+// conversion seems to happen manually inside the AppleScript interpreter.
+//
+// From looking at the dump, it determined that the magic number of bytes
+// to skip in the data that is returned is 7 bytes, and the string is not
+// a Unichar array, but a unsigned char.
+
+#define ET_TYPE_VERSION_MAGIC_BYTE_SKIP 7
+
+- (NSString *)getPropertyAsVersionForDesc:(DescType)descType
+{
+	OSErr err;
+	
+	char		*replyValue = NULL;
+	DescType	resultType;
+	Size		resultSize;
+	NSString	*replyString = nil;
+	
+	AppleEvent *replyEvent = [self getPropertyOfType:typeVersion];
+	if (!replyEvent) {
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	err = AESizeOfParam(replyEvent, keyDirectObject, &resultType, &resultSize);
 	if (err != noErr) {
-		// TODO: raise error
+		ETLog(@"Unable to find length of reply string: %d", err);
+		goto cleanup_reply;
+	}
+	
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeVersion, &resultType, 
+						&replyValue, sizeof(replyValue), &resultSize);
+	if (err != noErr) {
 		ETLog(@"Unable to get parameter of reply: %d", err);
+		goto cleanup_reply;
+	}
+	
+	replyValue = malloc(resultSize + 1);
+	if (replyValue == NULL) {
+		// TODO: raise No Memory Exception
+		ETLog(@"No Memory Available");
+		goto cleanup_reply;
+	}
+	
+	// extract version
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeVersion, &resultType, 
+						replyValue, resultSize, &resultSize);
+	
+	if (err != noErr) {
+		ETLog(@"Unable to get coerce type of reply: %d", err);
 		goto cleanup_reply_and_tempstring;
 	}
-
-	for (i = 0; i < resultSize/2; i++)
-		replyValue[i] = CFSwapInt16BigToHost(replyValue[i]);
 	
-	replyString = [[[NSString alloc] initWithBytes:replyValue 
-											length:resultSize 
-										  encoding:NSUnicodeStringEncoding] autorelease];
+	replyString = [[[NSString alloc] initWithCString:replyValue+ET_TYPE_VERSION_MAGIC_BYTE_SKIP
+											encoding:NSASCIIStringEncoding] autorelease];
 	
 cleanup_reply_and_tempstring:
 	free(replyValue);
@@ -794,6 +894,7 @@ cleanup_reply:
 	
 	return replyString;
 }
+
 
 - (NSString *) getPropertyAsPathForDesc:(DescType)descType
 {

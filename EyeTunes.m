@@ -219,10 +219,9 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 #pragma mark iTunes Properties
 #pragma mark -
 
-// added by klep 060802
 - (int)playerPosition
 {
-   return (int)[self  getPropertyAsIntegerForDesc:ET_APP_PLAYER_POSITION];
+   return (int)[self getPropertyAsIntegerForDesc:ET_APP_PLAYER_POSITION];
 }
 
 - (DescType)playerState
@@ -519,8 +518,6 @@ cleanup_get_event:
 	
 }
 
-
-
 - (int) playlistCount
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_PLAYLIST];
@@ -537,9 +534,10 @@ cleanup_get_event:
 
 }
 
-//#if ITUNES_VERSION > ITUNES_6_0
 - (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId
 {
+	if (![self versionGreaterThan:@"6.0"])
+		return nil;
 	
 	ETPlaylist *foundPlaylist = nil;
 	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
@@ -568,7 +566,68 @@ cleanup_reply_event:
 {
 	return [[self libraryPlaylist] trackWithPersistentId:persistentId];
 }
-//#endif
+
+#pragma mark -
+#pragma mark Version Checking
+
+- (NSString *)version
+{
+	static NSString *_cachedVersion = nil;
+	if (_cachedVersion == nil) {
+		_cachedVersion = [[self getPropertyAsVersionForDesc:ET_APP_VERSION] retain];
+	}
+	return _cachedVersion;
+}
+
+// generic version comparison 
+// versionLeft < versionRight = -1 (NSOrderedAscending
+// versionLeft > versionRight = 1 (NSOrderedDescending
+// versionLeft == versionRight = 0
+- (NSComparisonResult)compareVersion:(NSString *)versionLeft withVersion:(NSString *)versionRight
+{
+	// initial sanity check
+	if ((versionLeft == nil) && (versionRight == nil))
+		return NSOrderedSame; // 0
+	if (versionLeft == nil)
+		return NSOrderedAscending; // -1
+	if (versionRight == nil)
+		return NSOrderedDescending; // 1
+	
+	
+	NSArray *left = [versionLeft componentsSeparatedByString:@"."];
+	NSArray *right = [versionRight componentsSeparatedByString:@"."];
+
+	int length = ([right count] > [left count]) ? [right count] : [left count];
+	int i;
+	
+	for (i = 0; i < length; i++) {
+		NSComparisonResult compareResult;
+		
+		if (i >= [left count]) return NSOrderedAscending; // 1
+		if (i >= [right count]) return NSOrderedDescending; // -1
+		
+		compareResult = [[left objectAtIndex:i] compare:[right objectAtIndex:i] options:NSNumericSearch];
+
+		if (compareResult != NSOrderedSame)
+			return compareResult;
+	}
+	
+	return NSOrderedSame;
+}
+
+- (BOOL) versionGreaterThan:(NSString *)version
+{
+	NSString *thisVersion = [self version];
+	NSComparisonResult comparison = [self compareVersion:thisVersion withVersion:version];
+	return (comparison == NSOrderedDescending);
+}
+
+- (BOOL) versionLessThan:(NSString *)version
+{
+	NSString *thisVersion = [self version];
+	NSComparisonResult comparison = [self compareVersion:thisVersion withVersion:version];
+	return (comparison == NSOrderedAscending);
+}
 
 
 @end

@@ -54,9 +54,7 @@
 - (NSEnumerator *)trackEnumerator;
 - (ETTrack *)trackWithDatabaseId:(int)databaseId;
 
-#if ITUNES_VERSION > ITUNES_6_0
 - (long long int)persistentId;
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;
-#endif
 
 @end

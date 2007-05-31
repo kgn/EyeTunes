@@ -139,6 +139,7 @@ enum {
 #define ET_APP_PLAYER_POSITION      'pPos'
 #define ET_APP_PLAYER_STATE         'pPlS'
 #define ET_APP_SELECTION			'sele'
+#define ET_APP_VERSION				'vers'
 // --- itunes application parameters end ---
 
 // --- track artwork start ---

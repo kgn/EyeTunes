@@ -76,6 +76,7 @@
 - (NSDate *)modificationDate;
 #if ITUNES_VERSION > ITUNES_6_0
 - (long long int)persistentId;
+- (NSString *) persistentIdAsString;
 #endif
 - (int)playedCount;
 - (NSDate *)playedDate;

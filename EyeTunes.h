@@ -50,7 +50,7 @@
 #import <ApplicationServices/ApplicationServices.h>
 
 // guard against exporting features that are not in earlier versions
-
+#define ITUNES_7_2		0x0720
 #define ITUNES_7_0_1	0x0701
 #define ITUNES_6_0_2	0x0602
 #define ITUNES_6_0_1	0x0601
@@ -81,10 +81,8 @@
 - (NSEnumerator *)playlistEnumerator;
 
 // search for playlist by reference
-#if ITUNES_VERSION > ITUNES_6_0
 - (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId;
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;
-#endif
 
 // parameters
 - (ETTrack *)currentTrack;
@@ -93,6 +91,12 @@
 - (BOOL) fixedIndexing;
 - (void) setFixedIndexing:(BOOL)useFixedIndexing;
 - (NSArray *)selectedTracks;
+
+// version
+- (NSString *)version;
+- (NSComparisonResult)compareVersion:(NSString *)versionLeft withVersion:(NSString *)versionRight;
+- (BOOL) versionGreaterThan:(NSString *)version;
+- (BOOL) versionLessThan:(NSString *)version;
 
 // state info. playerState returns kETPlayerState* in EyeTunesEventCode.h
 - (int)playerPosition;

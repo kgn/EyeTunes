@@ -103,11 +103,12 @@
 - (NSDate *)	getPropertyAsDateForDesc:(DescType)descType;
 - (NSString *)  getPropertyAsPathForDesc:(DescType)descType;
 - (NSString *)  getPropertyAsPathURLForDesc:(DescType)descType;
+- (NSString *)	getPropertyAsVersionForDesc:(DescType)descType;
+
 - (BOOL)		setPropertyWithInteger:(int)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithLongInteger:(long long int)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithString:(NSString *)value forDesc:(DescType)descType;
 - (BOOL)		setPropertyWithDate:(NSDate *)value forDesc:(DescType)descType;
-
 // Debug functions
 #ifdef ET_DEBUG
 + (void) printDescriptor:(AEDesc *)desc;

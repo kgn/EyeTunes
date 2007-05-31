@@ -35,6 +35,7 @@
 */
 
 #import "ETTrack.h"
+#import "NSString+LongLongValue.h"
 
 @implementation ETTrack
 
@@ -282,24 +283,47 @@
 	return [self getPropertyAsPathURLForDesc:pETTrackLocation];
 }
 
-//#if ITUNES_VERSION > ITUNES_6_0_1
 - (NSString *)lyrics
 {
+	if (![[EyeTunes sharedInstance] versionGreaterThan:@"6.0.1"])
+		return nil;
+
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_LYRICS];
 }
-//#endif
 
 - (NSDate *)modificationDate
 {
 	return [self getPropertyAsDateForDesc:ET_TRACK_PROP_MOD_DATE];
 }
 
-//#if ITUNES_VERSION > ITUNES_6_0
 - (long long int) persistentId
 {
-	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"]) {
+		ETLog(@"persistentId Unsupported");
+		return -1;
+	}
+	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"])
+		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
+	else {
+		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
+		return [persistentId longlongValue];
+	}
 }
-//#endif
+
+- (NSString *) persistentIdAsString
+{
+
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"]) {
+		ETLog(@"persistentIdAsString Unsupported");
+		return nil;
+	}
+	
+	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) 
+		return [[NSString stringWithFormat:@"%llx",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+	else 
+		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+}
 
 - (int)playedCount
 {
@@ -437,12 +461,13 @@
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_GROUPING];
 }
 
-//#if ITUNES_VERSION > ITUNES_6_0_1
 - (void)setLyrics:(NSString *)newValue
 {
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0.1"])
+		return;
+	
 	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_LYRICS];
 }
-//#endif
 
 - (void)setPlayedCount:(int)newValue
 {

@@ -91,11 +91,12 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
-//#if ITUNES_VERSION > ITUNES_6_0
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId
 {
-	
 	ETTrack *foundTrack = nil;
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
+		return nil;
+	
 	AppleEvent *replyEvent = [self getElementOfClass:ET_CLASS_TRACK 
 											   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 									withLongIntValue:persistentId];
@@ -120,11 +121,12 @@ cleanup_reply_event:
 
 - (long long int) persistentId
 {
+	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
+		return -1;
+		
 	return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];
 	
 }
-
-//#endif
 
 
 @end
