@@ -874,7 +874,7 @@ cleanup_reply:
 //		version
 // end tell
 // 
-// However, with iTunes, it returns a typeVersion. However, in Script Editor
+// However, with iTunes, it returns a typeVersion. Furthermore, Script Editor
 // it is able to coerce this into unicode text (typeUnicodeText) using this:
 //
 // tell application "iTunes"
@@ -882,8 +882,9 @@ cleanup_reply:
 // end tell
 //
 // But, it is impossible to do properly using AEGetParamPtr. Looking at the
-// data dump from AEMonitor, it does return back a typeVersion, so the
-// conversion seems to happen manually inside the AppleScript interpreter.
+// data dump from AEMonitor, it does return back an object of  typeVersion, 
+// rather than typeUnicodeText, so the conversion seems to happen manually 
+// inside the AppleScript interpreter.
 //
 // From looking at the dump, it determined that the magic number of bytes
 // to skip in the data that is returned is 7 bytes, and the string is not
@@ -939,6 +940,10 @@ cleanup_reply:
 		ETLog(@"Unable to get coerce type of reply: %d", err);
 		goto cleanup_reply_and_tempstring;
 	}
+	
+	NSLog(@"typeVersion Header: %02x%02x %02x%02x %02x%02x %02x%02x",
+		  replyValue[0], replyValue[1], replyValue[2], replyValue[3],
+		  replyValue[4], replyValue[5], replyValue[6], replyValue[7]);
 	
 	replyString = [[[NSString alloc] initWithCString:replyValue+ET_TYPE_VERSION_MAGIC_BYTE_SKIP
 											encoding:NSASCIIStringEncoding] autorelease];

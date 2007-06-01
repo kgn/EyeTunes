@@ -547,13 +547,13 @@ cleanup_get_event:
 
 - (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId
 {
-	if (![self versionGreaterThan:@"6.0"])
+	if (![self versionGreaterThan:ITUNES_6_0])
 		return nil;
 	
 	ETPlaylist *foundPlaylist = nil;
 	AppleEvent *replyEvent;
 	
-	if ([self versionLessThan:@"7.2"]) {
+	if ([self versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							withLongIntValue:persistentId];
@@ -604,7 +604,7 @@ cleanup_reply_event:
 #pragma mark -
 #pragma mark Version Checking
 
-- (NSString *)version
+- (NSString *)versionString
 {
 	static NSString *_cachedVersion = nil;
 	if (_cachedVersion == nil) {
@@ -613,54 +613,31 @@ cleanup_reply_event:
 	return _cachedVersion;
 }
 
-// generic version comparison 
-// versionLeft < versionRight = -1 (NSOrderedAscending)
-// versionLeft > versionRight = 1 (NSOrderedDescending)
-// versionLeft == versionRight = 0
-- (NSComparisonResult)compareVersion:(NSString *)versionLeft withVersion:(NSString *)versionRight
+- (unsigned int)versionNumber
 {
-	// initial sanity check
-	if ((versionLeft == nil) && (versionRight == nil))
-		return NSOrderedSame; // 0
-	if (versionLeft == nil)
-		return NSOrderedAscending; // -1
-	if (versionRight == nil)
-		return NSOrderedDescending; // 1
-	
-	
-	NSArray *left = [versionLeft componentsSeparatedByString:@"."];
-	NSArray *right = [versionRight componentsSeparatedByString:@"."];
-
-	int length = ([right count] > [left count]) ? [right count] : [left count];
-	int i;
-	
-	for (i = 0; i < length; i++) {
-		NSComparisonResult compareResult;
-		
-		if (i >= [left count]) return NSOrderedAscending; // 1
-		if (i >= [right count]) return NSOrderedDescending; // -1
-		
-		compareResult = [[left objectAtIndex:i] compare:[right objectAtIndex:i] options:NSNumericSearch];
-
-		if (compareResult != NSOrderedSame)
-			return compareResult;
+	static unsigned int _cachedVersionInt = 0;
+	if (_cachedVersionInt == 0) {
+		NSArray *components = [[self versionString] componentsSeparatedByString:@"."];
+		int i;
+		for (i = 0; i < [components count] && i < 3; i++) {
+			_cachedVersionInt |= ([[components objectAtIndex:i] intValue] & 0xff) << (8 - 4*i);
+		}
+		NSLog(@"Version: %04X", _cachedVersionInt);
 	}
-	
-	return NSOrderedSame;
+	return _cachedVersionInt;
 }
 
-- (BOOL) versionGreaterThan:(NSString *)version
+- (BOOL) versionGreaterThan:(unsigned int)version
 {
-	NSString *thisVersion = [self version];
-	NSComparisonResult comparison = [self compareVersion:thisVersion withVersion:version];
-	return (comparison == NSOrderedDescending);
+	unsigned int currentVersion = [self versionNumber];
+	return !!(currentVersion > version);
 }
 
-- (BOOL) versionLessThan:(NSString *)version
+- (BOOL) versionLessThan:(unsigned int)version
 {
-	NSString *thisVersion = [self version];
-	NSComparisonResult comparison = [self compareVersion:thisVersion withVersion:version];
-	return (comparison == NSOrderedAscending);
+	unsigned int currentVersion = [self versionNumber];
+	return !!(currentVersion < version);
 }
+
 
 @end

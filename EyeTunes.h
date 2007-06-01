@@ -49,19 +49,8 @@
 #import <Foundation/Foundation.h>
 #import <ApplicationServices/ApplicationServices.h>
 
-// guard against exporting features that are not in earlier versions
-#define ITUNES_7_2		0x0720
-#define ITUNES_7_0_1	0x0701
-#define ITUNES_6_0_2	0x0602
-#define ITUNES_6_0_1	0x0601
-#define ITUNES_6_0		0x0600
-#define ITUNES_4_0		0x0400
-
-//#ifndef ITUNES_VERSION
-#define	ITUNES_VERSION 0xffff
-//#endif
-
 #import "ETDebug.h"
+#import "EyeTunesVersions.h"
 #import "EyeTunesEventCodes.h"
 #import "ETAppleEventObject.h"
 #import "ETTrack.h"

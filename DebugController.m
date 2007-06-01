@@ -29,34 +29,36 @@
 	[self _append:@"\n"];
 	
 	[self _append:@"Is greater than 7.3?"];
-	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:@"7.3"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:0x0730] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 
 	[self _append:@"Is greater than 7.2.1?"];
-	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:@"7.2.1"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:0x0721] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 	
 	
 	[self _append:@"Is greater than 7.2?"];
-	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:@"7.2"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 
 	[self _append:@"Is greater than 7.1?"];
-	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:@"7.1"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_1] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 
 	[self _append:@"Is less than 7.3?"];
-	[self _append:[[EyeTunes sharedInstance] versionLessThan:@"7.3"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_3] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 
 	[self _append:@"Is less than 7.2?"];
-	[self _append:[[EyeTunes sharedInstance] versionLessThan:@"7.2"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 	
 	
 	[self _append:@"Is less than 6.0?"];
-	[self _append:[[EyeTunes sharedInstance] versionLessThan:@"6.0"] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
+	
+	[[EyeTunes sharedInstance] versionAsInt];
 	
 	
 }

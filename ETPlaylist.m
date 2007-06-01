@@ -96,13 +96,13 @@ cleanup_reply_event:
 
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId
 {
-	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0])
 		return nil;
 
 	ETTrack *foundTrack = nil;
 	AppleEvent *replyEvent;
 
-	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) {
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							withLongIntValue:persistentId];
@@ -132,13 +132,13 @@ cleanup_reply_event:
 
 - (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId
 {
-	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"])
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0])
 		return nil;
 	
 	ETTrack *foundTrack = nil;
 	AppleEvent *replyEvent;
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) {
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							withLongIntValue:[persistentId longlongValue]];
@@ -169,12 +169,12 @@ cleanup_reply_event:
 
 - (long long int) persistentId
 {
-	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"]) {
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0]) {
 		ETLog(@"persistentId Unsupported");
 		return -1;
 	}
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"])
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
 		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
 	else {
 		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
@@ -185,12 +185,12 @@ cleanup_reply_event:
 - (NSString *) persistentIdAsString
 {
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:@"6.0"]) {
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0]) {
 		ETLog(@"persistentIdAsString Unsupported");
 		return nil;
 	}
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:@"7.2"]) 
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) 
 		return [[NSString stringWithFormat:@"%llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
