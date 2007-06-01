@@ -36,24 +36,67 @@
  
 */
 
-/*
-
- 
-0.2 : backwards incompatible changes
-  * ETAppleEventObject : getCountofElementClass.. returns int rather than AppleEvent*
-  * ETTrack : databaseID renamed to databaseId
-	          group renamed to grouping, type changed from int to NSString*
- 
-*/
-
 #import <Foundation/Foundation.h>
-#import <ApplicationServices/ApplicationServices.h>
-
-#import "EyeTunesVersions.h"
-#import "EyeTunesEventCodes.h"
-#import "ETDebug.h"
 
 #import "ETAppleEventObject.h"
-#import "ETEyeTunes.h"
-#import "ETTrack.h"
-#import "ETPlaylist.h"
+
+@class ETTrack, ETPlaylist;
+
+@interface EyeTunes : ETAppleEventObject {
+}
+
++ (EyeTunes *) sharedInstance;
+
+// things that return a Track object
+- (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode;
+
+// get all playlists
+- (int)playlistCount;
+- (NSArray *)playlists;
+- (NSEnumerator *)playlistEnumerator;
+
+// search for playlist by reference
+- (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId;
+- (ETTrack *)trackWithPersistentId:(long long int)persistentId;
+- (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId;
+
+// parameters
+- (ETTrack *)currentTrack;
+- (ETPlaylist *)currentPlaylist;
+- (ETPlaylist *)libraryPlaylist;
+- (BOOL) fixedIndexing;
+- (void) setFixedIndexing:(BOOL)useFixedIndexing;
+- (NSArray *)selectedTracks;
+
+// version
+- (NSString *)versionString;
+- (unsigned int)versionNumber;
+- (BOOL) versionGreaterThan:(unsigned int)version;
+- (BOOL) versionLessThan:(unsigned int)version;
+
+// state info. playerState returns kETPlayerState* in EyeTunesEventCode.h
+- (int)playerPosition;
+- (DescType)playerState;
+
+// no return value
+- (void)backTrack;
+- (void)fastForward;
+- (void)nextTrack;
+- (void)pause;
+- (void)play;
+- (void)playTrack:(ETTrack *)track;
+- (void)playTrackWithPath:(NSString *)path;
+- (void)playPause;
+- (void)previousTrack;
+- (void)resume;
+- (void)rewind;
+- (void)stop;
+
+// TODO: - (id)addTrack:(NSURL *)fromlocation toLocation:(NSURL *)toLocation;
+// TODO: - (id)convertTrack:(id)trackReference;
+// TODO: - (void)refresh:(id)fileTrack;
+// TODO: - (void)update:(id)iPod;
+// TODO: - (void)eject:(id)iPod;
+// TODO: - (void)subscribe:(NSString *)streamURL;
+
+@end

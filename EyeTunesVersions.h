@@ -10,6 +10,6 @@
 #define ITUNES_6_0		0x0600
 #define ITUNES_4_0		0x0400
 
-//#ifndef ITUNES_VERSION
+// Enable all features by default.
 #define	ITUNES_VERSION 0xffff
-//#endif
+

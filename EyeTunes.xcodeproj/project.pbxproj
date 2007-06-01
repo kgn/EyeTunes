@@ -15,9 +15,8 @@
 		030BFB93098D517A00D68616 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
 		0313DDED0C10DFB400F401BB /* ETEyeTunes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0313DDEC0C10DFB400F401BB /* ETEyeTunes.h */; };
 		0313DE1D0C10E09900F401BB /* EyeTunesVersions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0313DE1C0C10E09900F401BB /* EyeTunesVersions.h */; };
+		0313DE490C10E1ED00F401BB /* ETEyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0313DE480C10E1ED00F401BB /* ETEyeTunes.m */; };
 		031B481A088429A60086F24B /* EyeTunes.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B4818088429A60086F24B /* EyeTunes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		031B481B088429A60086F24B /* EyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B4819088429A60086F24B /* EyeTunes.m */; };
-		031B484908843CAB0086F24B /* EyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B4819088429A60086F24B /* EyeTunes.m */; };
 		031B486908843CF90086F24B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B486808843CF90086F24B /* main.m */; };
 		031B48AA088444F60086F24B /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031B48A9088444F60086F24B /* ApplicationServices.framework */; };
 		031B48AB088444F60086F24B /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031B48A9088444F60086F24B /* ApplicationServices.framework */; };
@@ -79,8 +78,8 @@
 		030BFB91098D517A00D68616 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		0313DDEC0C10DFB400F401BB /* ETEyeTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETEyeTunes.h; sourceTree = "<group>"; };
 		0313DE1C0C10E09900F401BB /* EyeTunesVersions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunesVersions.h; sourceTree = "<group>"; };
+		0313DE480C10E1ED00F401BB /* ETEyeTunes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETEyeTunes.m; sourceTree = "<group>"; };
 		031B4818088429A60086F24B /* EyeTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunes.h; sourceTree = "<group>"; };
-		031B4819088429A60086F24B /* EyeTunes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeTunes.m; sourceTree = "<group>"; };
 		031B486808843CF90086F24B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		031B48A9088444F60086F24B /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		032C0D9C0C0DEA3100E2FE97 /* TestEyeTunes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestEyeTunes; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,10 +216,11 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0313DE1C0C10E09900F401BB /* EyeTunesVersions.h */,
 				035B6F2A0884824800D0B89E /* EyeTunesEventCodes.h */,
 				031B4818088429A60086F24B /* EyeTunes.h */,
 				0313DDEC0C10DFB400F401BB /* ETEyeTunes.h */,
-				031B4819088429A60086F24B /* EyeTunes.m */,
+				0313DE480C10E1ED00F401BB /* ETEyeTunes.m */,
 				035B70B70885537800D0B89E /* ETTrack.h */,
 				035B70B80885537800D0B89E /* ETTrack.m */,
 				032CE8520886594100F33185 /* ETAppleEventObject.h */,
@@ -235,7 +235,6 @@
 				030BF9AC098CFFD100D68616 /* ETDebug.m */,
 				039620970C0DE71600786326 /* NSString+LongLongValue.h */,
 				039620980C0DE71600786326 /* NSString+LongLongValue.m */,
-				0313DE1C0C10E09900F401BB /* EyeTunesVersions.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -385,7 +384,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				031B484908843CAB0086F24B /* EyeTunes.m in Sources */,
 				031B486908843CF90086F24B /* main.m in Sources */,
 				035B70BB0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8540886594100F33185 /* ETAppleEventObject.m in Sources */,
@@ -409,7 +407,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				031B481B088429A60086F24B /* EyeTunes.m in Sources */,
 				035B70BA0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8560886594100F33185 /* ETAppleEventObject.m in Sources */,
 				032CEB750886E48100F33185 /* ETPlaylist.m in Sources */,
@@ -417,6 +414,7 @@
 				032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
 				030BF9AE098CFFD100D68616 /* ETDebug.m in Sources */,
 				0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */,
+				0313DE490C10E1ED00F401BB /* ETEyeTunes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

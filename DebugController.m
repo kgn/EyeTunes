@@ -25,7 +25,7 @@
 - (void) awakeFromNib
 {
 	[self _append:@"Version: "];
-	[self _append:[[EyeTunes sharedInstance] version]];
+	[self _append:[[EyeTunes sharedInstance] versionString]];
 	[self _append:@"\n"];
 	
 	[self _append:@"Is greater than 7.3?"];
@@ -58,7 +58,7 @@
 	[self _append:[[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 	
-	[[EyeTunes sharedInstance] versionAsInt];
+	[[EyeTunes sharedInstance] versionNumber];
 	
 	
 }

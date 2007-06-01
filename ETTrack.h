@@ -36,12 +36,10 @@
  
 */
 
+#import <Foundation/Foundation.h>
 #import "ETAppleEventObject.h"
 
-@class EyeTunes; 
-
 @interface ETTrack : ETAppleEventObject {
-
 }
 
 - (id) initWithDescriptor:(AEDesc *)desc;
@@ -66,14 +64,10 @@
 - (NSString *)grouping;
 - (NSString *)kind;
 - (NSString *)location;
-#if ITUNES_VERSION > ITUNES_6_0_1
-- (NSString *)lyrics;
-#endif
+- (NSString *)lyrics;					// >6.0.1
 - (NSDate *)modificationDate;
-#if ITUNES_VERSION > ITUNES_6_0
-- (long long int)persistentId;
-- (NSString *) persistentIdAsString;
-#endif
+- (long long int)persistentId;			// >=6.0
+- (NSString *) persistentIdAsString;	// >=6.0
 - (int)playedCount;
 - (NSDate *)playedDate;
 - (BOOL)podcast;
@@ -101,9 +95,7 @@
 - (void)setFinish:(int)newValue;
 - (void)setGenre:(NSString *)newValue;
 - (void)setGrouping:(NSString *)newValue;
-#if ITUNES_VERSION > ITUNES_6_0_1
-- (void)setLyrics:(NSString *)newValue;
-#endif
+- (void)setLyrics:(NSString *)newValue;	// >6.0.1
 - (void)setPlayedCount:(int)newValue;
 - (void)setPlayedDate:(NSDate *)newValue;
 - (void)setRating:(int)newValue;

@@ -34,10 +34,13 @@
  
 */
 
-
-#import "EyeTunes.h"
+#import <ApplicationServices/ApplicationServices.h>
+#import "EyeTunesVersions.h"
+#import "ETEyeTunes.h"
+#import "ETTrack.h"
+#import "ETPlaylist.h"
 #import "ETPlaylistEnumerator.h"
-#import "EyeTunesEventCodes.h"
+
 #import "ETDebug.h"
 
 const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
@@ -622,7 +625,6 @@ cleanup_reply_event:
 		for (i = 0; i < [components count] && i < 3; i++) {
 			_cachedVersionInt |= ([[components objectAtIndex:i] intValue] & 0xff) << (8 - 4*i);
 		}
-		NSLog(@"Version: %04X", _cachedVersionInt);
 	}
 	return _cachedVersionInt;
 }

@@ -35,11 +35,9 @@
  */
 
 #import "EyeTunesEventCodes.h"
+#import "ETEyeTunes.h"
 #import "ETPlaylistEnumerator.h"
 #import "ETPlaylist.h"
-
-@class EyeTunes;
-
 
 @implementation ETPlaylistEnumerator
 
