@@ -1,3 +1,11 @@
+01 Jun 2007; EyeTunes-1.3; Alastair Tse <alastiar@liquidx.net>
+   * Changed version to versionString and versionNumber (BACKWARDS INCOMPAT)
+     so that version comparisons are much more simple.
+   * Fixed header include circular deps that caused many warnings when
+     compiling. EyeTunes.h moved to ETEyeTunes.h, and thus EyeTunes.h
+     is now just an umbrella header file to include all the EyeTunes
+     component.
+     
 31 May 2007; EyeTunes-1.2; Alastair Tse <alastair@liquidx.net>
    * Added version detection and parsing for iTunes (typeVersion).
    * Updated the EyeTunesDebug application to demonstrate simply querying.

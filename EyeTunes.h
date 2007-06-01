@@ -38,6 +38,8 @@
 
 /*
 
+1.3 : Moved the actual concrete EyeTunes object implementation to ETEyeTunes.h/m
+      to avoid circular dependencies.
  
 0.2 : backwards incompatible changes
   * ETAppleEventObject : getCountofElementClass.. returns int rather than AppleEvent*
@@ -51,7 +53,6 @@
 
 #import "EyeTunesVersions.h"
 #import "EyeTunesEventCodes.h"
-#import "ETDebug.h"
 
 #import "ETAppleEventObject.h"
 #import "ETEyeTunes.h"
