@@ -1,4 +1,7 @@
-01 Jun 2007; EyeTunes-1.3; Alastair Tse <alastiar@liquidx.net>
+03 Jun 2007; EyeTunes-1.3.1; Alastair Tse <alastair@liquidx.net>
+   * Removed accidentally left behind debugging string.
+   
+01 Jun 2007; EyeTunes-1.3; Alastair Tse <alastair@liquidx.net>
    * Changed version to versionString and versionNumber (BACKWARDS INCOMPAT)
      so that version comparisons are much more simple.
    * Fixed header include circular deps that caused many warnings when
