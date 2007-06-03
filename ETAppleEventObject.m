@@ -940,11 +940,7 @@ cleanup_reply:
 		ETLog(@"Unable to get coerce type of reply: %d", err);
 		goto cleanup_reply_and_tempstring;
 	}
-	
-	NSLog(@"typeVersion Header: %02x%02x %02x%02x %02x%02x %02x%02x",
-		  replyValue[0], replyValue[1], replyValue[2], replyValue[3],
-		  replyValue[4], replyValue[5], replyValue[6], replyValue[7]);
-	
+		
 	replyString = [[[NSString alloc] initWithCString:replyValue+ET_TYPE_VERSION_MAGIC_BYTE_SKIP
 											encoding:NSASCIIStringEncoding] autorelease];
 	
