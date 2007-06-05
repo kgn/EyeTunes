@@ -108,17 +108,52 @@ void rename_chinese_tracks(EyeTunes *e) {
 	ETPlaylist *library = [e libraryPlaylist];
 	NSEnumerator *trackEnum = [library trackEnumerator];
 	ETTrack *t;
+	NSString *artist;
+	NSString *chinese, *english, *newArtist;
+	NSCharacterSet *white = [NSCharacterSet whitespaceCharacterSet];
+	
+	int splitPos = NSNotFound;
+	
 	while (t = [trackEnum nextObject]) {
-		NSLog(@"%@ %@ %@", [t artist], [t albumArtist], [t genre]);
+		if ([[t genre] isEqual:@"Chinese"]) {
+			newArtist = nil;
+			artist = [t artist];
+			if (artist && ([artist length] > 0) && ([artist characterAtIndex:0] > 127)) {
+				splitPos = [artist rangeOfCharacterFromSet:white].location;
+				if (splitPos != NSNotFound) {
+					chinese = [artist substringToIndex:splitPos];
+					english = [artist substringFromIndex:splitPos+1];
+					if (chinese && [chinese length] > 0 && english && [english length] > 0) {					
+						newArtist = [NSString stringWithFormat:@"%@ %@", english, chinese];
+						[t setArtist:newArtist];
+					}
+				}
+			}
+			
+			
+			if (artist && ([artist length] > 0)) {
+				NSLog(@"(%d) %@ -> %@", [artist characterAtIndex:0], artist, newArtist);
+			}
+			
+			newArtist = nil;
+			artist = [t albumArtist];
+			if (artist && ([artist length] > 0) && ([artist characterAtIndex:0] > 127)) {
+				splitPos = [artist rangeOfCharacterFromSet:white].location;
+				if (splitPos != NSNotFound) {
+					chinese = [artist substringToIndex:splitPos];
+					english = [artist substringFromIndex:splitPos+1];
+					if (chinese && [chinese length] > 0 && english && [english length] > 0) {					
+						newArtist = [NSString stringWithFormat:@"%@ %@", english, chinese];
+						[t setAlbumArtist:newArtist];
+					}
+				}
+			}
+			
+			
+		}
 	}
 }
 
-/*
-void test_select_playlist_by_persistent_id(EyeTunes *e) {
-	ETPlaylist *pl = [e playlistWithPersistentId:(long long int)0x226503a94aec44b2];
-	NSLog(@"Playlist : %@", [pl name]);
-}
-*/
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
 	EyeTunes *e = [EyeTunes sharedInstance];
@@ -131,7 +166,9 @@ int main (int argc, const char * argv[]) {
 	//test_set_track_details(e);
 	//test_playlist_persistent_id(e);
 	//test_select_playlist_by_persistent_id(e);
-	test_track_persistent_id(e);
+	//test_track_persistent_id(e);
+	
+	rename_chinese_tracks(e);
 	
 	[pool release];
     return 0;
