@@ -119,6 +119,9 @@
 	[self _append:@"Fetched track using persistent ID by NSString: "];
 	[self _append:[track name]];
 	[self _append:@"\n"];
+	
+	NSImage *testImage = [[track artwork] objectAtIndex:0]; 
+	[track setArtwork:testImage atIndex:1];
 
 }
 

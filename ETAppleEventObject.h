@@ -95,7 +95,7 @@
 					  withStringValue:(NSString *)value;
 
 // not working yet
-//- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType;
+- (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType;
 - (BOOL) setElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value;
 - (BOOL) setProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value;
 

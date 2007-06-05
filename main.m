@@ -168,7 +168,7 @@ int main (int argc, const char * argv[]) {
 	//test_select_playlist_by_persistent_id(e);
 	//test_track_persistent_id(e);
 	
-	rename_chinese_tracks(e);
+	//rename_chinese_tracks(e);
 	
 	[pool release];
     return 0;
