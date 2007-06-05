@@ -86,7 +86,7 @@ void test_track_persistent_id(EyeTunes *e) {
 	ETTrack *t = nil;
 	while (t = [iter nextObject]) {
 		long long int persistentId = [t persistentId];
-		NSLog(@"Track Persistent ID (%llX): %@", persistentId, [t name]);
+		NSLog(@"Track Persistent ID (%016llX): %@", persistentId, [t name]);
 	}
 }
 
@@ -97,12 +97,22 @@ void test_playlist_persistent_id(EyeTunes *e) {
 	while (pl = [iter nextObject]) {
 		long long int persistentId = [pl persistentId];
 		NSString *name = [pl name];
-		NSLog(@"Playlist: %@ (%llX): %lld", name, persistentId, persistentId);
+		NSLog(@"Playlist: %@ (%016llX): %lld", name, persistentId, persistentId);
 		ETPlaylist *fetchTry = [e playlistWithPersistentId:persistentId];
 		if (fetchTry)
 			NSLog(@"Fetch successful: %@", [fetchTry name]);
 	}
 }
+
+void rename_chinese_tracks(EyeTunes *e) {
+	ETPlaylist *library = [e libraryPlaylist];
+	NSEnumerator *trackEnum = [library trackEnumerator];
+	ETTrack *t;
+	while (t = [trackEnum nextObject]) {
+		NSLog(@"%@ %@ %@", [t artist], [t albumArtist], [t genre]);
+	}
+}
+
 /*
 void test_select_playlist_by_persistent_id(EyeTunes *e) {
 	ETPlaylist *pl = [e playlistWithPersistentId:(long long int)0x226503a94aec44b2];

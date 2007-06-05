@@ -472,7 +472,7 @@
 					</property>
 					<property name="name" code="pnam" type="utxt" access="rw" description="the name of the item">
 					</property>
-					<property name="persistent ID" code="pPID" type="string" access="r" description="the id of the item. This id does not change over time.">
+					<property name="persistent ID" code="pPID" type="comp" access="r" description="the id of the item. This id does not change over time.">
 					</property>
 				</properties>
 			</class>
@@ -653,7 +653,7 @@
 				<properties>
 					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
-					<property name="album" code="pAlb" type="utxt" access="rw" description="the album name of the track">
+					<property name="album" code="pAlb" type="utxt" access="rw" description="the a">
 					</property>
 					<property name="album artist" code="pAlA" type="utxt" access="rw" description="the album artist of the track">
 					</property>
@@ -731,18 +731,6 @@
 					</property>
 					<property name="show" code="pShw" type="utxt" access="rw" description="the show name of the track">
 					</property>
-					<property name="sort album" code="pSAl" type="utxt" access="rw" description="override string to use for the track when sorting by album">
-					</property>
-					<property name="sort artist" code="pSAr" type="utxt" access="rw" description="override string to use for the track when sorting by artist">
-					</property>
-					<property name="sort album artist" code="pSAA" type="utxt" access="rw" description="override string to use for the track when sorting by album artist">
-					</property>
-					<property name="sort name" code="pSNm" type="utxt" access="rw" description="override string to use for the track when sorting by name">
-					</property>
-					<property name="sort composer" code="pSCm" type="utxt" access="rw" description="override string to use for the track when sorting by composer">
-					</property>
-					<property name="sort show" code="pSSN" type="utxt" access="rw" description="override string to use for the track when sorting by show name">
-					</property>
 					<property name="size" code="pSiz" type="integer" access="r" description="the size of the track (in bytes)">
 					</property>
 					<property name="start" code="pStr" type="sing" access="rw" description="the start time of the track in seconds">
@@ -752,8 +740,6 @@
 					<property name="track count" code="pTrC" type="integer" access="rw" description="the total number of tracks on the source album">
 					</property>
 					<property name="track number" code="pTrN" type="integer" access="rw" description="the index of the track on the source album">
-					</property>
-					<property name="unplayed" code="pUnp" type="boolean" access="rw" description="is this track unplayed?">
 					</property>
 					<property name="video kind" code="pVdK" type="eVdK" access="rw" description="kind of video track">
 					</property>
@@ -903,10 +889,6 @@
 			</command>
 			<command name="resume" code="hookResu" description="disable fast forward/rewind and resume playback, if playing.">
 				<direct-parameter type="null" description=""/>
-				<result type="null" description=""/>
-			</command>
-			<command name="reveal" code="hookRevl" description="reveal and select a track or playlist">
-				<direct-parameter type="null" description="the item to reveal"/>
 				<result type="null" description=""/>
 			</command>
 			<command name="rewind" code="hookRwnd" description="skip backwards in a playing track">

@@ -204,6 +204,12 @@
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_ARTIST];
 }
 
+- (NSString *)albumArtist
+{
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_ALBUM_ARTIST];
+}
+
+
 - (int)bitrate
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_BITRATE];
@@ -213,6 +219,23 @@
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_BPM];
 }
+
+- (int)bookmark
+{
+	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_BOOKMARK];
+}
+
+
+- (BOOL)bookmarkable
+{
+	return (BOOL)[self getPropertyAsIntegerForDesc:ET_TRACK_PROP_BOOKMARKABLE];
+}
+
+- (NSString *)category
+{
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_CATEGORY];
+}
+
 
 - (NSString *)comment
 {
@@ -239,6 +262,12 @@
 	return [self getPropertyAsDateForDesc:ET_TRACK_PROP_DATE_ADDED];
 }
 
+- (NSString *)description
+{
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_DESCRIPTION];
+}
+
+
 - (int)discCount
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_DISC_COUNT];
@@ -252,6 +281,16 @@
 - (int)duration
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_DURATION];
+}
+
+- (NSString *)episodeId
+{
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_EPISODE_ID];
+}
+
+- (int)episodeNumber
+{
+	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_EPISODE_NUMBER];
 }
 
 - (BOOL)enabled
@@ -268,6 +307,12 @@
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_FINISH];
 }
+
+- (BOOL)gapless
+{
+	return (BOOL)[self getPropertyAsIntegerForDesc:ET_TRACK_PROP_GAPLESS];
+}
+
 
 - (NSString *)genre
 {
@@ -289,9 +334,18 @@
 	return [self getPropertyAsPathURLForDesc:pETTrackLocation];
 }
 
+- (NSString *)longDescription
+{
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0_2])
+		return nil;
+	
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_LONG_DESCRIPTION];
+}
+
+
 - (NSString *)lyrics
 {
-	if (![[EyeTunes sharedInstance] versionGreaterThan:ITUNES_6_0_1])
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0_1])
 		return nil;
 
 	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_LYRICS];
@@ -326,7 +380,7 @@
 	}
 	
 	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) 
-		return [[NSString stringWithFormat:@"%llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+		return [[NSString stringWithFormat:@"%016llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
 }
@@ -357,10 +411,31 @@
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_SAMPLE_RATE];
 }
 
+- (int)seasonNumber
+{
+	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_SEASON_NUMBER];
+}
+
 - (int)size
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_SIZE];
 }
+
+- (NSString *)show
+{
+	return [self getPropertyAsStringForDesc:ET_TRACK_PROP_SHOW];
+}
+
+- (int)skippedCount
+{
+	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_SKIPPED_COUNT];
+}
+
+- (NSDate *)skippedDate
+{
+	return [self getPropertyAsDateForDesc:ET_TRACK_PROP_SKIPPED_DATE];
+}
+
 
 - (int)start
 {
@@ -381,6 +456,18 @@
 {
 	return [self getPropertyAsIntegerForDesc:ET_TRACK_PROP_TRACK_NUMBER];
 }
+
+- (BOOL)unplayed
+{
+	return !![self getPropertyAsIntegerForDesc:ET_TRACK_PROP_UNPLAYED];
+}
+
+
+- (DescType)videoKind
+{
+	return nil; //TODO
+}
+
 
 - (int)volumeAdjustment
 {
@@ -407,6 +494,11 @@
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_ALBUM];
 }
 
+- (void)setAlbumArtist:(NSString *)newValue
+{
+	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_ALBUM_ARTIST];
+}
+
 - (void)setArtist:(NSString *)newValue
 {
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_ARTIST];
@@ -415,6 +507,21 @@
 - (void)setBpm:(int)newValue
 {
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_BPM];
+}
+
+- (void)setBookmark:(int)newValueSeconds
+{
+	[self setPropertyWithInteger:newValueSeconds forDesc:ET_TRACK_PROP_BOOKMARK];
+}
+
+- (void)setBookmarkable:(BOOL)newValue
+{
+	[self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_BOOKMARKABLE];
+}
+
+- (void)setCategory:(NSString *)newValue
+{
+	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_CATEGORY];
 }
 
 - (void)setComment:(NSString *)newValue
@@ -432,6 +539,11 @@
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_COMPOSER];
 }
 
+- (void)setDescription:(NSString *)newValue
+{
+	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_DESCRIPTION];
+}
+
 - (void)setDiscCount:(int)newValue
 {
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_DISC_COUNT];
@@ -447,14 +559,30 @@
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_ENABLED];
 }
 
+- (void)setEpisodeId:(NSString *)newValue
+{
+	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_EPISODE_ID];
+}
+
+- (void)setEpisodeNumber:(int)newValue
+{
+	[self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_EPISODE_NUMBER];
+}
+
+
 - (void)setEq:(NSString *)newValue
 {
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_EQ];
 }
 
-- (void)setFinish:(int)newValue
+- (void)setFinish:(int)newValueSeconds
 {
-	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_FINISH];
+	 [self setPropertyWithInteger:newValueSeconds forDesc:ET_TRACK_PROP_FINISH];
+}
+
+- (void)setGapless:(BOOL)newValue
+{
+	[self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_GAPLESS];
 }
 
 - (void)setGenre:(NSString *)newValue
@@ -465,6 +593,14 @@
 - (void)setGrouping:(NSString *)newValue
 {
 	 [self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_GROUPING];
+}
+
+- (void)setLongDescription:(NSString *)newValue
+{
+	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0_1])
+		return;
+	
+	[self setPropertyWithString:newValue forDesc:ET_TRACK_PROP_LONG_DESCRIPTION];
 }
 
 - (void)setLyrics:(NSString *)newValue
@@ -490,6 +626,21 @@
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_RATING];
 }
 
+- (void)setSeasonNumber:(int)newValue
+{
+	[self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_SEASON_NUMBER];
+}
+
+- (void)setSkippedCount:(int)newValue
+{
+	[self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_SKIPPED_COUNT];
+}
+
+- (void)setSkippedDate:(NSDate *)newValue
+{
+	[self setPropertyWithDate:newValue forDesc:ET_TRACK_PROP_SKIPPED_DATE];
+}
+
 - (void)setStart:(int)newValue
 {
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_START];
@@ -504,6 +655,17 @@
 {
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_TRACK_NUMBER];
 }
+
+- (void)setUnplayed:(BOOL)newValue
+{
+	[self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_UNPLAYED];
+}
+
+- (void)setVideoKind:(DescType)newValue
+{
+	return; // TODO
+}
+
 
 - (void)setVolumeAdjustment:(int)newValue
 {

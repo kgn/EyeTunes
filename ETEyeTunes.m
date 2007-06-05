@@ -564,7 +564,7 @@ cleanup_get_event:
 	else {
 		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							 withStringValue:[NSString stringWithFormat:@"%llX", persistentId]];
+							 withStringValue:[NSString stringWithFormat:@"%016llX", persistentId]];
 	}
 	
 	/* Read Results */

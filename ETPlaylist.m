@@ -113,7 +113,7 @@ cleanup_reply_event:
 	else {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							 withStringValue:[NSString stringWithFormat:@"%llX", persistentId]];
+							 withStringValue:[NSString stringWithFormat:@"%016llX", persistentId]];
 	}
 	/* Read Results */
 	AEDesc replyObject;
@@ -194,7 +194,7 @@ cleanup_reply_event:
 	}
 	
 	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) 
-		return [[NSString stringWithFormat:@"%llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+		return [[NSString stringWithFormat:@"%016llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
 }

@@ -472,7 +472,7 @@
 					</property>
 					<property name="name" code="pnam" type="utxt" access="rw" description="the name of the item">
 					</property>
-					<property name="persistent ID" code="pPID" type="string" access="r" description="the id of the item. This id does not change over time.">
+					<property name="persistent ID" code="pPID" type="comp" access="r" description="the id of the item. This id does not change over time.">
 					</property>
 				</properties>
 			</class>
@@ -903,10 +903,6 @@
 			</command>
 			<command name="resume" code="hookResu" description="disable fast forward/rewind and resume playback, if playing.">
 				<direct-parameter type="null" description=""/>
-				<result type="null" description=""/>
-			</command>
-			<command name="reveal" code="hookRevl" description="reveal and select a track or playlist">
-				<direct-parameter type="null" description="the item to reveal"/>
 				<result type="null" description=""/>
 			</command>
 			<command name="rewind" code="hookRwnd" description="skip backwards in a playing track">

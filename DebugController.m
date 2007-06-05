@@ -96,12 +96,12 @@
 	long long int trackId = [[e currentTrack] persistentId];
 	NSString *trackIdString = [[e currentTrack] persistentIdAsString];
 	[self _append:@"Persistent ID for track (long): "];
-	[self _append:[NSString stringWithFormat:@"%llX",trackId]];
+	[self _append:[NSString stringWithFormat:@"%016llX",trackId]];
 	[self _append:@"\n"];
 	
 	long long int playlistId = [[e libraryPlaylist] persistentId];
 	[self _append:@"Persistent ID for playlist: "];
-	[self _append:[NSString stringWithFormat:@"%llX",playlistId]];
+	[self _append:[NSString stringWithFormat:@"%016llX",playlistId]];
 	[self _append:@"\n"];
 	ETPlaylist *playlist = [e playlistWithPersistentId:playlistId];
 	[self _append:@"Fetched playlist using persistent ID: "];

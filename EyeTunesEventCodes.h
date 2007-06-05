@@ -47,7 +47,7 @@ enum {
 enum {
 	kETRepeatModeOff			= 'kRp0',
 	kETRepeatModeOne			= 'kRp1',
-	kETRepeaseModeAll			= 'kRpA'
+	kETRepeatModeAll			= 'kRpA'
 };
 
 enum {
@@ -90,8 +90,23 @@ enum {
 	kETSpecialPlaylistPartyShuffle		= 'kSpS',
 	kETSpecialPlaylistPodcasts			= 'kSpP',
 	kETSpecialPlaylistPurchasedMusic	= 'kSpM',
-	kETSpecialPlaylistVideo				= 'kSpV',	
+	kETSpecialPlaylistVideo				= 'kSpV',
+#if ITUNES_VERSION >= ITUNES_7_0	
+	kETSpecialPlaylistAudiobooks		= 'kSpA',
+	kETSpecialPlaylistMovies			= 'kSpI',
+	kETSpecialPlaylistMusic				= 'kSpZ',
+	kETSpecialPlaylistTVShows			= 'kSpT',
+#endif	
 }; // ET_PLAYLIST_SPECIAL_KIND (eSpK)
+#endif
+
+#if ITUNES_VERSION >= ITUNES_7_0
+enum {
+	kETVideoKindUnknown					= 'kVdN',
+	kETVideoKindMovie					= 'kVdM',
+	kETVideoKindMusicVideo				= 'kVdV',
+	kETVideoKindTVShow					= 'kVdT',
+};
 #endif
 
 enum {
@@ -117,6 +132,9 @@ enum {
 #define ET_UPDATE			'Updt'
 #define ET_EJECT			'Ejct'
 #define ET_SUBSCRIBE		'pSub'
+#if ITUNES_VERSION >= ITUNES_7_2
+#define ET_REVEAL_SELECT	'Revl'
+#endif
 
 #if ITUNES_VERSION >= ITUNES_6_0
 #define ET_UPDATE_ALL_PODCASTS	'Updp'
@@ -147,6 +165,10 @@ enum {
 #define ET_ARTWORK_PROP_FORMAT		'pFmt' // type (r)
 #define ET_ARTWORK_PROP_DATA		'pPCT' // PICT (rw)
 #define ET_ARTWORK_PROP_KIND		'pKnd' // integer (rw)
+#if ITUNES_VERSION >= ITUNES_7_0
+#define ET_ARTWORK_PROP_DOWNLOAD_FROM_ITMS	'pDlA' // bool
+#endif
+
 // --- track artwork end ---
 
 // --- generic applescript item codes start ---
@@ -201,6 +223,27 @@ enum {
 #define ET_TRACK_PROP_LYRICS		'pLyr' // utxt
 #define ET_TRACK_PROP_SHUFFABLE		'pSfa'	// bool
 #endif 
+
+#if ITUNES_VERSION >= ITUNES_7_0
+#define ET_TRACK_PROP_ALBUM_ARTIST		'pAlA' // utxt
+#define ET_TRACK_PROP_EPISODE_ID		'pEpD' // utxt
+#define ET_TRACK_PROP_EPISODE_NUMBER	'pEpN' // integer
+#define ET_TRACK_PROP_GAPLESS			'pGpl' // bool
+#define ET_TRACK_PROP_SEASON_NUMBER		'pSeN' // integer
+#define ET_TRACK_PROP_SKIPPED_COUNT		'pSkC' // integer
+#define ET_TRACK_PROP_SKIPPED_DATE		'pSkD' // ldt
+#define ET_TRACK_PROP_SHOW				'pShw' // utxt
+#define ET_TRACK_PROP_VIDEO_KIND		'pVdk' // enum (see: video kind)
+#endif
+#if ITUNES_VERSION >= ITUNES_7_1
+#define ET_TRACK_PROP_SORT_ALBUM	'pSAl' // utxt
+#define ET_TRACK_PROP_SORT_ARTIST	'pSAr' // utxt
+#define ET_TRACK_PROP_SORT_NAME		'pSNm' // utxt
+#define ET_TRACK_PROP_SORT_COMPOSER 'pSNm' // utxt
+#define ET_TRACK_PROP_SORT_SHOW		'pSSN' // utxt
+#define ET_TRACK_PROP_UNPLAYED		'pUnp' // bool
+#endif
+
 // --- itunes track parameters end ---
 
 // --- other track classes start ---

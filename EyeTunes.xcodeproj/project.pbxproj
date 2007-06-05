@@ -36,6 +36,7 @@
 		035B70B90885537800D0B89E /* ETTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 035B70B70885537800D0B89E /* ETTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035B70BA0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
 		035B70BB0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
+		037310CB0C15D92A004AAA53 /* ETEyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0313DE480C10E1ED00F401BB /* ETEyeTunes.m */; };
 		03748F04099D8B00002F09C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		03748F05099D8B07002F09C3 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031B48A9088444F60086F24B /* ApplicationServices.framework */; };
 		03748FD3099D8B0F002F09C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
@@ -384,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				037310CB0C15D92A004AAA53 /* ETEyeTunes.m in Sources */,
 				031B486908843CF90086F24B /* main.m in Sources */,
 				035B70BB0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8540886594100F33185 /* ETAppleEventObject.m in Sources */,

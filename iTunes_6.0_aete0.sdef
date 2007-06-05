@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
-<!-- Scripting definition file generated from aete resource '0' -  -->
+<!--Scripting definition file generated from aete resource-->
 <dictionary>
 	<suite name="Standard Suite" code="****" description="Common terms for most applications">
 		<types>
@@ -62,7 +62,7 @@
 			<command name="count" code="corecnte" description="Return the number of elements of a particular class within an object">
 				<direct-parameter type="obj " description="the object whose elements are to be counted"/>
 				<result type="long" description="the number of elements"/>
-				<parameter name="each" code="kocl" type="type" description="the class of the elements to be counted. Keyword &apos;each&apos; is optional in AppleScript">
+				<parameter name="each" code="kocl" type="type" description="the class of the elements to be counted. Keyword 'each' is optional in AppleScript">
 				</parameter>
 			</command>
 			<command name="delete" code="coredelo" description="Delete an element from an object">
@@ -82,7 +82,7 @@
 			<command name="make" code="corecrel" description="Make a new element">
 				<direct-parameter type="null" description="" optional="optional"/>
 				<result type="obj " description="to the new object(s)"/>
-				<parameter name="new" code="kocl" type="type" description="the class of the new element. Keyword &apos;new&apos; is optional in AppleScript">
+				<parameter name="new" code="kocl" type="type" description="the class of the new element. Keyword 'new' is optional in AppleScript">
 				</parameter>
 				<parameter name="at" code="insh" type="location" description="the location at which to insert the element" optional="optional">
 				</parameter>
@@ -154,21 +154,11 @@
 			</enumeration>
 			<enumeration name="eSpK" code="eSpK">
 				<enumerator name="none" code="kSpN" description=""/>
-				<enumerator name="Audiobooks" code="kSpA" description=""/>
 				<enumerator name="folder" code="kSpF" description=""/>
-				<enumerator name="Movies" code="kSpI" description=""/>
-				<enumerator name="Music" code="kSpZ" description=""/>
 				<enumerator name="Party Shuffle" code="kSpS" description=""/>
 				<enumerator name="Podcasts" code="kSpP" description=""/>
 				<enumerator name="Purchased Music" code="kSpM" description=""/>
-				<enumerator name="TV Shows" code="kSpT" description=""/>
 				<enumerator name="Videos" code="kSpV" description=""/>
-			</enumeration>
-			<enumeration name="eVdK" code="eVdK">
-				<enumerator name="none" code="kVdN" description="not a video or unknown video kind"/>
-				<enumerator name="movie" code="kVdM" description="movie track"/>
-				<enumerator name="music video" code="kVdV" description="music video track"/>
-				<enumerator name="TV show" code="kVdT" description="TV show track"/>
 			</enumeration>
 		</types>
 		<classes>
@@ -260,13 +250,11 @@
 			</class>
 			<class name="artwork" code="cArt" description="a piece of art within a track">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
-					</property>
-					<property name="data" code="pPCT" type="PICT" access="rw" description="data for this artwork, in the form of a picture">
-					</property>
-					<property name="downloaded" code="pDlA" type="boolean" access="r" description="was this artwork downloaded by iTunes?">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 					<property name="format" code="pFmt" type="type" access="r" description="the data format for this piece of artwork">
+					</property>
+					<property name="data" code="pPCT" type="PICT" access="rw" description="data for this artwork, in the form of a picture">
 					</property>
 					<property name="kind" code="pKnd" type="integer" access="rw" description="kind or purpose of this piece of artwork">
 					</property>
@@ -287,7 +275,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					<property name="<Inheritance>" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
 					</property>
 					<property name="artist" code="pArt" type="utxt" access="rw" description="the artist of the CD">
 					</property>
@@ -313,7 +301,7 @@
 			</class>
 			<class name="audio CD track" code="cCDT" description="a track on an audio CD">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the playlist class">
+					<property name="<Inheritance>" code="c@#^" type="track" access="r" description="inherits some of its properties from the playlist class">
 					</property>
 					<property name="location" code="pLoc" type="alis" access="r" description="the location of the file represented by this track">
 					</property>
@@ -327,7 +315,7 @@
 			</class>
 			<class name="browser window" code="cBrW" description="the main iTunes window">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
+					<property name="<Inheritance>" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
 					</property>
 					<property name="minimized" code="pMin" type="boolean" access="rw" description="is the small player visible?">
 					</property>
@@ -352,7 +340,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					<property name="<Inheritance>" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
 					</property>
 				</properties>
 			</class>
@@ -364,7 +352,7 @@
 			</class>
 			<class name="device track" code="cDvT" description="a track residing on a portable music player">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					<property name="<Inheritance>" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
 					</property>
 				</properties>
 			</class>
@@ -376,7 +364,7 @@
 			</class>
 			<class name="encoder" code="cEnc" description="converts a track to a specific file format">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 					<property name="format" code="pFmt" type="utxt" access="r" description="the data format created by the encoder">
 					</property>
@@ -390,7 +378,7 @@
 			</class>
 			<class name="EQ preset" code="cEQP" description="equalizer preset configuration">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 					<property name="band 1" code="pEQ1" type="sing" access="rw" description="the equalizer 32 Hz band level (-12.0 dB to +12.0 dB)">
 					</property>
@@ -428,7 +416,7 @@
 			</class>
 			<class name="EQ window" code="cEQW" description="the iTunes equalizer window">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
+					<property name="<Inheritance>" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
 					</property>
 					<property name="minimized" code="pMin" type="boolean" access="rw" description="is the small EQ window visible?">
 					</property>
@@ -442,7 +430,7 @@
 			</class>
 			<class name="file track" code="cFlT" description="a track representing an audio file (MP3, AIFF, etc.)">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					<property name="<Inheritance>" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
 					</property>
 					<property name="location" code="pLoc" type="alis" access="r" description="the location of the file represented by this track">
 					</property>
@@ -456,7 +444,7 @@
 			</class>
 			<class name="folder playlist" code="cFoP" description="a folder that contains other playlists">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="user playlist" access="r" description="inherits some of its properties from the user playlist class">
+					<property name="<Inheritance>" code="c@#^" type="user playlist" access="r" description="inherits some of its properties from the user playlist class">
 					</property>
 				</properties>
 			</class>
@@ -472,7 +460,7 @@
 					</property>
 					<property name="name" code="pnam" type="utxt" access="rw" description="the name of the item">
 					</property>
-					<property name="persistent ID" code="pPID" type="string" access="r" description="the id of the item. This id does not change over time.">
+					<property name="persistent ID" code="pPID" type="comp" access="r" description="the id of the item. This id does not change over time.">
 					</property>
 				</properties>
 			</class>
@@ -498,7 +486,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					<property name="<Inheritance>" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
 					</property>
 				</properties>
 			</class>
@@ -517,7 +505,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 					<property name="duration" code="pDur" type="integer" access="r" description="the total length of all songs (in seconds)">
 					</property>
@@ -549,7 +537,7 @@
 			</class>
 			<class name="playlist window" code="cPlW" description="a sub-window showing a single playlist">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
+					<property name="<Inheritance>" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
 					</property>
 					<property name="selection" code="sele" type="object" access="r" description="the selected songs">
 					</property>
@@ -572,7 +560,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					<property name="<Inheritance>" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
 					</property>
 				</properties>
 			</class>
@@ -584,7 +572,7 @@
 			</class>
 			<class name="shared track" code="cShT" description="a track residing in a shared library">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					<property name="<Inheritance>" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
 					</property>
 				</properties>
 			</class>
@@ -628,7 +616,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 					<property name="capacity" code="capa" type="comp" access="r" description="the total size of the source if it has a fixed size">
 					</property>
@@ -651,17 +639,15 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
-					<property name="album" code="pAlb" type="utxt" access="rw" description="the album name of the track">
-					</property>
-					<property name="album artist" code="pAlA" type="utxt" access="rw" description="the album artist of the track">
+					<property name="album" code="pAlb" type="utxt" access="rw" description="the album containing the track">
 					</property>
 					<property name="artist" code="pArt" type="utxt" access="rw" description="the artist/source of the track">
 					</property>
 					<property name="bit rate" code="pBRt" type="integer" access="r" description="the bit rate of the track (in kbps)">
 					</property>
-					<property name="bookmark" code="pBkt" type="sing" access="rw" description="the bookmark time of the track in seconds">
+					<property name="bookmark" code="pBkt" type="integer" access="rw" description="the bookmark time of the track in seconds">
 					</property>
 					<property name="bookmarkable" code="pBkm" type="boolean" access="rw" description="is the playback position for this track remembered?">
 					</property>
@@ -685,19 +671,13 @@
 					</property>
 					<property name="disc number" code="pDsN" type="integer" access="rw" description="the index of the disc containing this track on the source album">
 					</property>
-					<property name="duration" code="pDur" type="sing" access="r" description="the length of the track in seconds">
+					<property name="duration" code="pDur" type="integer" access="r" description="the length of the track in seconds">
 					</property>
 					<property name="enabled" code="enbl" type="boolean" access="rw" description="is this track checked for playback?">
 					</property>
-					<property name="episode ID" code="pEpD" type="utxt" access="rw" description="the episode ID of the track">
-					</property>
-					<property name="episode number" code="pEpN" type="integer" access="rw" description="the episode number of the track">
-					</property>
 					<property name="EQ" code="pEQp" type="utxt" access="rw" description="the name of the EQ preset of the track">
 					</property>
-					<property name="finish" code="pStp" type="sing" access="rw" description="the stop time of the track in seconds">
-					</property>
-					<property name="gapless" code="pGpl" type="boolean" access="rw" description="is this track from a gapless album?">
+					<property name="finish" code="pStp" type="integer" access="rw" description="the stop time of the track in seconds">
 					</property>
 					<property name="genre" code="pGen" type="utxt" access="rw" description="the music/audio genre (category) of the track">
 					</property>
@@ -721,41 +701,17 @@
 					</property>
 					<property name="sample rate" code="pSRt" type="integer" access="r" description="the sample rate of the track (in Hz)">
 					</property>
-					<property name="season number" code="pSeN" type="integer" access="rw" description="the season number of the track">
-					</property>
 					<property name="shufflable" code="pSfa" type="boolean" access="rw" description="is this track included when shuffling?">
-					</property>
-					<property name="skipped count" code="pSkC" type="integer" access="rw" description="number of times this track has been skipped">
-					</property>
-					<property name="skipped date" code="pSkD" type="ldt " access="rw" description="the date and time this track was last skipped">
-					</property>
-					<property name="show" code="pShw" type="utxt" access="rw" description="the show name of the track">
-					</property>
-					<property name="sort album" code="pSAl" type="utxt" access="rw" description="override string to use for the track when sorting by album">
-					</property>
-					<property name="sort artist" code="pSAr" type="utxt" access="rw" description="override string to use for the track when sorting by artist">
-					</property>
-					<property name="sort album artist" code="pSAA" type="utxt" access="rw" description="override string to use for the track when sorting by album artist">
-					</property>
-					<property name="sort name" code="pSNm" type="utxt" access="rw" description="override string to use for the track when sorting by name">
-					</property>
-					<property name="sort composer" code="pSCm" type="utxt" access="rw" description="override string to use for the track when sorting by composer">
-					</property>
-					<property name="sort show" code="pSSN" type="utxt" access="rw" description="override string to use for the track when sorting by show name">
 					</property>
 					<property name="size" code="pSiz" type="integer" access="r" description="the size of the track (in bytes)">
 					</property>
-					<property name="start" code="pStr" type="sing" access="rw" description="the start time of the track in seconds">
+					<property name="start" code="pStr" type="integer" access="rw" description="the start time of the track in seconds">
 					</property>
 					<property name="time" code="pTim" type="utxt" access="r" description="the length of the track in MM:SS format">
 					</property>
 					<property name="track count" code="pTrC" type="integer" access="rw" description="the total number of tracks on the source album">
 					</property>
 					<property name="track number" code="pTrN" type="integer" access="rw" description="the index of the track on the source album">
-					</property>
-					<property name="unplayed" code="pUnp" type="boolean" access="rw" description="is this track unplayed?">
-					</property>
-					<property name="video kind" code="pVdK" type="eVdK" access="rw" description="kind of video track">
 					</property>
 					<property name="volume adjustment" code="pAdj" type="integer" access="rw" description="relative volume adjustment of the track (-100% to 100%)">
 					</property>
@@ -771,7 +727,7 @@
 			</class>
 			<class name="URL track" code="cURT" description="a track representing a network stream">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					<property name="<Inheritance>" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
 					</property>
 					<property name="address" code="pURL" type="utxt" access="rw" description="the URL for this track">
 					</property>
@@ -799,7 +755,7 @@
 					</element>
 				</elements>
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					<property name="<Inheritance>" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
 					</property>
 					<property name="shared" code="pShr" type="boolean" access="rw" description="is this playlist shared?">
 					</property>
@@ -815,7 +771,7 @@
 			</class>
 			<class name="visual" code="cVis" description="a visual plug-in">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 				</properties>
 			</class>
@@ -827,7 +783,7 @@
 			</class>
 			<class name="window" code="cwin" description="any window">
 				<properties>
-					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					<property name="<Inheritance>" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
 					</property>
 					<property name="bounds" code="pbnd" type="rectangle" access="rw" description="the boundary rectangle for the window">
 					</property>
@@ -886,8 +842,6 @@
 			<command name="play" code="hookPlay" description="play the current track or the specified track or file.">
 				<direct-parameter type="obj " description="item to play" optional="optional"/>
 				<result type="null" description=""/>
-				<parameter name="once" code="POne" type="boolean" description="If true, play this track once and then stop." optional="optional">
-				</parameter>
 			</command>
 			<command name="playpause" code="hookPlPs" description="toggle the playing/paused state of the current track">
 				<direct-parameter type="null" description=""/>
@@ -903,10 +857,6 @@
 			</command>
 			<command name="resume" code="hookResu" description="disable fast forward/rewind and resume playback, if playing.">
 				<direct-parameter type="null" description=""/>
-				<result type="null" description=""/>
-			</command>
-			<command name="reveal" code="hookRevl" description="reveal and select a track or playlist">
-				<direct-parameter type="null" description="the item to reveal"/>
 				<result type="null" description=""/>
 			</command>
 			<command name="rewind" code="hookRwnd" description="skip backwards in a playing track">
