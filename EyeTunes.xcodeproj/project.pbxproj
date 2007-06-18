@@ -13,8 +13,8 @@
 		030BFB0B098D01BE00D68616 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		030BFB92098D517A00D68616 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
 		030BFB93098D517A00D68616 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
-		0313DDED0C10DFB400F401BB /* ETEyeTunes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0313DDEC0C10DFB400F401BB /* ETEyeTunes.h */; };
-		0313DE1D0C10E09900F401BB /* EyeTunesVersions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0313DE1C0C10E09900F401BB /* EyeTunesVersions.h */; };
+		0313DDED0C10DFB400F401BB /* ETEyeTunes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0313DDEC0C10DFB400F401BB /* ETEyeTunes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0313DE1D0C10E09900F401BB /* EyeTunesVersions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0313DE1C0C10E09900F401BB /* EyeTunesVersions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0313DE490C10E1ED00F401BB /* ETEyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0313DE480C10E1ED00F401BB /* ETEyeTunes.m */; };
 		031B481A088429A60086F24B /* EyeTunes.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B4818088429A60086F24B /* EyeTunes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		031B486908843CF90086F24B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B486808843CF90086F24B /* main.m */; };
@@ -44,7 +44,7 @@
 		03749078099D8B48002F09C3 /* debug_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03749077099D8B48002F09C3 /* debug_main.m */; };
 		03749091099D8BEB002F09C3 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03749090099D8BEB002F09C3 /* MainMenu.nib */; };
 		0374909C099D8CDE002F09C3 /* DebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374909B099D8CDE002F09C3 /* DebugController.m */; };
-		039620990C0DE71600786326 /* NSString+LongLongValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 039620970C0DE71600786326 /* NSString+LongLongValue.h */; };
+		039620990C0DE71600786326 /* NSString+LongLongValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 039620970C0DE71600786326 /* NSString+LongLongValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 039620980C0DE71600786326 /* NSString+LongLongValue.m */; };
 		039620AC0C0DE78200786326 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		039620C80C0DE7CC00786326 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
