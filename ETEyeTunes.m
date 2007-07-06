@@ -556,7 +556,8 @@ cleanup_get_event:
 	ETPlaylist *foundPlaylist = nil;
 	AppleEvent *replyEvent;
 	
-	if ([self versionLessThan:ITUNES_7_2]) {
+	if ([self versionGreaterThan:ITUNES_7_2_1] ||
+		[self versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_PLAYLIST
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							withLongIntValue:persistentId];

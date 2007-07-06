@@ -178,6 +178,9 @@ enum {
 #if ITUNES_VERSION >= ITUNES_6_0_1
 #define	ET_ITEM_PROP_PERSISTENT_ID	'pPID' // double int (r)
 #endif
+#if ITUNES_VERSION >= ITUNES_7_3
+#define ET_ITEM_PROP_PERSISTENT_ID_STRING	'pPIS' // string (r)
+#endif
 // --- generic applescript item codes end ---
 
 // --- itunes track parameters start ---

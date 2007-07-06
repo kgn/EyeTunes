@@ -2,6 +2,7 @@
 
 // guard against exporting features that are not in earlier versions
 #define ITUNES_7_3		0x0730
+#define ITUNES_7_2_1	0x0721
 #define ITUNES_7_2		0x0720
 #define ITUNES_7_1		0x0710
 #define ITUNES_7_0_1	0x0701

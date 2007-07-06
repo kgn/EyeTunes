@@ -105,7 +105,8 @@ cleanup_reply_event:
 	ETTrack *foundTrack = nil;
 	AppleEvent *replyEvent;
 
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
+	if ([[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ||
+		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							withLongIntValue:persistentId];
@@ -141,7 +142,8 @@ cleanup_reply_event:
 	ETTrack *foundTrack = nil;
 	AppleEvent *replyEvent;
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
+	if ([[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ||
+		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
 							withLongIntValue:[persistentId longlongValue]];
@@ -177,7 +179,8 @@ cleanup_reply_event:
 		return -1;
 	}
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
+	if ([[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ||
+		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
 		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
 	else {
 		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
@@ -193,7 +196,8 @@ cleanup_reply_event:
 		return nil;
 	}
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) 
+	if ([[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ||
+		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) 
 		return [[NSString stringWithFormat:@"%016llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];

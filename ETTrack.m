@@ -372,7 +372,8 @@
 		return -1;
 	}
 	
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
+	if ([[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ||
+		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
 		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
 	else {
 		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
@@ -382,16 +383,27 @@
 
 - (NSString *) persistentIdAsString
 {
-
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0]) {
+	// Trying a different way of doing version comparison:
+	//
+	// - The newer versions are checked for first because it's most likely that the user is running
+	//   the latest version of iTunes
+	//
+	// - Direct integer comparison is used for efficiency and to make reading the code easier
+	//
+	// If you like it, I can go ahead and change the other code to use this style
+	// If you don't, we can change it back. AK/2007-07-03
+	int version = [[EyeTunes sharedInstance] versionNumber];
+	
+	if (version >= ITUNES_7_3)
+		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID_STRING];
+	else if (version >= ITUNES_7_2)
+		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+	else if (version >= ITUNES_6_0)
+		return [[NSString stringWithFormat:@"%016llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
+	else {
 		ETLog(@"persistentIdAsString Unsupported");
 		return nil;
 	}
-	
-	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) 
-		return [[NSString stringWithFormat:@"%016llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
-	else 
-		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
 }
 
 - (int)playedCount

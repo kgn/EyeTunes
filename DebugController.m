@@ -29,11 +29,11 @@
 	[self _append:@"\n"];
 	
 	[self _append:@"Is greater than 7.3?"];
-	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:0x0730] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_3] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 
 	[self _append:@"Is greater than 7.2.1?"];
-	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:0x0721] ? @"YES" : @"NO"];
+	[self _append:[[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ? @"YES" : @"NO"];
 	[self _append:@"\n"];
 	
 	
@@ -120,8 +120,23 @@
 	[self _append:[track name]];
 	[self _append:@"\n"];
 	
-	NSImage *testImage = [[track artwork] objectAtIndex:0]; 
-	[track setArtwork:testImage atIndex:1];
+	NSArray *artworks = [track artwork];
+	
+	if ([artworks count] > 0) {
+		[self _append:@"Artwork found"];
+		NSImage *testImage = [artworks objectAtIndex:0]; 
+		[track setArtwork:testImage atIndex:1];
+	}
+	else {
+		[self _append:@"No artwork found"];
+	}
+	[self _append:@"\n"];
+	
+	[self _append:[NSString stringWithFormat:@"'ID  ': %d", [track getPropertyAsIntegerForDesc:'ID  ']]];
+	[self _append:@"\n"];
+	
+	[self _append:[NSString stringWithFormat:@"database ID: %d", [track databaseId]]];
+	[self _append:@"\n"];
 
 }
 

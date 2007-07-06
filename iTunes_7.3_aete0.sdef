@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<!-- Scripting definition file generated from aete resource '0' -  -->
+<dictionary>
+	<suite name="Standard Suite" code="****" description="Common terms for most applications">
+		<types>
+			<enumeration name="eKnd" code="eKnd">
+				<enumerator name="track listing" code="kTrk" description="a basic listing of tracks within a playlist"/>
+				<enumerator name="album listing" code="kAlb" description="a listing of a playlist grouped by album"/>
+				<enumerator name="cd insert" code="kCDi" description="a printout of the playlist for jewel case inserts"/>
+			</enumeration>
+			<enumeration name="enum" code="enum">
+				<enumerator name="standard" code="lwst" description="Standard PostScript error handling"/>
+				<enumerator name="detailed" code="lwdt" description="print a detailed report of PostScript errors"/>
+			</enumeration>
+		</types>
+		<classes>
+			<class name="print settings" code="pset" description="">
+				<properties>
+					<property name="copies" code="lwcp" type="integer" access="r" description="the number of copies of a document to be printed">
+					</property>
+					<property name="collating" code="lwcl" type="boolean" access="r" description="Should printed copies be collated?">
+					</property>
+					<property name="starting page" code="lwfp" type="integer" access="r" description="the first page of the document to be printed">
+					</property>
+					<property name="ending page" code="lwlp" type="integer" access="r" description="the last page of the document to be printed">
+					</property>
+					<property name="pages across" code="lwla" type="integer" access="r" description="number of logical pages laid across a physical page">
+					</property>
+					<property name="pages down" code="lwld" type="integer" access="r" description="number of logical pages laid out down a physical page">
+					</property>
+					<property name="error handling" code="lweh" type="enum" access="r" description="how errors are handled">
+					</property>
+					<property name="requested print time" code="lwqt" type="ldt " access="r" description="the time at which the desktop printer should print the document">
+					</property>
+					<property name="printer features" code="lwpf" type="list" access="r" description="printer specific options">
+					</property>
+					<property name="fax number" code="faxn" type="string" access="r" description="for fax number">
+					</property>
+					<property name="target printer" code="trpr" type="string" access="r" description="for target printer">
+					</property>
+				</properties>
+			</class>
+		</classes>
+		<commands>
+			<command name="print" code="aevtpdoc" description="Print the specified object(s)">
+				<direct-parameter type="obj " description="list of objects to print" optional="optional"/>
+				<result type="null" description=""/>
+				<parameter name="print dialog" code="pdlg" type="boolean" description="Should the application show the print dialog" optional="optional">
+				</parameter>
+				<parameter name="with properties" code="prdt" type="print settings" description="the print settings" optional="optional">
+				</parameter>
+				<parameter name="kind" code="pKnd" type="eKnd" description="the kind of printout desired" optional="optional">
+				</parameter>
+				<parameter name="theme" code="pThm" type="utxt" description="name of theme to use for formatting the printout" optional="optional">
+				</parameter>
+			</command>
+			<command name="close" code="coreclos" description="Close an object">
+				<direct-parameter type="obj " description="the object to close"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="count" code="corecnte" description="Return the number of elements of a particular class within an object">
+				<direct-parameter type="obj " description="the object whose elements are to be counted"/>
+				<result type="long" description="the number of elements"/>
+				<parameter name="each" code="kocl" type="type" description="the class of the elements to be counted. Keyword &apos;each&apos; is optional in AppleScript">
+				</parameter>
+			</command>
+			<command name="delete" code="coredelo" description="Delete an element from an object">
+				<direct-parameter type="obj " description="the element to delete"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="duplicate" code="coreclon" description="Duplicate one or more object(s)">
+				<direct-parameter type="obj " description="the object(s) to duplicate"/>
+				<result type="obj " description="to the duplicated object(s)"/>
+				<parameter name="to" code="insh" type="location" description="the new location for the object(s)" optional="optional">
+				</parameter>
+			</command>
+			<command name="exists" code="coredoex" description="Verify if an object exists">
+				<direct-parameter type="obj " description="the object in question"/>
+				<result type="bool" description="true if it exists, false if not"/>
+			</command>
+			<command name="make" code="corecrel" description="Make a new element">
+				<direct-parameter type="null" description="" optional="optional"/>
+				<result type="obj " description="to the new object(s)"/>
+				<parameter name="new" code="kocl" type="type" description="the class of the new element. Keyword &apos;new&apos; is optional in AppleScript">
+				</parameter>
+				<parameter name="at" code="insh" type="location" description="the location at which to insert the element" optional="optional">
+				</parameter>
+				<parameter name="with properties" code="prdt" type="record" description="the initial values for the properties of the element" optional="optional">
+				</parameter>
+			</command>
+			<command name="move" code="coremove" description="Move playlist(s) to a new location">
+				<direct-parameter type="cPly" description="the playlist(s) to move"/>
+				<result type="null" description="to the playlist(s) after they have been moved"/>
+				<parameter name="to" code="insh" type="location" description="the new location for the playlist(s)">
+				</parameter>
+			</command>
+			<command name="open" code="aevtodoc" description="open the specified object(s)">
+				<direct-parameter type="obj " description="list of objects to open"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="run" code="aevtoapp" description="run iTunes">
+				<direct-parameter type="null" description="no direct parameter required" optional="optional"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="quit" code="aevtquit" description="quit iTunes">
+				<direct-parameter type="null" description="" optional="optional"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="set" code="coresetd" description="">
+				<direct-parameter type="obj " description=""/>
+				<result type="null" description=""/>
+				<parameter name="to" code="data" type="any" description="">
+				</parameter>
+			</command>
+		</commands>
+	</suite>
+	<suite name="iTunes Suite" code="hook" description="The event suite specific to iTunes">
+		<types>
+			<enumeration name="ePlS" code="ePlS">
+				<enumerator name="stopped" code="kPSS" description=""/>
+				<enumerator name="playing" code="kPSP" description=""/>
+				<enumerator name="paused" code="kPSp" description=""/>
+				<enumerator name="fast forwarding" code="kPSF" description=""/>
+				<enumerator name="rewinding" code="kPSR" description=""/>
+			</enumeration>
+			<enumeration name="eRpt" code="eRpt">
+				<enumerator name="off" code="kRpO" description=""/>
+				<enumerator name="one" code="kRp1" description=""/>
+				<enumerator name="all" code="kRpA" description=""/>
+			</enumeration>
+			<enumeration name="eVSz" code="eVSz">
+				<enumerator name="small" code="kVSS" description=""/>
+				<enumerator name="medium" code="kVSM" description=""/>
+				<enumerator name="large" code="kVSL" description=""/>
+			</enumeration>
+			<enumeration name="eSrc" code="eSrc">
+				<enumerator name="library" code="kLib" description=""/>
+				<enumerator name="iPod" code="kPod" description=""/>
+				<enumerator name="audio CD" code="kACD" description=""/>
+				<enumerator name="MP3 CD" code="kMCD" description=""/>
+				<enumerator name="device" code="kDev" description=""/>
+				<enumerator name="radio tuner" code="kTun" description=""/>
+				<enumerator name="shared library" code="kShd" description=""/>
+				<enumerator name="unknown" code="kUnk" description=""/>
+			</enumeration>
+			<enumeration name="eSrA" code="eSrA">
+				<enumerator name="albums" code="kSrL" description="albums only"/>
+				<enumerator name="all" code="kSrA" description="all text fields"/>
+				<enumerator name="artists" code="kSrR" description="artists only"/>
+				<enumerator name="composers" code="kSrC" description="composers only"/>
+				<enumerator name="displayed" code="kSrV" description="visible text fields"/>
+				<enumerator name="songs" code="kSrS" description="song names only"/>
+			</enumeration>
+			<enumeration name="eSpK" code="eSpK">
+				<enumerator name="none" code="kSpN" description=""/>
+				<enumerator name="Audiobooks" code="kSpA" description=""/>
+				<enumerator name="folder" code="kSpF" description=""/>
+				<enumerator name="Movies" code="kSpI" description=""/>
+				<enumerator name="Music" code="kSpZ" description=""/>
+				<enumerator name="Party Shuffle" code="kSpS" description=""/>
+				<enumerator name="Podcasts" code="kSpP" description=""/>
+				<enumerator name="Purchased Music" code="kSpM" description=""/>
+				<enumerator name="TV Shows" code="kSpT" description=""/>
+				<enumerator name="Videos" code="kSpV" description=""/>
+			</enumeration>
+			<enumeration name="eVdK" code="eVdK">
+				<enumerator name="none" code="kVdN" description="not a video or unknown video kind"/>
+				<enumerator name="movie" code="kVdM" description="movie track"/>
+				<enumerator name="music video" code="kVdV" description="music video track"/>
+				<enumerator name="TV show" code="kVdT" description="TV show track"/>
+			</enumeration>
+		</types>
+		<classes>
+			<class name="application" code="capp" description="The application program">
+				<elements>
+					<element type="browser window">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="encoder">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="EQ preset">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="EQ window">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="playlist window">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="source">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="visual">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="window">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="current encoder" code="pEnc" type="encoder" access="rw" description="the currently selected encoder (MP3, AIFF, WAV, etc.)">
+					</property>
+					<property name="current EQ preset" code="pEQP" type="EQ preset" access="rw" description="the currently selected equalizer preset">
+					</property>
+					<property name="current playlist" code="pPla" type="playlist" access="r" description="the playlist containing the currently targeted track">
+					</property>
+					<property name="current stream title" code="pStT" type="utxt" access="r" description="the name of the current song in the playing stream (provided by streaming server)">
+					</property>
+					<property name="current stream URL" code="pStU" type="utxt" access="r" description="the URL of the playing stream or streaming web site (provided by streaming server)">
+					</property>
+					<property name="current track" code="pTrk" type="track" access="r" description="the current targeted track">
+					</property>
+					<property name="current visual" code="pVis" type="visual" access="rw" description=" the currently selected visual plug-in">
+					</property>
+					<property name="EQ enabled" code="pEQ " type="boolean" access="rw" description="is the equalizer enabled?">
+					</property>
+					<property name="fixed indexing" code="pFix" type="boolean" access="rw" description="true if all AppleScript track indices should be independent of the play order of the owning playlist.">
+					</property>
+					<property name="frontmost" code="pisf" type="boolean" access="rw" description="is iTunes the frontmost application?">
+					</property>
+					<property name="full screen" code="pFSc" type="boolean" access="rw" description="are visuals displayed using the entire screen?">
+					</property>
+					<property name="name" code="pnam" type="utxt" access="r" description="the name of the application">
+					</property>
+					<property name="mute" code="pMut" type="boolean" access="rw" description="has the sound output been muted?">
+					</property>
+					<property name="player position" code="pPos" type="integer" access="rw" description="the player’s position within the currently playing track in seconds.">
+					</property>
+					<property name="player state" code="pPlS" type="ePlS" access="r" description="is iTunes stopped, paused, or playing?">
+					</property>
+					<property name="selection" code="sele" type="object" access="r" description="the selection visible to the user">
+					</property>
+					<property name="sound volume" code="pVol" type="integer" access="rw" description="the sound output volume (0 = minimum, 100 = maximum)">
+					</property>
+					<property name="version" code="vers" type="vers" access="r" description="the version of iTunes">
+					</property>
+					<property name="visuals enabled" code="pVsE" type="boolean" access="rw" description="are visuals currently being displayed?">
+					</property>
+					<property name="visual size" code="pVSz" type="eVSz" access="rw" description="the size of the displayed visual">
+					</property>
+				</properties>
+			</class>
+			<class name="artwork" code="cArt" description="a piece of art within a track">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="data" code="pPCT" type="PICT" access="rw" description="data for this artwork, in the form of a picture">
+					</property>
+					<property name="downloaded" code="pDlA" type="boolean" access="r" description="was this artwork downloaded by iTunes?">
+					</property>
+					<property name="format" code="pFmt" type="type" access="r" description="the data format for this piece of artwork">
+					</property>
+					<property name="kind" code="pKnd" type="integer" access="rw" description="kind or purpose of this piece of artwork">
+					</property>
+				</properties>
+			</class>
+			<class name="artworks" code="cArt" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="audio CD playlist" code="cCDP" description="a playlist representing an audio CD">
+				<elements>
+					<element type="audio CD track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					</property>
+					<property name="artist" code="pArt" type="utxt" access="rw" description="the artist of the CD">
+					</property>
+					<property name="compilation" code="pAnt" type="boolean" access="rw" description="is this CD a compilation album?">
+					</property>
+					<property name="composer" code="pCmp" type="utxt" access="rw" description="the composer of the CD">
+					</property>
+					<property name="disc count" code="pDsC" type="integer" access="rw" description="the total number of discs in this CD’s album">
+					</property>
+					<property name="disc number" code="pDsN" type="integer" access="rw" description="the index of this CD disc in the source album">
+					</property>
+					<property name="genre" code="pGen" type="utxt" access="rw" description="the genre of the CD">
+					</property>
+					<property name="year" code="pYr " type="integer" access="rw" description="the year the album was recorded/released">
+					</property>
+				</properties>
+			</class>
+			<class name="audio CD playlists" code="cCDP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="audio CD track" code="cCDT" description="a track on an audio CD">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the playlist class">
+					</property>
+					<property name="location" code="pLoc" type="alis" access="r" description="the location of the file represented by this track">
+					</property>
+				</properties>
+			</class>
+			<class name="audio CD tracks" code="cCDT" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="browser window" code="cBrW" description="the main iTunes window">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
+					</property>
+					<property name="minimized" code="pMin" type="boolean" access="rw" description="is the small player visible?">
+					</property>
+					<property name="selection" code="sele" type="object" access="r" description="the selected songs">
+					</property>
+					<property name="view" code="pPly" type="playlist" access="rw" description="the playlist currently displayed in the window">
+					</property>
+				</properties>
+			</class>
+			<class name="browser windows" code="cBrW" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="device playlist" code="cDvP" description="a playlist representing the contents of a portable device">
+				<elements>
+					<element type="device track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					</property>
+				</properties>
+			</class>
+			<class name="device playlists" code="cDvP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="device track" code="cDvT" description="a track residing on a portable music player">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					</property>
+				</properties>
+			</class>
+			<class name="device tracks" code="cDvT" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="encoder" code="cEnc" description="converts a track to a specific file format">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="format" code="pFmt" type="utxt" access="r" description="the data format created by the encoder">
+					</property>
+				</properties>
+			</class>
+			<class name="encoders" code="cEnc" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="EQ preset" code="cEQP" description="equalizer preset configuration">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="band 1" code="pEQ1" type="sing" access="rw" description="the equalizer 32 Hz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 2" code="pEQ2" type="sing" access="rw" description="the equalizer 64 Hz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 3" code="pEQ3" type="sing" access="rw" description="the equalizer 125 Hz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 4" code="pEQ4" type="sing" access="rw" description="the equalizer 250 Hz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 5" code="pEQ5" type="sing" access="rw" description="the equalizer 500 Hz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 6" code="pEQ6" type="sing" access="rw" description="the equalizer 1 kHz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 7" code="pEQ7" type="sing" access="rw" description="the equalizer 2 kHz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 8" code="pEQ8" type="sing" access="rw" description="the equalizer 4 kHz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 9" code="pEQ9" type="sing" access="rw" description="the equalizer 8 kHz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="band 10" code="pEQ0" type="sing" access="rw" description="the equalizer 16 kHz band level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="modifiable" code="pMod" type="boolean" access="r" description="can this preset be modified?">
+					</property>
+					<property name="preamp" code="pEQA" type="sing" access="rw" description="the equalizer preamp level (-12.0 dB to +12.0 dB)">
+					</property>
+					<property name="update tracks" code="pUTC" type="boolean" access="rw" description="should tracks which refer to this preset be updated when the preset is renamed or deleted?">
+					</property>
+				</properties>
+			</class>
+			<class name="EQ presets" code="cEQP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="EQ window" code="cEQW" description="the iTunes equalizer window">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
+					</property>
+					<property name="minimized" code="pMin" type="boolean" access="rw" description="is the small EQ window visible?">
+					</property>
+				</properties>
+			</class>
+			<class name="EQ windows" code="cEQW" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="file track" code="cFlT" description="a track representing an audio file (MP3, AIFF, etc.)">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					</property>
+					<property name="location" code="pLoc" type="alis" access="r" description="the location of the file represented by this track">
+					</property>
+				</properties>
+			</class>
+			<class name="file tracks" code="cFlT" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="folder playlist" code="cFoP" description="a folder that contains other playlists">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="user playlist" access="r" description="inherits some of its properties from the user playlist class">
+					</property>
+				</properties>
+			</class>
+			<class name="folder playlists" code="cFoP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="item" code="cobj" description="an item">
+				<properties>
+					<property name="container" code="ctnr" type="object" access="r" description="the container of the item">
+					</property>
+					<property name="id" code="ID  " type="integer" access="r" description="the id of the item">
+					</property>
+					<property name="name" code="pnam" type="utxt" access="rw" description="the name of the item">
+					</property>
+					<property name="persistent ID" code="pPIS" type="string" access="r" description="the id of the item as a hexidecimal string. This id does not change over time.">
+					</property>
+				</properties>
+			</class>
+			<class name="items" code="cobj" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="library playlist" code="cLiP" description="the master music library playlist">
+				<elements>
+					<element type="file track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="URL track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="shared track">
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					</property>
+				</properties>
+			</class>
+			<class name="library playlists" code="cLiP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="playlist" code="cPly" description="a list of songs/streams">
+				<elements>
+					<element type="track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="duration" code="pDur" type="integer" access="r" description="the total length of all songs (in seconds)">
+					</property>
+					<property name="index" code="pidx" type="integer" access="r" description="the index of the playlist in internal application order">
+					</property>
+					<property name="name" code="pnam" type="utxt" access="rw" description="the name of the playlist">
+					</property>
+					<property name="parent" code="pPlP" type="playlist" access="r" description="folder which contains this playlist (if any)">
+					</property>
+					<property name="shuffle" code="pShf" type="boolean" access="rw" description="play the songs in this playlist in random order?">
+					</property>
+					<property name="size" code="pSiz" type="comp" access="r" description="the total size of all songs (in bytes)">
+					</property>
+					<property name="song repeat" code="pRpt" type="eRpt" access="rw" description="playback repeat mode">
+					</property>
+					<property name="special kind" code="pSpK" type="eSpK" access="r" description="special playlist kind">
+					</property>
+					<property name="time" code="pTim" type="utxt" access="r" description="the length of all songs in MM:SS format">
+					</property>
+					<property name="visible" code="pvis" type="boolean" access="r" description="is this playlist visible in the Source list?">
+					</property>
+				</properties>
+			</class>
+			<class name="playlists" code="cPly" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="playlist window" code="cPlW" description="a sub-window showing a single playlist">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="window" access="r" description="inherits some of its properties from the window class">
+					</property>
+					<property name="selection" code="sele" type="object" access="r" description="the selected songs">
+					</property>
+					<property name="view" code="pPly" type="playlist" access="r" description="the playlist displayed in the window">
+					</property>
+				</properties>
+			</class>
+			<class name="playlist windows" code="cPlW" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="radio tuner playlist" code="cRTP" description="the radio tuner playlist">
+				<elements>
+					<element type="URL track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					</property>
+				</properties>
+			</class>
+			<class name="radio tuner playlists" code="cRTP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="shared track" code="cShT" description="a track residing in a shared library">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					</property>
+				</properties>
+			</class>
+			<class name="shared tracks" code="cShT" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="source" code="cSrc" description="a music source (music library, CD, device, etc.)">
+				<elements>
+					<element type="audio CD playlist">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="device playlist">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="library playlist">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="playlist">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="radio tuner playlist">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="user playlist">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="capacity" code="capa" type="comp" access="r" description="the total size of the source if it has a fixed size">
+					</property>
+					<property name="free space" code="frsp" type="comp" access="r" description="the free space on the source if it has a fixed size">
+					</property>
+					<property name="kind" code="pKnd" type="eSrc" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="sources" code="cSrc" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="track" code="cTrk" description="playable audio source">
+				<elements>
+					<element type="artwork">
+						<accessor style="index"/>
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="album" code="pAlb" type="utxt" access="rw" description="the album name of the track">
+					</property>
+					<property name="album artist" code="pAlA" type="utxt" access="rw" description="the album artist of the track">
+					</property>
+					<property name="artist" code="pArt" type="utxt" access="rw" description="the artist/source of the track">
+					</property>
+					<property name="bit rate" code="pBRt" type="integer" access="r" description="the bit rate of the track (in kbps)">
+					</property>
+					<property name="bookmark" code="pBkt" type="sing" access="rw" description="the bookmark time of the track in seconds">
+					</property>
+					<property name="bookmarkable" code="pBkm" type="boolean" access="rw" description="is the playback position for this track remembered?">
+					</property>
+					<property name="bpm" code="pBPM" type="integer" access="rw" description="the tempo of this track in beats per minute">
+					</property>
+					<property name="category" code="pCat" type="utxt" access="rw" description="the category of the track">
+					</property>
+					<property name="comment" code="pCmt" type="utxt" access="rw" description="freeform notes about the track">
+					</property>
+					<property name="compilation" code="pAnt" type="boolean" access="rw" description="is this track from a compilation album?">
+					</property>
+					<property name="composer" code="pCmp" type="utxt" access="rw" description="the composer of the track">
+					</property>
+					<property name="database ID" code="pDID" type="integer" access="r" description="the common, unique ID for this track. If two tracks in different playlists have the same database ID, they are sharing the same data.">
+					</property>
+					<property name="date added" code="pAdd" type="ldt " access="r" description="the date the track was added to the playlist">
+					</property>
+					<property name="description" code="pDes" type="utxt" access="rw" description="the description of the track">
+					</property>
+					<property name="disc count" code="pDsC" type="integer" access="rw" description="the total number of discs in the source album">
+					</property>
+					<property name="disc number" code="pDsN" type="integer" access="rw" description="the index of the disc containing this track on the source album">
+					</property>
+					<property name="duration" code="pDur" type="sing" access="r" description="the length of the track in seconds">
+					</property>
+					<property name="enabled" code="enbl" type="boolean" access="rw" description="is this track checked for playback?">
+					</property>
+					<property name="episode ID" code="pEpD" type="utxt" access="rw" description="the episode ID of the track">
+					</property>
+					<property name="episode number" code="pEpN" type="integer" access="rw" description="the episode number of the track">
+					</property>
+					<property name="EQ" code="pEQp" type="utxt" access="rw" description="the name of the EQ preset of the track">
+					</property>
+					<property name="finish" code="pStp" type="sing" access="rw" description="the stop time of the track in seconds">
+					</property>
+					<property name="gapless" code="pGpl" type="boolean" access="rw" description="is this track from a gapless album?">
+					</property>
+					<property name="genre" code="pGen" type="utxt" access="rw" description="the music/audio genre (category) of the track">
+					</property>
+					<property name="grouping" code="pGrp" type="utxt" access="rw" description="the grouping (piece) of the track. Generally used to denote movements within a classical work.">
+					</property>
+					<property name="kind" code="pKnd" type="utxt" access="r" description="a text description of the track">
+					</property>
+					<property name="long description" code="pLds" type="utxt" access="rw" description="">
+					</property>
+					<property name="lyrics" code="pLyr" type="utxt" access="rw" description="the lyrics of the track">
+					</property>
+					<property name="modification date" code="asmo" type="ldt " access="r" description="the modification date of the content of this track">
+					</property>
+					<property name="played count" code="pPlC" type="integer" access="rw" description="number of times this track has been played">
+					</property>
+					<property name="played date" code="pPlD" type="ldt " access="rw" description="the date and time this track was last played">
+					</property>
+					<property name="podcast" code="pTPc" type="boolean" access="r" description="is this track a podcast episode?">
+					</property>
+					<property name="rating" code="pRte" type="integer" access="rw" description="the user rating of this track (0 to 100)">
+					</property>
+					<property name="sample rate" code="pSRt" type="integer" access="r" description="the sample rate of the track (in Hz)">
+					</property>
+					<property name="season number" code="pSeN" type="integer" access="rw" description="the season number of the track">
+					</property>
+					<property name="shufflable" code="pSfa" type="boolean" access="rw" description="is this track included when shuffling?">
+					</property>
+					<property name="skipped count" code="pSkC" type="integer" access="rw" description="number of times this track has been skipped">
+					</property>
+					<property name="skipped date" code="pSkD" type="ldt " access="rw" description="the date and time this track was last skipped">
+					</property>
+					<property name="show" code="pShw" type="utxt" access="rw" description="the show name of the track">
+					</property>
+					<property name="sort album" code="pSAl" type="utxt" access="rw" description="override string to use for the track when sorting by album">
+					</property>
+					<property name="sort artist" code="pSAr" type="utxt" access="rw" description="override string to use for the track when sorting by artist">
+					</property>
+					<property name="sort album artist" code="pSAA" type="utxt" access="rw" description="override string to use for the track when sorting by album artist">
+					</property>
+					<property name="sort name" code="pSNm" type="utxt" access="rw" description="override string to use for the track when sorting by name">
+					</property>
+					<property name="sort composer" code="pSCm" type="utxt" access="rw" description="override string to use for the track when sorting by composer">
+					</property>
+					<property name="sort show" code="pSSN" type="utxt" access="rw" description="override string to use for the track when sorting by show name">
+					</property>
+					<property name="size" code="pSiz" type="integer" access="r" description="the size of the track (in bytes)">
+					</property>
+					<property name="start" code="pStr" type="sing" access="rw" description="the start time of the track in seconds">
+					</property>
+					<property name="time" code="pTim" type="utxt" access="r" description="the length of the track in MM:SS format">
+					</property>
+					<property name="track count" code="pTrC" type="integer" access="rw" description="the total number of tracks on the source album">
+					</property>
+					<property name="track number" code="pTrN" type="integer" access="rw" description="the index of the track on the source album">
+					</property>
+					<property name="unplayed" code="pUnp" type="boolean" access="rw" description="is this track unplayed?">
+					</property>
+					<property name="video kind" code="pVdK" type="eVdK" access="rw" description="kind of video track">
+					</property>
+					<property name="volume adjustment" code="pAdj" type="integer" access="rw" description="relative volume adjustment of the track (-100% to 100%)">
+					</property>
+					<property name="year" code="pYr " type="integer" access="rw" description="the year the track was recorded/released">
+					</property>
+				</properties>
+			</class>
+			<class name="tracks" code="cTrk" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="URL track" code="cURT" description="a track representing a network stream">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="track" access="r" description="inherits some of its properties from the track class">
+					</property>
+					<property name="address" code="pURL" type="utxt" access="rw" description="the URL for this track">
+					</property>
+				</properties>
+			</class>
+			<class name="URL tracks" code="cURT" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="user playlist" code="cUsP" description="custom playlists created by the user">
+				<elements>
+					<element type="file track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="URL track">
+						<accessor style="index"/>
+						<accessor style="name"/>
+						<accessor style="id"/>
+					</element>
+					<element type="shared track">
+					</element>
+				</elements>
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="playlist" access="r" description="inherits some of its properties from the playlist class">
+					</property>
+					<property name="shared" code="pShr" type="boolean" access="rw" description="is this playlist shared?">
+					</property>
+					<property name="smart" code="pSmt" type="boolean" access="r" description="is this a Smart Playlist?">
+					</property>
+				</properties>
+			</class>
+			<class name="user playlists" code="cUsP" description="">
+				<properties>
+					<property name="" code="c@#!" type="type" access="r" description="">
+					</property>
+				</properties>
+			</class>
+			<class name="visual" code="cVis" description="a visual plug-in">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+				</properties>
+			</class>
+			<class name="visuals" code="cVis" description="">
+				<properties>
+					<property name="class attributes" code="c@#!" type="type" access="r" description="special class attributes">
+					</property>
+				</properties>
+			</class>
+			<class name="window" code="cwin" description="any window">
+				<properties>
+					<property name="&lt;Inheritance&gt;" code="c@#^" type="item" access="r" description="inherits some of its properties from the item class">
+					</property>
+					<property name="bounds" code="pbnd" type="rectangle" access="rw" description="the boundary rectangle for the window">
+					</property>
+					<property name="closeable" code="hclb" type="boolean" access="r" description="does the window have a close box?">
+					</property>
+					<property name="collapseable" code="pWSh" type="boolean" access="r" description="does the window have a collapse (windowshade) box?">
+					</property>
+					<property name="collapsed" code="wshd" type="boolean" access="rw" description="is the window collapsed?">
+					</property>
+					<property name="position" code="ppos" type="point" access="rw" description="the upper left position of the window">
+					</property>
+					<property name="resizable" code="prsz" type="boolean" access="r" description="is the window resizable?">
+					</property>
+					<property name="visible" code="pvis" type="boolean" access="rw" description="is the window visible?">
+					</property>
+					<property name="zoomable" code="iszm" type="boolean" access="r" description="is the window zoomable?">
+					</property>
+					<property name="zoomed" code="pzum" type="boolean" access="rw" description="is the window zoomed?">
+					</property>
+				</properties>
+			</class>
+			<class name="windows" code="cwin" description="any window">
+				<properties>
+					<property name="class attributes" code="c@#!" type="type" access="r" description="special class attributes">
+					</property>
+				</properties>
+			</class>
+		</classes>
+		<commands>
+			<command name="add" code="hookAdd " description="add one or more files to a playlist">
+				<direct-parameter type="alis" description="the file(s) to add"/>
+				<result type="cTrk" description="reference to added track(s)"/>
+				<parameter name="to" code="insh" type="location" description="the location of the added file(s)" optional="optional">
+				</parameter>
+			</command>
+			<command name="back track" code="hookBack" description="reposition to beginning of current track or go to previous track if already at start of current track">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="convert" code="hookConv" description="convert one or more files or tracks">
+				<direct-parameter type="obj " description="the file(s)/tracks(s) to convert"/>
+				<result type="cTrk" description="reference to converted track(s)"/>
+			</command>
+			<command name="fast forward" code="hookFast" description="skip forward in a playing track">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="next track" code="hookNext" description="advance to the next track in the current playlist">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="pause" code="hookPaus" description="pause playback">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="play" code="hookPlay" description="play the current track or the specified track or file.">
+				<direct-parameter type="obj " description="item to play" optional="optional"/>
+				<result type="null" description=""/>
+				<parameter name="once" code="POne" type="boolean" description="If true, play this track once and then stop." optional="optional">
+				</parameter>
+			</command>
+			<command name="playpause" code="hookPlPs" description="toggle the playing/paused state of the current track">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="previous track" code="hookPrev" description="return to the previous track in the current playlist">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="refresh" code="hookRfrs" description="update file track information from the current information in the track’s file">
+				<direct-parameter type="cFlT" description="the file track to update"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="resume" code="hookResu" description="disable fast forward/rewind and resume playback, if playing.">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="reveal" code="hookRevl" description="reveal and select a track or playlist">
+				<direct-parameter type="null" description="the item to reveal"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="rewind" code="hookRwnd" description="skip backwards in a playing track">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="search" code="hookSrch" description="search a playlist for tracks matching the search string. Identical to entering search text in the Search field in iTunes.">
+				<direct-parameter type="cPly" description="the playlist to search"/>
+				<result type="cTrk" description="reference to found track(s)"/>
+				<parameter name="for" code="pTrm" type="utxt" description="the search text">
+				</parameter>
+				<parameter name="only" code="pAre" type="eSrA" description="area to search (default is all)" optional="optional">
+				</parameter>
+			</command>
+			<command name="stop" code="hookStop" description="stop playback">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="update" code="hookUpdt" description="update the specified iPod">
+				<direct-parameter type="cSrc" description="the iPod to update" optional="optional"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="eject" code="hookEjct" description="eject the specified iPod">
+				<direct-parameter type="cSrc" description="the iPod to eject" optional="optional"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="subscribe" code="hookpSub" description="subscribe to a podcast feed">
+				<direct-parameter type="TEXT" description="the URL of the feed to subscribe to"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="updateAllPodcasts" code="hookUpdp" description="update all subscribed podcast feeds">
+				<direct-parameter type="null" description="" optional="optional"/>
+				<result type="null" description=""/>
+			</command>
+			<command name="updatePodcast" code="hookUpd1" description="update podcast feed">
+				<direct-parameter type="null" description=""/>
+				<result type="null" description=""/>
+			</command>
+			<command name="download" code="hookDwnl" description="download podcast episode">
+				<direct-parameter type="cURT" description=""/>
+				<result type="null" description=""/>
+			</command>
+		</commands>
+	</suite>
+	<suite name="Internet suite" code="gurl" description="Standard terms for Internet scripting">
+		<commands>
+			<command name="open location" code="GURLGURL" description="Opens a Music Store or audio stream URL">
+				<direct-parameter type="TEXT" description="the URL to open" optional="optional"/>
+				<result type="null" description=""/>
+			</command>
+		</commands>
+	</suite>
+</dictionary>
