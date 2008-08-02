@@ -1,3 +1,7 @@
+03 Aug 08; Alastair Tse <alastair@liquidx.net>
+  * Workaround changed track descriptor returned from iTunes 7.7.1.
+    Thanks to Simon Haertel for the patch.
+
 06 Jul 07; EyeTunes-1.3.3; Alastair Tse <alastair@liquidx.net>
    * Fix persistentID support AGAIN for iTunes 7.3 as they reverted their
      previous changes. Patch thanks to Andy Kim of Potion Factory.

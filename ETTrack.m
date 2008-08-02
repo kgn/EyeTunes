@@ -47,6 +47,13 @@
 
 - (id) initWithDescriptor:(AEDesc *)desc
 {
+	// iTunes 7.7.1 returns a list with one track item rather than the track directly.
+	if (desc->descriptorType == typeAEList) {
+		AEDesc trackDesc;
+		if (noErr == AEGetNthDesc((AEDescList*)desc, 1, typeWildCard, NULL, &trackDesc)) {
+			desc = &trackDesc;
+		}
+	}
 	self = [super initWithDescriptor:desc applCode:ET_APPLE_EVENT_OBJECT_DEFAULT_APPL];
 	return self;
 }
@@ -93,8 +100,8 @@
 		}
 		
 		err = AEBuildDesc(&pictDesc, NULL, "'PICT'(@)",
-						  [pictData length],
-						  [pictData bytes]);
+							[pictData length],
+							[pictData bytes]);
 		
 		if (err != noErr) {
 			ETLog(@"Error with constructing PICT: %d", err);
@@ -104,9 +111,9 @@
 		/* execute send command */
 		BOOL success = NO;
 		success = [self setProperty:ET_ARTWORK_PROP_DATA 
-				   OfElementOfClass:ET_CLASS_ARTWORK 
+					 OfElementOfClass:ET_CLASS_ARTWORK 
 							atIndex:index 
-						  withValue:&pictDesc];
+							withValue:&pictDesc];
 		AEDisposeDesc(&pictDesc);
 	
 		return success;		
@@ -126,7 +133,7 @@
 	NSMutableArray *artworkArray = [NSMutableArray array];
 	int i;
 	DescType	resultType;
-	Size		resultSize;	
+	Size		resultSize; 
 	
 	/* count the number of artworks */	
 	int			elementCount = [self getCountOfElementsOfClass:ET_CLASS_ARTWORK];
@@ -374,7 +381,7 @@
 	
 	if ([[EyeTunes sharedInstance] versionGreaterThan:ITUNES_7_2_1] ||
 		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
-		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
+		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]; 
 	else {
 		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
 		return [persistentId longlongValue];
@@ -386,7 +393,7 @@
 	// Trying a different way of doing version comparison:
 	//
 	// - The newer versions are checked for first because it's most likely that the user is running
-	//   the latest version of iTunes
+	//	 the latest version of iTunes
 	//
 	// - Direct integer comparison is used for efficiency and to make reading the code easier
 	//
