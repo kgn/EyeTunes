@@ -92,7 +92,8 @@
 - (void)rewind;
 - (void)stop;
 
-// TODO: - (id)addTrack:(NSURL *)fromlocation toLocation:(NSURL *)toLocation;
+- (id)addTrack:(NSURL *)fromLocation toPlaylist:(ETPlaylist *)playlist;
+
 // TODO: - (id)convertTrack:(id)trackReference;
 // TODO: - (void)refresh:(id)fileTrack;
 // TODO: - (void)update:(id)iPod;

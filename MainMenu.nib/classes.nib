@@ -1,24 +1,61 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {goButtonPressed = id; next = id; playPause = id; prev = id; }; 
-            CLASS = DebugController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                albumName = NSTextField; 
-                artistName = NSTextField; 
-                goButton = NSButton; 
-                imageView = NSImageView; 
-                nextButton = NSButton; 
-                output = NSTextView; 
-                playButton = NSButton; 
-                prevButton = NSButton; 
-                trackName = NSTextField; 
-                window = NSWindow; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>goButtonPressed</key>
+				<string>id</string>
+				<key>next</key>
+				<string>id</string>
+				<key>playPause</key>
+				<string>id</string>
+				<key>prev</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>DebugController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>albumName</key>
+				<string>NSTextField</string>
+				<key>artistName</key>
+				<string>NSTextField</string>
+				<key>goButton</key>
+				<string>NSButton</string>
+				<key>imageView</key>
+				<string>NSImageView</string>
+				<key>nextButton</key>
+				<string>NSButton</string>
+				<key>output</key>
+				<string>NSTextView</string>
+				<key>playButton</key>
+				<string>NSButton</string>
+				<key>prevButton</key>
+				<string>NSButton</string>
+				<key>trackName</key>
+				<string>NSTextField</string>
+				<key>window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

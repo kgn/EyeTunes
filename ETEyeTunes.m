@@ -453,6 +453,94 @@ cleanup_get_event:
 	
 }
 
+
+- (id)addTrack:(NSURL *)fromLocation toPlaylist:(ETPlaylist *)playlist;
+{
+	OSErr err;
+	AppleEvent getEvent, replyEvent;
+	AEDescList replyList;
+	NSString *gizmo = nil;
+	NSMutableArray *trackList = nil;
+	
+	AliasHandle alias = [EyeTunes newAliasHandleWithPath:[fromlocation path]];
+
+	if (!playlist) 
+	{
+		gizmo = @"'----':@@";
+	}
+	else 
+	{
+		gizmo = [NSString stringWithFormat:@"'----':alis(@@), insh:(@)"];
+	}
+	
+	AEBuildError buildError;
+	
+	err = AEBuildAppleEvent(iTunesSignature,	// class 
+							ET_ADD_FILE,		// ID
+							typeApplSignature,	// address type
+							&iTunesSignature,	// address data
+							sizeof(iTunesSignature),	// address length
+							kAutoGenerateReturnID,	// return ID
+							kAnyTransactionID,	//transaction ID
+							&getEvent,	// result
+							&buildError,	// error
+							[gizmo UTF8String], // params format
+							alias,	// ... (var args)
+							[playlist descriptor]);
+	
+	DisposeHandle((Handle)alias);
+
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+	
+	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
+		goto cleanup_get_event;
+	}
+	
+	/* Read Results */
+	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeAEList, &replyList);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	long items, i;
+	err = AECountItems(&replyList, &items);
+	if (err != noErr) {
+		ETLog(@"Unable to access Reply List: %d", err);
+		goto cleanup_reply_list;
+	}
+	
+	trackList = [NSMutableArray arrayWithCapacity:items];
+	for (i = 1; i < items + 1; i++) {
+		AEDesc trackDesc;
+		err = AEGetNthDesc(&replyList,
+						   i,
+						   typeWildCard,
+						   0,
+						   &trackDesc);
+		if (err != noErr) {
+			ETLog(@"Error rextracting from List: %d", err);
+			goto cleanup_reply_list;
+		}
+		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];
+	}
+	
+cleanup_reply_list:
+	AEDisposeDesc(&replyList);
+cleanup_reply_event:
+	AEDisposeDesc(&replyEvent);
+cleanup_get_event:
+	AEDisposeDesc(&getEvent);
+	
+	return trackList;
+}
+
+
 - (NSArray *)selectedTracks
 {
 	OSErr err;

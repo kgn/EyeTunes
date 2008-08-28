@@ -122,10 +122,12 @@
 	
 	NSArray *artworks = [track artwork];
 	
-	if ([artworks count] > 0) {
+	if ([artworks count] > 0) 
+	{
 		[self _append:@"Artwork found"];
 		NSImage *testImage = [artworks objectAtIndex:0]; 
-		[track setArtwork:testImage atIndex:1];
+		[imageView setImage:testImage];
+		//[track setArtwork:testImage atIndex:1];
 	}
 	else {
 		[self _append:@"No artwork found"];
@@ -138,6 +140,9 @@
 	[self _append:[NSString stringWithFormat:@"database ID: %d", [track databaseId]]];
 	[self _append:@"\n"];
 
+	[trackName setStringValue:[NSString stringWithFormat:@"track name: %@",[track name]]];
+	[albumName setStringValue:[NSString stringWithFormat:@"album name: %@",[track album]]];
+	[artistName setStringValue:[NSString stringWithFormat:@"artist name: %@",[track artist]]];
 }
 
 @end
