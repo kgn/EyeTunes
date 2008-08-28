@@ -271,4 +271,9 @@ enum {
 #define ET_PLAYLIST_PROP_PARENT			'pPlP'  // <property name="parent" code="pPlP" type="playlist" access="r" description="folder which contains this playlist (if any)"/>
 // generic playlist properies ---
 
+// -- special playlists --
+#define ET_CLASS_CD_PLAYLIST			'cCDP'	// <class name="audio CD playlist" code="cCDP" description="a playlist representing an audio CD" inherits="playlist" plural="audio CD playlists">
+#define ET_CLASS_DEVICE_PLAYLIST		'cDvP'	// <class name="device playlist" code="cDvP" description="a playlist representing the contents of a portable device" inherits="playlist" plural="device playlists">
+#define ET_CLASS_FOLDER_PLAYLIST		'cFoP'	// <class name="folder playlist" code="cFoP" description="a folder that contains other playlists" inherits="user playlist" plural="folder playlists"/>
+#define ET_CLASS_USER_PLAYLIST			'cUsP'	// <class name="user playlist" code="cUsP" description="custom playlists created by the user" inherits="playlist" plural="user playlists">
 

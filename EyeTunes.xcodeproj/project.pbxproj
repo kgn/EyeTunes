@@ -49,6 +49,8 @@
 		039620AC0C0DE78200786326 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		039620C80C0DE7CC00786326 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
+		DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		32DBCF5E0370ADEE00C91783 /* EyeTunes_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunes_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* EyeTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EyeTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETUserPlaylistEnumerator.h; sourceTree = "<group>"; };
+		DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETUserPlaylistEnumerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +237,8 @@
 				032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */,
 				032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */,
 				032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */,
+				DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */,
+				DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */,
 				030BF9AB098CFFD100D68616 /* ETDebug.h */,
 				030BF9AC098CFFD100D68616 /* ETDebug.m */,
 				039620970C0DE71600786326 /* NSString+LongLongValue.h */,
@@ -284,6 +290,7 @@
 				039620990C0DE71600786326 /* NSString+LongLongValue.h in Headers */,
 				0313DDED0C10DFB400F401BB /* ETEyeTunes.h in Headers */,
 				0313DE1D0C10E09900F401BB /* EyeTunesVersions.h in Headers */,
+				DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +428,7 @@
 				030BF9AE098CFFD100D68616 /* ETDebug.m in Sources */,
 				0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */,
 				0313DE490C10E1ED00F401BB /* ETEyeTunes.m in Sources */,
+				DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

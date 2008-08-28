@@ -78,6 +78,78 @@
 	[[EyeTunes sharedInstance] playPause];
 }
 
+
+- (IBAction) enumerate:(id)sender;
+{
+	EyeTunes *et = [EyeTunes sharedInstance];
+	NSTextStorage *text = [output textStorage];
+	
+	NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
+						  [NSFont fontWithName:@"Monaco" size:12], NSFontAttributeName, nil];
+
+	NSArray * playlists = [et playlists];
+	unsigned int i=0;
+	for (i=0; i<[playlists count]; i++)
+	{
+		ETPlaylist * playlist = [playlists objectAtIndex:i];
+		[self _append:[playlist name]];
+		[self _append:@"\n"];
+	}	
+}
+
+
+- (IBAction) enumerateUser:(id)sender;
+{
+	EyeTunes *et = [EyeTunes sharedInstance];
+	NSTextStorage *text = [output textStorage];
+	
+	NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
+						  [NSFont fontWithName:@"Monaco" size:12], NSFontAttributeName, nil];
+	
+	NSArray * playlists = [et userPlaylists];
+	unsigned int i;
+	for (i=0; i<[playlists count]; i++)
+	{
+		ETPlaylist * playlist = [playlists objectAtIndex:i];
+		[self _append:[playlist name]];
+		[self _append:@"\n"];
+	}	
+}
+
+
+- (IBAction) addTrack:(id)sender;
+{
+	EyeTunes *et = [EyeTunes sharedInstance];
+
+	NSArray * playlists = [et playlists];
+	ETPlaylist * playlist = nil;
+	unsigned int i;
+	for (i=0; i<[playlists count]; i++)
+	{
+		playlist = [playlists objectAtIndex:i];
+		if ([[playlist name] isEqualToString:@"Test"])
+			break;
+	}	
+
+	if (![[playlist name] isEqualToString:@"Test"])
+	{
+		NSRunAlertPanel(@"Needs Playlist called 'Test'", @"To run this test please create a playlist called Test", @"Ok", nil, nil);
+		return;
+	}
+	
+	NSOpenPanel * panel = [NSOpenPanel openPanel];
+	if ([panel runModalForTypes:[NSArray arrayWithObjects:@"mp3", @"m4a", @"mp4", nil]] == NSCancelButton)
+		return;
+
+	if (![[panel URLs] count])
+		return;
+		
+	[et addTrack:[[panel URLs] objectAtIndex:0] toPlaylist:playlist];	
+	[self _append:[NSString stringWithFormat:@"added %@ to playlist %@", [[[panel URLs] objectAtIndex:0] path], [playlist name]]];
+
+}
+
+
 - (IBAction) goButtonPressed:(id)sender
 {
 	EyeTunes *e = [EyeTunes sharedInstance];
@@ -86,15 +158,16 @@
 	NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSFont fontWithName:@"Monaco" size:12], NSFontAttributeName, nil];
 
+	ETTrack * currentTrack = [e currentTrack];
 	
-	[self _append:[[e currentTrack] name]];
+	[self _append:[currentTrack name]];
 	[self _append:@"\n"];	
 	[self _append:@"Persistent ID for track: (String): "];	
 	
-	[self _append:[[e currentTrack] persistentIdAsString]];
+	[self _append:[currentTrack persistentIdAsString]];
 	[self _append:@"\n"];
-	long long int trackId = [[e currentTrack] persistentId];
-	NSString *trackIdString = [[e currentTrack] persistentIdAsString];
+	long long int trackId = [currentTrack persistentId];
+	NSString *trackIdString = [currentTrack persistentIdAsString];
 	[self _append:@"Persistent ID for track (long): "];
 	[self _append:[NSString stringWithFormat:@"%016llX",trackId]];
 	[self _append:@"\n"];

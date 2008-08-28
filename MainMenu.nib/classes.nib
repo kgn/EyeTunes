@@ -15,6 +15,12 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>addTrack</key>
+				<string>id</string>
+				<key>enumerate</key>
+				<string>id</string>
+				<key>enumerateUser</key>
+				<string>id</string>
 				<key>goButtonPressed</key>
 				<string>id</string>
 				<key>next</key>

@@ -40,6 +40,7 @@
 #import "ETTrack.h"
 #import "ETPlaylist.h"
 #import "ETPlaylistEnumerator.h"
+#import "ETUserPlaylistEnumerator.h"
 
 #import "ETDebug.h"
 
@@ -626,6 +627,25 @@ cleanup_get_event:
 	return [[[ETPlaylistEnumerator alloc] init] autorelease];
 
 }
+
+
+- (int)userPlaylistCount;
+{
+	// I know this is not very elegant since we can't use getCountOfElementsOfClass here 
+	// just don't use it, Ruotger
+	return [[self userPlaylists] count];
+}
+
+- (NSArray *)userPlaylists;
+{
+	return [[self userPlaylistEnumerator] allObjects];
+}
+
+- (NSEnumerator *)userPlaylistEnumerator;
+{
+	return [[[ETUserPlaylistEnumerator alloc] init] autorelease];
+}
+
 
 // Applescript example:
 // 

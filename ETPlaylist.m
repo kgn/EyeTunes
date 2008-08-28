@@ -56,6 +56,12 @@
 	return [self getPropertyAsStringForDesc:ET_ITEM_PROP_NAME];
 }
 
+
+- (DescType) specialKind;
+{
+	return [self getPropertyAsEnumForDesc:ET_PLAYLIST_PROP_SPECIAL_KIND];
+}
+
 - (NSArray *)tracks
 {
 	return [[self trackEnumerator] allObjects];
@@ -65,6 +71,7 @@
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_TRACK];
 }
+
 
 - (NSEnumerator *)trackEnumerator
 {

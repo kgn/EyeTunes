@@ -12,7 +12,7 @@
 
 - (long long int)longlongValue
 {
-	long long int v = strtoull([self cString], NULL, 16);
+	long long int v = strtoull([self UTF8String], NULL, 16);
 	return v;
 }
 @end

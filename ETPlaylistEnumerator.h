@@ -40,4 +40,7 @@
 	int seq;
 }
 
+- (DescType) appleEventClass; // override in subclass
+
+
 @end

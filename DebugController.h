@@ -27,6 +27,10 @@
 - (IBAction) next:(id)sender;
 - (IBAction) playPause:(id)sender;
 
+- (IBAction) enumerate:(id)sender;
+- (IBAction) enumerateUser:(id)sender;
+- (IBAction) addTrack:(id)sender;
+
 - (IBAction) goButtonPressed:(id)sender;
 
 @end

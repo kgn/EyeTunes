@@ -55,6 +55,11 @@
 - (NSArray *)playlists;
 - (NSEnumerator *)playlistEnumerator;
 
+// get user playlists
+- (int)userPlaylistCount;
+- (NSArray *)userPlaylists;
+- (NSEnumerator *)userPlaylistEnumerator;
+
 // search for playlist by reference
 - (ETPlaylist *)playlistWithPersistentId:(long long int)persistentId;
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;

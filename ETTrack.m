@@ -202,7 +202,7 @@
 
 
 #pragma mark -
-#pragma mark Setters
+#pragma mark Getters
 #pragma mark -
 
 - (NSString *)name
@@ -493,7 +493,7 @@
 
 - (DescType)videoKind
 {
-	return nil; //TODO
+	return 0; //TODO
 }
 
 

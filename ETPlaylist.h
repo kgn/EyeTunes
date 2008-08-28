@@ -46,6 +46,7 @@
 - (id) initWithDescriptor:(AEDesc *)desc;
 
 - (NSString *)name;
+- (DescType) specialKind;
 
 - (NSArray *)tracks;
 - (int) trackCount;

@@ -45,7 +45,7 @@
 {
 	self = [super init];
 	if (self) {
-		count = (int)[[EyeTunes sharedInstance] playlistCount];
+		count = (int)[[EyeTunes sharedInstance] getCountOfElementsOfClass:[self appleEventClass]];
 		seq = 0;
 	}
 	return self;
@@ -59,7 +59,7 @@
 	if (seq >= count)
 		return nil;
 	
-	AppleEvent *replyEvent = [[EyeTunes sharedInstance] getElementOfClass:ET_CLASS_PLAYLIST atIndex:seq];
+	AppleEvent *replyEvent = [[EyeTunes sharedInstance] getElementOfClass:[self appleEventClass] atIndex:seq];
 	if (!replyEvent)
 		return nil;
 	
@@ -84,4 +84,8 @@
 	return objects;
 }
 
+- (DescType) appleEventClass
+{
+	return ET_CLASS_PLAYLIST;
+}
 @end
