@@ -268,6 +268,7 @@ enum {
 #define ET_PLAYLIST_PROP_SPECIAL_KIND	'pSpK'	// eSpk? (r)
 #define ET_PLAYLIST_PROP_TIME			'pTim'	// utxt (r)
 #define ET_PLAYLIST_PROP_VISIBLE		'pvis'	// bool (r)
+#define ET_PLAYLIST_PROP_PARENT			'pPlP'  // <property name="parent" code="pPlP" type="playlist" access="r" description="folder which contains this playlist (if any)"/>
 // generic playlist properies ---
 
 

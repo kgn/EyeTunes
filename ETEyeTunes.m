@@ -462,7 +462,7 @@ cleanup_get_event:
 	NSString *gizmo = nil;
 	NSMutableArray *trackList = nil;
 	
-	AliasHandle alias = [EyeTunes newAliasHandleWithPath:[fromlocation path]];
+	AliasHandle alias = [EyeTunes newAliasHandleWithPath:[fromLocation path]];
 
 	if (!playlist) 
 	{
