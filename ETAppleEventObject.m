@@ -1218,7 +1218,6 @@ cleanup_reply:
 	FSRef		fsRef;
 	DescType	resultType;
 	Size		resultSize;
-	NSString	*urlString = nil;
 	
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	
@@ -1236,14 +1235,13 @@ cleanup_reply:
 		
 	/* Convert Alias to NSString */
 	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
-	if (resolvedURL) {
-		urlString = [(NSURL *)resolvedURL absoluteString];
-		CFRelease(resolvedURL);
-	}
 	
 	NSArray *valueAndDump = [NSArray arrayWithObjects:(NSURL *)resolvedURL,
 		[ETAppleEventObject debugHexDump:(void *)&fsRef ofLength:sizeof(fsRef)], nil];
 	
+	if (resolvedURL) {
+		CFRelease(resolvedURL);
+	}
 	AEDisposeDesc(replyEvent);
 	free(replyEvent);
 	

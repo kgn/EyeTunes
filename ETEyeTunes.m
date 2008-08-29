@@ -385,7 +385,9 @@ cleanup_reply_event:
 		gizmo = @"'----':@, pTrm:'utxt'(@)";
 	}
 	else {
-		gizmo = [NSString stringWithFormat:@"'----':@, pTrm:'utxt'(@), pAre:%@", UTCreateStringForOSType(typeCode)];
+		CFStringRef typeCodeString =  UTCreateStringForOSType(typeCode);
+		gizmo = [NSString stringWithFormat:@"'----':@, pTrm:'utxt'(@), pAre:%@", typeCodeString];
+		CFRelease(typeCodeString);
 	}
 	
 	err = AEBuildAppleEvent(iTunesSignature,
