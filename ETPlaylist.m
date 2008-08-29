@@ -43,6 +43,8 @@
 
 #import "ETDebug.h"
 
+static const BOOL doLog = NO;
+
 @implementation ETPlaylist
 
 - (id) initWithDescriptor:(AEDesc *)desc
@@ -71,6 +73,45 @@
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_TRACK];
 }
+
+- (ETPlaylist*) parentPlaylist
+{
+	AppleEvent *replyEvent = [self getPropertyOfType:ET_PLAYLIST_PROP_PARENT];
+	
+	if (!replyEvent) 
+	{
+		// TODO: raise exception?
+		return nil;
+	}
+	
+	Handle stringHandle;
+	OSErr err = AEPrintDescToHandle(replyEvent, &stringHandle);
+	if (doLog) NSLog(@"-[ETPlaylist parentplaylist] %@ -- replyEvent: %s (AEPrintDescToHandle result %d)", [self name], *stringHandle, err);
+	
+	/* Read Results */
+	AEDesc playlistDescriptor;
+	err = AEGetParamDesc((const AppleEvent *)replyEvent, keyDirectObject, typeWildCard, &playlistDescriptor);
+	if (err != noErr) 
+	{
+		DescType		playlistDesc;
+		int			replyValue = -1;
+		Size		resultSize;
+		err = AEGetParamPtr(replyEvent, keyErrorNumber, typeWildCard, &playlistDesc, 
+							&replyValue, sizeof(replyValue), &resultSize);
+		if (replyValue != errAENoSuchObject)
+		{
+			ETLog(@"ERROR in -[ETPlaylist parentplaylist] \"%@\" -- replyEvent: %s (AEGetParamPtr result %d)", [self name], *stringHandle, err);
+		}
+		return nil;
+	}
+	
+	ETPlaylist * parentPlaylist = [[[ETPlaylist alloc] initWithDescriptor:&playlistDescriptor] autorelease];
+	AEDisposeDesc(replyEvent);
+	free(replyEvent);
+	
+	return parentPlaylist;
+}
+
 
 
 - (NSEnumerator *)trackEnumerator

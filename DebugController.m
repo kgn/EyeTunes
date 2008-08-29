@@ -93,6 +93,9 @@
 	{
 		ETPlaylist * playlist = [playlists objectAtIndex:i];
 		[self _append:[playlist name]];
+		ETPlaylist * parentPlaylist = [playlist parentPlaylist];
+		if (parentPlaylist)
+			[self _append:[NSString stringWithFormat:@"  --- parent: %@", [parentPlaylist name]]];
 		[self _append:@"\n"];
 	}	
 }
