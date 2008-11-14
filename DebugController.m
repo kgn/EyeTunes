@@ -23,6 +23,7 @@
 
 - (void) awakeFromNib
 {
+	[self setDoShowOnlyUser:YES];
 	[self _append:@"Version: "];
 	[self _append:[[EyeTunes sharedInstance] versionString]];
 	[self _append:@"\n"];
@@ -223,17 +224,35 @@
 }
 
 
+- (BOOL) doShowOnlyUser;
+{
+	return doShowOnlyUser;
+}
+- (void) setDoShowOnlyUser:(BOOL)inDoShowOnlyUser;
+{
+	doShowOnlyUser = inDoShowOnlyUser;
+	[[ETPlaylistCache sharedInstance] reload];
+	[outlineView reloadData];
+}
+
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item
 {
 	ETPlaylist * playlist = (ETPlaylist*)item;
 	if (!playlist)
-		playlist = [[EyeTunes sharedInstance] rootPlaylist];
-	
+	{
+		if (doShowOnlyUser)			
+			playlist = [[EyeTunes sharedInstance] rootUserPlaylist];
+		else
+			playlist = [[EyeTunes sharedInstance] rootPlaylist];
+	}	
 	if (![playlist isKindOfClass:[ETPlaylist class]])
 		return nil;
 	
 	NSNumber * playlistId = [[playlist childPlaylistIds] objectAtIndex:index];
-	return [[ETPlaylistCache sharedInstance] playlistForPersistentId:[playlistId longLongValue]];
+	if (doShowOnlyUser)
+		return [[ETPlaylistCache sharedInstance] userPlaylistForPersistentId:[playlistId longLongValue]];
+	else
+		return [[ETPlaylistCache sharedInstance] playlistForPersistentId:[playlistId longLongValue]];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
@@ -248,7 +267,12 @@
 {
 	if (!item)
 	{
-		ETPlaylist * rootPlaylist = [[EyeTunes sharedInstance] rootPlaylist];
+		ETPlaylist * rootPlaylist = nil;
+		if (doShowOnlyUser)
+			rootPlaylist = [[EyeTunes sharedInstance] rootUserPlaylist];
+		else
+			rootPlaylist = [[EyeTunes sharedInstance] rootPlaylist];
+		
 		return [[rootPlaylist childPlaylistIds] count];
 	}
 

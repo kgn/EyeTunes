@@ -623,6 +623,12 @@ cleanup_get_event:
 }
 
 
+- (ETPlaylist*) rootUserPlaylist;
+{
+	// this call returns the root user playlist. this playlist is a pseudo playlist and contains the tree of user playlists 
+	return [[ETPlaylistCache sharedInstance] userPlaylistForPersistentId:0];
+}
+
 - (int) playlistCount
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_PLAYLIST];

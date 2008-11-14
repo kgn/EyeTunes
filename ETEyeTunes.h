@@ -52,6 +52,7 @@
 
 // get root playlist
 - (ETPlaylist*) rootPlaylist;
+- (ETPlaylist*) rootUserPlaylist;
 
 // get all playlists
 - (int)playlistCount;

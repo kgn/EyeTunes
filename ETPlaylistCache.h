@@ -13,11 +13,12 @@
 @interface ETPlaylistCache : NSObject 
 {
 	NSMutableDictionary * playlists;
+	NSMutableDictionary * userPlaylists;
 }
 
 + (id) sharedInstance;
 
 - (void) reload;
 - (ETPlaylist*) playlistForPersistentId:(long long int)persistentId;
-- (ETPlaylist*) rootUserPlaylist;
+- (ETPlaylist*) userPlaylistForPersistentId:(long long int)persistentId;
 @end

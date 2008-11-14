@@ -33,16 +33,22 @@
 		return nil;
 	
 	playlists = [[NSMutableDictionary alloc] init];
+	userPlaylists = [[NSMutableDictionary alloc] init];
 	
 	return self;
+}
+
+
+- (void) addChildrenToEnumeratedPlaylists:(NSEnumerator*)en
+{
 }
 
 
 - (void) reload;
 {
 	[playlists removeAllObjects];
+	[userPlaylists removeAllObjects];
 	
-	ETPlaylistEnumerator * en = [[[ETPlaylistEnumerator alloc] init] autorelease];
 	
 	ETPlaylist * rootPlaylist = [[[ETPlaylist alloc] init] autorelease];
 	[rootPlaylist setPersistentId:kETSpecialPlaylistRoot];
@@ -65,34 +71,21 @@
 	[playlists setObject:playlistsCategory forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistCategoryPlaylists]];
 	
 	// add all playlists
+	ETPlaylistEnumerator * en = [[[ETPlaylistEnumerator alloc] init] autorelease];
 	ETPlaylist * playlist = nil;
 	while ((playlist = [en nextObject])) 
 	{
 		[playlists setObject:playlist forKey:[NSNumber numberWithLongLong:[playlist persistentId]]];
 	}
 
-	// find special playlists
+	// set parents
 	NSEnumerator * en2 = [playlists objectEnumerator];
-	unsigned int count = 0;
 	while ((playlist = [en2 nextObject])) 
 	{
-		count++;
 		if ([playlist persistentId] >= 0 && [playlist persistentId] <= 3) // root or categories
 			continue;
-				
-		/*
-		if ([playlist persistentId] == 6554597091219814194ll) // not sure that this is a good idea...
-		{
-			mediathek = playlist;
-			continue;
-		}
-		if ([playlist persistentId] == 6114773995509758539ll) // not sure that this is a good idea...
-		{
-			genius = playlist;
-			continue;
-		}
-*/		
-		NSLog (@"playlist: %@ (%@)", [playlist name], [playlist stringForOSType:[playlist specialKind]]);
+
+		if (NO) NSLog (@"playlist: %@ (%@)", [playlist name], [playlist stringForOSType:[playlist specialKind]]);
 
 		switch ([playlist specialKind]) 
 		{
@@ -141,11 +134,61 @@
 		
 		long long parentPersistentId = [playlist parentPlaylistId];
 		
-		ETPlaylist * parentPlaylist = (parentPersistentId != 0) ? [self playlistForPersistentId:parentPersistentId] : rootPlaylist;
-		NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", playlistName, [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
+		ETPlaylist * parentPlaylist = [self playlistForPersistentId:parentPersistentId];
+		if (NO) NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", playlistName, [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
+		[parentPlaylist addChildPlaylistId:[playlist persistentIdNumber]];
+	}	
+	
+	// ==== user playlist tree
+	//
+	
+	ETPlaylist * rootUserPlaylist = [[[ETPlaylist alloc] init] autorelease];
+	[rootUserPlaylist setPersistentId:kETSpecialPlaylistRoot];
+	[userPlaylists setObject:rootUserPlaylist forKey:[NSNumber numberWithLongLong:kETSpecialPlaylistRoot]];
+		
+	en = [[[ETPlaylistEnumerator alloc] init] autorelease];
+	while ((playlist = [en nextObject])) 
+	{
+		if ([playlist specialKind] == kETSpecialPlaylistNone || [playlist specialKind] == kETSpecialPlaylistFolder)
+		{
+			[userPlaylists setObject:playlist forKey:[NSNumber numberWithLongLong:[playlist persistentId]]];
+		}
+	}
+	
+	// set parents
+	en2 = [userPlaylists objectEnumerator];
+	while ((playlist = [en2 nextObject])) 
+	{
+		if ([playlist persistentId] >= 0 && [playlist persistentId] <= 3) // root or categories
+			continue;
+		
+		if ([playlist specialKind] == kETSpecialPlaylistNone || [playlist specialKind] == kETSpecialPlaylistFolder)
+		{
+			ETPlaylist * parentPlaylist = [playlist parentPlaylist];
+			long long parentPersistentId = [parentPlaylist persistentId];
+			if (!parentPersistentId)
+				[playlist setParentPlaylistId:kETSpecialPlaylistRoot];
+			else
+				[playlist setParentPlaylistId:parentPersistentId];			
+		}
+	}
+	
+	en2 = [userPlaylists objectEnumerator];
+	while ((playlist = [en2 nextObject])) 
+	{
+		unsigned long long playlistPersistentID = [playlist persistentId];
+		NSString * playlistName = [playlist name];
+		if (playlistPersistentID == 0) // root
+			continue;
+		
+		long long parentPersistentId = [playlist parentPlaylistId];
+		
+		ETPlaylist * parentPlaylist = [self userPlaylistForPersistentId:parentPersistentId];
+		if (NO) NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", playlistName, [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
 		[parentPlaylist addChildPlaylistId:[playlist persistentIdNumber]];
 	}	
 }
+
 
 - (ETPlaylist*) playlistForPersistentId:(long long int)persistentId;
 {
@@ -153,8 +196,10 @@
 }
 
 
-- (ETPlaylist*) rootUserPlaylist;
+- (ETPlaylist*) userPlaylistForPersistentId:(long long int)persistentId;
 {
-	return nil;
+	return [userPlaylists objectForKey:[NSNumber numberWithLongLong:persistentId]];
 }
+
+
 @end

@@ -23,6 +23,7 @@
 	IBOutlet	NSTextField	*trackName;
 	
 	IBOutlet	NSOutlineView *outlineView;
+	BOOL doShowOnlyUser;
 }
 
 - (IBAction) prev:(id)sender;
@@ -34,5 +35,8 @@
 - (IBAction) addTrack:(id)sender;
 
 - (IBAction) goButtonPressed:(id)sender;
+
+- (BOOL) doShowOnlyUser;
+- (void) setDoShowOnlyUser:(BOOL)inDoShowOnlyUser;
 
 @end
