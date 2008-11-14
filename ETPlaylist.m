@@ -59,6 +59,13 @@ static const BOOL doLog = NO;
 	return self;
 }
 
+- (void) dealloc
+{
+	[childPlaylistIds release];
+	
+	[super dealloc];
+}
+
 - (NSString *)name
 {
 	if ([self persistentId] == kETSpecialPlaylistRoot)

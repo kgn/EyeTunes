@@ -39,10 +39,14 @@
 }
 
 
-- (void) addChildrenToEnumeratedPlaylists:(NSEnumerator*)en
+// as a singleton we are never dealloced but the clang statc analyzer doesn't know this
+- (void) dealloc
 {
+	[playlists release];
+	[userPlaylists release];
+	
+	[super dealloc];
 }
-
 
 - (void) reload;
 {
