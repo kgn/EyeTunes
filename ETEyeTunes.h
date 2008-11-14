@@ -50,6 +50,9 @@
 // things that return a Track object
 - (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode;
 
+// get root playlist
+- (ETPlaylist*) rootPlaylist;
+
 // get all playlists
 - (int)playlistCount;
 - (NSArray *)playlists;

@@ -46,6 +46,8 @@
 				<string>NSImageView</string>
 				<key>nextButton</key>
 				<string>NSButton</string>
+				<key>outlineView</key>
+				<string>NSOutlineView</string>
 				<key>output</key>
 				<string>NSTextView</string>
 				<key>playButton</key>

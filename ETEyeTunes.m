@@ -41,6 +41,7 @@
 #import "ETPlaylist.h"
 #import "ETPlaylistEnumerator.h"
 #import "ETUserPlaylistEnumerator.h"
+#import "ETPlaylistCache.h"
 
 #import "ETDebug.h"
 
@@ -614,6 +615,14 @@ cleanup_get_event:
 	
 }
 
+
+- (ETPlaylist*) rootPlaylist;
+{
+	// this call returns the root playlist. this playlist is a pseudo playlist and simply contains the categories 
+	return [[ETPlaylistCache sharedInstance] playlistForPersistentId:0];
+}
+
+
 - (int) playlistCount
 {
 	return [self getCountOfElementsOfClass:ET_CLASS_PLAYLIST];
@@ -633,7 +642,7 @@ cleanup_get_event:
 
 - (int)userPlaylistCount;
 {
-	// I know this is not very elegant since we can't use getCountOfElementsOfClass here 
+	// this is not very elegant since we can't use getCountOfElementsOfClass here 
 	// just don't use it, Ruotger
 	return [[self userPlaylists] count];
 }

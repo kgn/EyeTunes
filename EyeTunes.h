@@ -58,3 +58,4 @@
 #import "ETEyeTunes.h"
 #import "ETTrack.h"
 #import "ETPlaylist.h"
+#import "ETPlaylistCache.h"

@@ -40,20 +40,37 @@
 @class ETTrackEnumerator;
 @class ETTrack;
 
-@interface ETPlaylist : ETAppleEventObject {
+@interface ETPlaylist : ETAppleEventObject 
+{
+	NSMutableArray * childPlaylistIds;
+	BOOL areChildrenSorted;
+	BOOL isSpecialKind;
+	BOOL isCached;
+	unsigned long long persistentId;
+	unsigned long long parentPlaylistId;
 }
 
 - (id) initWithDescriptor:(AEDesc *)desc;
 
 - (NSString *)name;
 - (DescType) specialKind;
+- (BOOL) isSpecialKind;
+- (BOOL) isCached;
+
+- (unsigned long long) parentPlaylistId;
+- (void) setParentPlaylistId:(unsigned long long)inParentPlaylistID;
+- (ETPlaylist*) parentPlaylist;
+- (NSArray*) childPlaylistIds;
+- (void) addChildPlaylistId:(NSNumber*)childPlaylistId;
 
 - (NSArray *)tracks;
 - (int) trackCount;
 - (NSEnumerator *)trackEnumerator;
 - (ETTrack *)trackWithDatabaseId:(int)databaseId;
 
+- (void) setPersistentId:(long long int)inPersistentID;
 - (long long int)persistentId;
+- (NSNumber*)persistentIdNumber;
 - (NSString *) persistentIdAsString;
 
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;

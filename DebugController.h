@@ -21,6 +21,8 @@
 	IBOutlet	NSTextField	*albumName;
 	IBOutlet	NSTextField	*artistName;
 	IBOutlet	NSTextField	*trackName;
+	
+	IBOutlet	NSOutlineView *outlineView;
 }
 
 - (IBAction) prev:(id)sender;

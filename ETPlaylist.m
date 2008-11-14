@@ -47,14 +47,28 @@ static const BOOL doLog = NO;
 
 @implementation ETPlaylist
 
+
+
 - (id) initWithDescriptor:(AEDesc *)desc
 {
-	self = [super initWithDescriptor:desc applCode:ET_APPLE_EVENT_OBJECT_DEFAULT_APPL];
+	if (![super initWithDescriptor:desc applCode:ET_APPLE_EVENT_OBJECT_DEFAULT_APPL])
+		return nil;
+	
+	parentPlaylistId = -1;
+	persistentId = -1;
 	return self;
 }
 
 - (NSString *)name
 {
+	if ([self persistentId] == kETSpecialPlaylistRoot)
+		return NSLocalizedString(@"iTunes", @"EyeTunes root playlist name");
+	if ([self persistentId] == kETSpecialPlaylistCategoryLibrary)
+		return NSLocalizedString(@"LIBRARY", @"EyeTunes category playlist name");
+	if ([self persistentId] == kETSpecialPlaylistCategoryStore)
+		return NSLocalizedString(@"STORE", @"EyeTunes category playlist name");
+	if ([self persistentId] == kETSpecialPlaylistCategoryPlaylists)
+		return NSLocalizedString(@"PLAYLISTS", @"EyeTunes category playlist name");
 	return [self getPropertyAsStringForDesc:ET_ITEM_PROP_NAME];
 }
 
@@ -112,6 +126,41 @@ static const BOOL doLog = NO;
 	return parentPlaylist;
 }
 
+- (unsigned long long) parentPlaylistId;
+{
+	if (parentPlaylistId == -1)
+	{
+		parentPlaylistId = [[self parentPlaylist] persistentId];
+	}
+	return parentPlaylistId;
+}
+
+// we need to be able to overwrite this value to move the playlist to a different location in the tree
+- (void) setParentPlaylistId:(unsigned long long)inParentPlaylistId;
+{
+	parentPlaylistId = inParentPlaylistId;
+}
+
+- (NSArray*) childPlaylistIds;
+{
+	if (!areChildrenSorted)
+	{
+		[childPlaylistIds sortUsingSelector:@selector(comparePlaylistName:)];
+		areChildrenSorted = YES;
+	}
+	
+	return [NSArray arrayWithArray:childPlaylistIds];
+}
+
+
+- (void) addChildPlaylistId:(NSNumber*)childPlaylistId;
+{
+	if (!childPlaylistIds)
+		childPlaylistIds = [[NSMutableArray alloc] init];
+	
+	[childPlaylistIds addObject:childPlaylistId];
+	areChildrenSorted = NO;
+}
 
 
 - (NSEnumerator *)trackEnumerator
@@ -145,7 +194,7 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
-- (ETTrack *)trackWithPersistentId:(long long int)persistentId
+- (ETTrack *)trackWithPersistentId:(long long int)inPersistentId
 {
 	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0])
 		return nil;
@@ -157,12 +206,12 @@ cleanup_reply_event:
 		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							withLongIntValue:persistentId];
+							withLongIntValue:inPersistentId];
 	}
 	else {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							 withStringValue:[NSString stringWithFormat:@"%016llX", persistentId]];
+							 withStringValue:[NSString stringWithFormat:@"%016llX", inPersistentId]];
 	}
 	/* Read Results */
 	AEDesc replyObject;
@@ -182,7 +231,7 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
-- (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId
+- (ETTrack *)trackWithPersistentIdString:(NSString *)inPersistentId
 {
 	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0])
 		return nil;
@@ -194,12 +243,12 @@ cleanup_reply_event:
 		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2]) {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							withLongIntValue:[persistentId longlongValue]];
+							withLongIntValue:[inPersistentId longlongValue]];
 	}
 	else {
 		replyEvent = [self getElementOfClass:ET_CLASS_TRACK
 									   byKey:ET_ITEM_PROP_PERSISTENT_ID 
-							 withStringValue:persistentId];
+							 withStringValue:inPersistentId];
 	}
 	/* Read Results */
 	AEDesc replyObject;
@@ -217,11 +266,20 @@ cleanup_reply_event:
 	free(replyEvent);
 	
 	return foundTrack;
+}
+
+
+- (void) setPersistentId:(long long int)inPersistentId;
+{
+	persistentId = inPersistentId;
 }
 
 
 - (long long int) persistentId
 {
+	if (persistentId != -1)
+		return persistentId;
+	
 	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0]) {
 		ETLog(@"persistentId Unsupported");
 		return -1;
@@ -231,9 +289,15 @@ cleanup_reply_event:
 		[[EyeTunes sharedInstance] versionLessThan:ITUNES_7_2])
 		return [self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID];	
 	else {
-		NSString *persistentId = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
-		return [persistentId longlongValue];
+		NSString *persistentIDString = [NSString stringWithFormat:@"0x%@",[self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID]];
+		persistentId = [persistentIDString longlongValue];
+		return persistentId;
 	}
+}
+
+- (NSNumber*)persistentIdNumber;
+{
+	return [NSNumber numberWithLongLong:[self persistentId]];
 }
 
 - (NSString *) persistentIdAsString
@@ -249,6 +313,19 @@ cleanup_reply_event:
 		return [[NSString stringWithFormat:@"%016llX",[self getPropertyAsLongIntegerForDesc:ET_ITEM_PROP_PERSISTENT_ID]] uppercaseString];
 	else 
 		return [self getPropertyAsStringForDesc:ET_ITEM_PROP_PERSISTENT_ID];
+}
+
+
+- (BOOL) isSpecialKind;
+{
+	NSLog (@"WARNING: not yet implemented");
+	return NO;
+}
+
+- (BOOL) isCached;
+{
+	NSLog (@"WARNING: not yet implemented");
+	return NO;
 }
 
 @end

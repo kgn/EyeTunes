@@ -50,7 +50,13 @@
 		039620C80C0DE7CC00786326 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
-		DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */; };
+		DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDB3AF3D0EC4A147003C7FE6 /* ETRootUserPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */; };
+		DDB3AF3E0EC4A148003C7FE6 /* ETRootUserPlaylist.h in Headers */ = {isa = PBXBuildFile; fileRef = DD2AB8990E97A88800178457 /* ETRootUserPlaylist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDEBCC900E8D1EF600219086 /* ETPlaylistCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEBCBB70E8D0DAD00219086 /* ETPlaylistCache.m */; };
+		DDEBCC910E8D1EF700219086 /* ETPlaylistCache.h in Headers */ = {isa = PBXBuildFile; fileRef = DDEBCBB60E8D0DAD00219086 /* ETPlaylistCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDEBCD350E8D255600219086 /* NSNumber+ETPlaylistNameSorting.h in Headers */ = {isa = PBXBuildFile; fileRef = DDEBCD320E8D245000219086 /* NSNumber+ETPlaylistNameSorting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDEBCD360E8D255600219086 /* NSNumber+ETPlaylistNameSorting.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEBCD330E8D245000219086 /* NSNumber+ETPlaylistNameSorting.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +119,12 @@
 		8DC2EF5B0486A6940098B216 /* EyeTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EyeTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETUserPlaylistEnumerator.h; sourceTree = "<group>"; };
 		DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETUserPlaylistEnumerator.m; sourceTree = "<group>"; };
+		DD2AB8990E97A88800178457 /* ETRootUserPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETRootUserPlaylist.h; sourceTree = "<group>"; };
+		DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETRootUserPlaylist.m; sourceTree = "<group>"; };
+		DDEBCBB60E8D0DAD00219086 /* ETPlaylistCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPlaylistCache.h; sourceTree = "<group>"; };
+		DDEBCBB70E8D0DAD00219086 /* ETPlaylistCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPlaylistCache.m; sourceTree = "<group>"; };
+		DDEBCD320E8D245000219086 /* NSNumber+ETPlaylistNameSorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+ETPlaylistNameSorting.h"; sourceTree = "<group>"; };
+		DDEBCD330E8D245000219086 /* NSNumber+ETPlaylistNameSorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+ETPlaylistNameSorting.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,12 +249,18 @@
 				032E44AE098A4F2B00C55ECB /* ETTrackEnumerator.m */,
 				032E476A098A8FDF00C55ECB /* ETPlaylistEnumerator.h */,
 				032E476B098A8FDF00C55ECB /* ETPlaylistEnumerator.m */,
+				DD2AB8990E97A88800178457 /* ETRootUserPlaylist.h */,
+				DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */,
 				DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */,
 				DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */,
 				030BF9AB098CFFD100D68616 /* ETDebug.h */,
 				030BF9AC098CFFD100D68616 /* ETDebug.m */,
 				039620970C0DE71600786326 /* NSString+LongLongValue.h */,
 				039620980C0DE71600786326 /* NSString+LongLongValue.m */,
+				DDEBCBB60E8D0DAD00219086 /* ETPlaylistCache.h */,
+				DDEBCBB70E8D0DAD00219086 /* ETPlaylistCache.m */,
+				DDEBCD320E8D245000219086 /* NSNumber+ETPlaylistNameSorting.h */,
+				DDEBCD330E8D245000219086 /* NSNumber+ETPlaylistNameSorting.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -291,6 +309,9 @@
 				0313DDED0C10DFB400F401BB /* ETEyeTunes.h in Headers */,
 				0313DE1D0C10E09900F401BB /* EyeTunesVersions.h in Headers */,
 				DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */,
+				DDEBCD350E8D255600219086 /* NSNumber+ETPlaylistNameSorting.h in Headers */,
+				DDEBCC910E8D1EF700219086 /* ETPlaylistCache.h in Headers */,
+				DDB3AF3E0EC4A148003C7FE6 /* ETRootUserPlaylist.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,15 +441,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				035B70BA0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8560886594100F33185 /* ETAppleEventObject.m in Sources */,
-				032CEB750886E48100F33185 /* ETPlaylist.m in Sources */,
-				032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */,
-				032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
 				030BF9AE098CFFD100D68616 /* ETDebug.m in Sources */,
-				0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */,
 				0313DE490C10E1ED00F401BB /* ETEyeTunes.m in Sources */,
+				032CEB750886E48100F33185 /* ETPlaylist.m in Sources */,
+				DDEBCC900E8D1EF600219086 /* ETPlaylistCache.m in Sources */,
+				032E476E098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
+				DDB3AF3D0EC4A147003C7FE6 /* ETRootUserPlaylist.m in Sources */,
+				035B70BA0885537800D0B89E /* ETTrack.m in Sources */,
+				032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */,
 				DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */,
+				DDEBCD360E8D255600219086 /* NSNumber+ETPlaylistNameSorting.m in Sources */,
+				0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +487,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;

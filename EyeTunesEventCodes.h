@@ -100,6 +100,13 @@ enum {
 }; // ET_PLAYLIST_SPECIAL_KIND (eSpK)
 #endif
 
+enum {
+	kETSpecialPlaylistRoot = 0,
+	kETSpecialPlaylistCategoryLibrary = 1,
+	kETSpecialPlaylistCategoryStore = 2,
+	kETSpecialPlaylistCategoryPlaylists = 3,	
+};
+
 #if ITUNES_VERSION >= ITUNES_7_0
 enum {
 	kETVideoKindUnknown					= 'kVdN',
@@ -276,4 +283,5 @@ enum {
 #define ET_CLASS_DEVICE_PLAYLIST		'cDvP'	// <class name="device playlist" code="cDvP" description="a playlist representing the contents of a portable device" inherits="playlist" plural="device playlists">
 #define ET_CLASS_FOLDER_PLAYLIST		'cFoP'	// <class name="folder playlist" code="cFoP" description="a folder that contains other playlists" inherits="user playlist" plural="folder playlists"/>
 #define ET_CLASS_USER_PLAYLIST			'cUsP'	// <class name="user playlist" code="cUsP" description="custom playlists created by the user" inherits="playlist" plural="user playlists">
+#define ET_CLASS_RADIOTUNER_PLAYLIST	'cRTP'  // <class name="radio tuner playlist" code="cRTP" description="the radio tuner playlist" inherits="playlist" plural="radio tuner playlists">
 

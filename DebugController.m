@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "DebugController.h"
 
-
 @implementation DebugController
 
 
@@ -60,7 +59,8 @@
 	
 	[[EyeTunes sharedInstance] versionNumber];
 	
-	
+	[ETPlaylistCache sharedInstance];
+	[outlineView reloadData];
 }
 
 - (IBAction) prev:(id)sender
@@ -93,9 +93,10 @@
 	{
 		ETPlaylist * playlist = [playlists objectAtIndex:i];
 		[self _append:[playlist name]];
+		[self _append:[NSString	stringWithFormat:@" (%@)", [playlist stringForOSType:[playlist specialKind]]]];
 		ETPlaylist * parentPlaylist = [playlist parentPlaylist];
 		if (parentPlaylist)
-			[self _append:[NSString stringWithFormat:@"  --- parent: %@", [parentPlaylist name]]];
+			[self _append:[NSString stringWithFormat:@"   --- parent: %@", [parentPlaylist name]]];
 		[self _append:@"\n"];
 	}	
 }
@@ -219,6 +220,50 @@
 	[trackName setStringValue:[NSString stringWithFormat:@"track name: %@",[track name]]];
 	[albumName setStringValue:[NSString stringWithFormat:@"album name: %@",[track album]]];
 	[artistName setStringValue:[NSString stringWithFormat:@"artist name: %@",[track artist]]];
+}
+
+
+- (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item
+{
+	ETPlaylist * playlist = (ETPlaylist*)item;
+	if (!playlist)
+		playlist = [[EyeTunes sharedInstance] rootPlaylist];
+	
+	if (![playlist isKindOfClass:[ETPlaylist class]])
+		return nil;
+	
+	NSNumber * playlistId = [[playlist childPlaylistIds] objectAtIndex:index];
+	return [[ETPlaylistCache sharedInstance] playlistForPersistentId:[playlistId longLongValue]];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
+{
+	if (![item isKindOfClass:[ETPlaylist class]])
+		return NO;
+
+	return [[(ETPlaylist*)item childPlaylistIds] count];
+}
+
+- (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
+{
+	if (!item)
+	{
+		ETPlaylist * rootPlaylist = [[EyeTunes sharedInstance] rootPlaylist];
+		return [[rootPlaylist childPlaylistIds] count];
+	}
+
+	if (![item isKindOfClass:[ETPlaylist class]])
+		return 0;
+
+	return [[(ETPlaylist*)item childPlaylistIds] count];
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
+{
+	if (![item isKindOfClass:[ETPlaylist class]])
+		return @"wrong class";
+
+	return [(ETPlaylist*)item name];
 }
 
 @end
