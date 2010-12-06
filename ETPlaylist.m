@@ -80,9 +80,14 @@ static const BOOL doLog = NO;
 }
 
 
-- (DescType) specialKind;
+- (DescType) specialKind
 {
 	return [self getPropertyAsEnumForDesc:ET_PLAYLIST_PROP_SPECIAL_KIND];
+}
+
+- (BOOL) isSmart
+{
+    return [self getPropertyAsIntegerForDesc:ET_PLAYLIST_PROP_SMART];
 }
 
 - (NSArray *)tracks

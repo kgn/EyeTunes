@@ -55,6 +55,7 @@
 - (NSString *)name;
 - (DescType) specialKind;
 - (BOOL) isSpecialKind;
+- (BOOL) isSmart;
 - (BOOL) isCached;
 
 - (unsigned long long) parentPlaylistId;
