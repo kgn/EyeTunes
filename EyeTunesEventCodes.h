@@ -47,7 +47,11 @@ enum {
 enum {
 	kETRepeatModeOff			= 'kRp0',
 	kETRepeatModeOne			= 'kRp1',
+#if ITUNES_VERSION >= ITUNES_10_0//This might go back further then 10 but that is what I have to test
+    kETRepeatModeAll			= 'kAll'
+#else    
 	kETRepeatModeAll			= 'kRpA'
+#endif    
 };
 
 enum {
@@ -85,7 +89,13 @@ enum {
 }; 
 #else
 enum {
+#if ITUNES_VERSION >= ITUNES_10_0//This might go back further then 10 but that is what I have to test
+    kETSpecialPlaylistNone				= 'kNon',
+    kETSpecialPlaylistGenius			= 'kSpG',
+    kETSpecialPlaylistITunesU			= 'kSpU',
+#else    
 	kETSpecialPlaylistNone				= 'kSpN',
+#endif    
 	kETSpecialPlaylistFolder			= 'kSpF',
 	kETSpecialPlaylistPartyShuffle		= 'kSpS',
 	kETSpecialPlaylistPodcasts			= 'kSpP',
@@ -109,8 +119,12 @@ enum {
 
 #if ITUNES_VERSION >= ITUNES_7_0
 enum {
-	kETVideoKindUnknown					= 'kVdN',
-	kETVideoKindMovie					= 'kVdM',
+#if ITUNES_VERSION >= ITUNES_10_0//This might go back further then 10 but that is what I have to test    
+	kETVideoKindUnknown					= 'kNon',
+#else    
+    kETVideoKindUnknown					= 'kVdN',
+#endif   
+    kETVideoKindMovie					= 'kVdM',
 	kETVideoKindMusicVideo				= 'kVdV',
 	kETVideoKindTVShow					= 'kVdT',
 };

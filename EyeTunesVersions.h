@@ -1,6 +1,7 @@
 /* Useful version constants for iTunes version checking. */
 
 // guard against exporting features that are not in earlier versions
+#define ITUNES_10_0		0x1000
 #define ITUNES_7_3		0x0730
 #define ITUNES_7_2_1	0x0721
 #define ITUNES_7_2		0x0720
