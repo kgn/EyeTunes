@@ -139,5 +139,6 @@
 - (void)setArtwork:(NSArray *)newArtworks;
 - (BOOL)setArtwork:(NSImage *)artwork atIndex:(int)index;
 
+- (BOOL)isEqualToTrack:(ETTrack *)track;
 
 @end

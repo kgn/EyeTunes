@@ -705,4 +705,8 @@
 	 [self setPropertyWithInteger:newValue forDesc:ET_TRACK_PROP_YEAR];
 }
 
+- (BOOL)isEqualToTrack:(ETTrack *)track{
+    return (self.databaseId == track.databaseId);
+}
+
 @end
