@@ -68,6 +68,7 @@
 - (int) trackCount;
 - (NSEnumerator *)trackEnumerator;
 - (ETTrack *)trackWithDatabaseId:(int)databaseId;
+- (BOOL)containsTrack:(ETTrack *)track;
 
 - (void) setPersistentId:(long long int)inPersistentID;
 - (long long int)persistentId;
@@ -76,4 +77,5 @@
 
 - (ETTrack *)trackWithPersistentId:(long long int)persistentId;
 - (ETTrack *)trackWithPersistentIdString:(NSString *)persistentId;
+
 @end

@@ -206,6 +206,10 @@ cleanup_reply_event:
 	return foundTrack;
 }
 
+- (BOOL)containsTrack:(ETTrack *)track{
+    return ([self trackWithDatabaseId:track.databaseId] != nil);
+}
+
 - (ETTrack *)trackWithPersistentId:(long long int)inPersistentId
 {
 	if ([[EyeTunes sharedInstance] versionLessThan:ITUNES_6_0])
