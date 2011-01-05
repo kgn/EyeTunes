@@ -379,7 +379,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 031B4820088429A70086F24B /* Build configuration list for PBXProject "EyeTunes" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* EyeTunes */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
