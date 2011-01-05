@@ -83,10 +83,6 @@
 - (IBAction) enumerate:(id)sender;
 {
 	EyeTunes *et = [EyeTunes sharedInstance];
-	NSTextStorage *text = [output textStorage];
-	
-	NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
-						  [NSFont fontWithName:@"Monaco" size:12], NSFontAttributeName, nil];
 
 	NSArray * playlists = [et playlists];
 	unsigned int i=0;
@@ -106,10 +102,6 @@
 - (IBAction) enumerateUser:(id)sender;
 {
 	EyeTunes *et = [EyeTunes sharedInstance];
-	NSTextStorage *text = [output textStorage];
-	
-	NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
-						  [NSFont fontWithName:@"Monaco" size:12], NSFontAttributeName, nil];
 	
 	NSArray * playlists = [et userPlaylists];
 	unsigned int i;
@@ -158,11 +150,6 @@
 - (IBAction) goButtonPressed:(id)sender
 {
 	EyeTunes *e = [EyeTunes sharedInstance];
-	NSTextStorage *text = [output textStorage];
-	
-	NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont fontWithName:@"Monaco" size:12], NSFontAttributeName, nil];
-
 	ETTrack * currentTrack = [e currentTrack];
 	
 	[self _append:[currentTrack name]];
