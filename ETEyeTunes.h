@@ -47,6 +47,12 @@
 
 + (EyeTunes *) sharedInstance;
 
+//Launch the iTunes app, if iTunes it already running the window will take focus
++ (void)launch;
+
+//Check if the iTunes app is running
++ (BOOL)isRunning;
+
 // things that return a Track object
 - (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode;
 
