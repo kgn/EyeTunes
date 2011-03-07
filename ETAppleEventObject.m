@@ -374,7 +374,7 @@
 		return -1;
 	}
 	
-	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeSInt32, &resultType, 
 						&count, sizeof(count), &resultSize);
 	if (err != noErr) {
 		ETLog(@"Unable to get parameter of reply: %d", err);
@@ -755,7 +755,7 @@
 	}
 	
 	/* Read Results */
-	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeSInt32, &resultType, 
 						&replyValue, sizeof(replyValue), &resultSize);
 	if (err != noErr) {
 		ETLog(@"Error extracting parameters from reply: %d", err);
