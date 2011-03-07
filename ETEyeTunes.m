@@ -822,15 +822,6 @@ cleanup_reply_event:
 		goto cleanup_reply_event;
 	}
 	
-	{
-		Handle d;
-		AEPrintDescToHandle(&replyObject, &d);
-		CFStringRef s = CFStringCreateWithFormat(NULL,NULL,CFSTR("%s"),*d);
-		CFShow(s);
-		if (s) CFRelease(s);
-		DisposeHandle(d);
-	}			
-	
 	playlist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
 	
 cleanup_reply_event:
