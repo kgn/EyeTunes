@@ -109,6 +109,8 @@
 
 - (id)addTrack:(NSURL *)fromLocation toPlaylist:(ETPlaylist *)playlist;
 
+- (ETPlaylist*)addPlaylistWithName:(NSString*)name;
+
 // TODO: - (id)convertTrack:(id)trackReference;
 // TODO: - (void)refresh:(id)fileTrack;
 // TODO: - (void)update:(id)iPod;

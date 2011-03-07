@@ -48,6 +48,10 @@
 		0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 039620980C0DE71600786326 /* NSString+LongLongValue.m */; };
 		039620AC0C0DE78200786326 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		039620C80C0DE7CC00786326 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
+		638ADA371325160700B02DFB /* ETRootUserPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */; };
+		638ADA391325160700B02DFB /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
+		638ADA3D1325160700B02DFB /* ETPlaylistCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEBCBB70E8D0DAD00219086 /* ETPlaylistCache.m */; };
+		638ADA3F1325160700B02DFB /* NSNumber+ETPlaylistNameSorting.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEBCD330E8D245000219086 /* NSNumber+ETPlaylistNameSorting.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
 		DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -423,15 +427,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				037310E30C15D98E004AAA53 /* NSString+LongLongValue.m in Sources */,
 				037310CB0C15D92A004AAA53 /* ETEyeTunes.m in Sources */,
-				031B486908843CF90086F24B /* main.m in Sources */,
 				035B70BB0885537800D0B89E /* ETTrack.m in Sources */,
 				032CE8540886594100F33185 /* ETAppleEventObject.m in Sources */,
 				032CEB730886E48100F33185 /* ETPlaylist.m in Sources */,
 				032E44AF098A4F2B00C55ECB /* ETTrackEnumerator.m in Sources */,
 				032E476C098A8FDF00C55ECB /* ETPlaylistEnumerator.m in Sources */,
+				638ADA371325160700B02DFB /* ETRootUserPlaylist.m in Sources */,
+				638ADA391325160700B02DFB /* ETUserPlaylistEnumerator.m in Sources */,
 				030BF9AF098CFFD100D68616 /* ETDebug.m in Sources */,
+				037310E30C15D98E004AAA53 /* NSString+LongLongValue.m in Sources */,
+				638ADA3D1325160700B02DFB /* ETPlaylistCache.m in Sources */,
+				638ADA3F1325160700B02DFB /* NSNumber+ETPlaylistNameSorting.m in Sources */,
+				031B486908843CF90086F24B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +579,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
 				INSTALL_PATH = /usr/local/bin;
 				KEEP_PRIVATE_EXTERNS = YES;
 				OTHER_CFLAGS = "";
@@ -602,7 +610,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (

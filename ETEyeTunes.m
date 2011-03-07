@@ -785,4 +785,60 @@ cleanup_reply_event:
 	return !!(currentVersion < version);
 }
 
+- (ETPlaylist*)addPlaylistWithName:(NSString*)name
+{
+	OSErr err;
+	AppleEvent getEvent, replyEvent;
+	AEDescList replyObject;
+	ETPlaylist* playlist;
+	NSString *gizmo = [NSString stringWithFormat:@"kocl:type('cPly'), prdt: {pnam:'utxt'(\"%@\")}", name];	
+	
+	AEBuildError buildError;		
+	err = AEBuildAppleEvent(kAECoreSuite,	// class 
+							kAECreateElement,		// ID
+							typeApplSignature,	// address type
+							&targetApplCode,	// address data
+							sizeof(targetApplCode),	// address length
+							kAutoGenerateReturnID,	// return ID
+							kAnyTransactionID,	//transaction ID
+							&getEvent,	// result
+							&buildError,	// error
+							[gizmo UTF8String]);	
+	
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+
+	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
+		goto cleanup_get_event;
+	}
+	
+	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeWildCard, &replyObject);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	{
+		Handle d;
+		AEPrintDescToHandle(&replyObject, &d);
+		CFStringRef s = CFStringCreateWithFormat(NULL,NULL,CFSTR("%s"),*d);
+		CFShow(s);
+		if (s) CFRelease(s);
+		DisposeHandle(d);
+	}			
+	
+	playlist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	
+cleanup_reply_event:
+	AEDisposeDesc(&replyEvent);
+cleanup_get_event:
+	AEDisposeDesc(&getEvent);
+	
+	return playlist;
+}
+
 @end
