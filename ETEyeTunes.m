@@ -832,4 +832,33 @@ cleanup_get_event:
 	return playlist;
 }
 
+
+- (void)deleteTrack:(ETTrack *)track {
+	OSErr err;
+	AppleEvent cmdEvent;
+	
+	err = AEBuildAppleEvent(kAECoreSuite,	// class 
+                          kAEDelete,		// ID
+                          typeApplSignature,
+                          &iTunesSignature,
+                          sizeof(iTunesSignature),
+                          kAutoGenerateReturnID,
+                          kAnyTransactionID,
+                          &cmdEvent,
+                          NULL,
+                          "'----':@",
+                          [track descriptor]);
+	
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return;
+	}
+	
+	err = AESendMessage(&cmdEvent, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
+	}
+	AEDisposeDesc(&cmdEvent);
+}
+
 @end

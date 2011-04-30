@@ -108,6 +108,7 @@
 - (void)stop;
 
 - (id)addTrack:(NSURL *)fromLocation toPlaylist:(ETPlaylist *)playlist;
+- (void)deleteTrack:(ETTrack *)track;
 
 - (ETPlaylist*)addPlaylistWithName:(NSString*)name;
 
