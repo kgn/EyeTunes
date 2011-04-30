@@ -50,6 +50,9 @@
 //Launch the iTunes app, if iTunes it already running the window will take focus
 + (void)launch;
 
+//Quit the iTunes app, if it's running
++ (void)quit;
+
 //Check if the iTunes app is running
 + (BOOL)isRunning;
 
