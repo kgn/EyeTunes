@@ -1135,7 +1135,7 @@ cleanup_reply:
 	}
 	
 	/* Read Results */
-	err = AEGetParamPtr(replyEvent, keyDirectObject, typeInteger, &resultType, 
+	err = AEGetParamPtr(replyEvent, keyDirectObject, typeSInt32, &resultType, 
 						&replyValue, sizeof(replyValue), &resultSize);
 	if (err != noErr) {
 		ETLog(@"Error extracting parameters from reply: %d", err);
