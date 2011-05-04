@@ -62,18 +62,12 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
     [[NSWorkspace sharedWorkspace] launchApplication:@"iTunes"];
 }
 
++ (void)quit{
+	[[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.iTunes"] makeObjectsPerformSelector:@selector(terminate)];
+}
+
 + (BOOL)isRunning{
-    //TODO: It is strongly suggested that you use the NSWorkspace runningApplications method and the NSRunningApplication class to retrieve this information in applications targeted for Mac OS X v10.6 and later.
-    NSInteger i;
-    NSArray *apps = [[NSWorkspace sharedWorkspace] launchedApplications];
-    for(i=0; i<[apps count]; ++i){
-        NSDictionary *app = [apps objectAtIndex:i];
-        NSString *bundleIdentifier = [app objectForKey:@"NSApplicationBundleIdentifier"];
-        if([bundleIdentifier isEqualToString:@"com.apple.iTunes"]){
-            return YES;
-        }
-    }
-    return NO;
+	return ([[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.iTunes"] count] > 0);
 }
 
 #pragma mark -
