@@ -1,1 +1,0 @@
-(* Description	Convert the aete ressources contained in the chosen file to sdef files *)tell application "Aete2sdef"	set theFile to (choose file)	convert theFileend tell

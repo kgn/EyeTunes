@@ -1,1 +1,0 @@
-(* Description	Get the current version number of Aete2sdef*)tell application "Aete2sdef"	get versionend tell
