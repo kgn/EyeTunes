@@ -479,55 +479,62 @@ cleanup_get_event:
 	NSMutableArray *trackList = nil;
 	
 	AliasHandle alias = [EyeTunes newAliasHandleWithPath:[fromLocation path]];
-
-	if (!playlist) 
-	{
-		gizmo = @"'----':@@";
-	}
-	else 
-	{
-		gizmo = [NSString stringWithFormat:@"'----':alis(@@), insh:(@)"];
-	}
 	
 	AEBuildError buildError;
-	
-	err = AEBuildAppleEvent(iTunesSignature,	// class 
-							ET_ADD_FILE,		// ID
-							typeApplSignature,	// address type
-							&iTunesSignature,	// address data
-							sizeof(iTunesSignature),	// address length
-							kAutoGenerateReturnID,	// return ID
-							kAnyTransactionID,	//transaction ID
-							&getEvent,	// result
-							&buildError,	// error
-							[gizmo UTF8String], // params format
-							alias,	// ... (var args)
-							[playlist descriptor]);
+
+	if (!playlist) {
+		gizmo = @"'----':alis(@@)";
+    err = AEBuildAppleEvent(iTunesSignature,	// class 
+                            ET_ADD_FILE,		// ID
+                            typeApplSignature,	// address type
+                            &iTunesSignature,	// address data
+                            sizeof(iTunesSignature),	// address length
+                            kAutoGenerateReturnID,	// return ID
+                            kAnyTransactionID,	//transaction ID
+                            &getEvent,	// result
+                            &buildError,	// error
+                            [gizmo UTF8String], // params format
+                            alias);    
+	} else {
+		gizmo = [NSString stringWithFormat:@"'----':alis(@@), insh:(@)"];
+    err = AEBuildAppleEvent(iTunesSignature,	// class 
+                            ET_ADD_FILE,		// ID
+                            typeApplSignature,	// address type
+                            &iTunesSignature,	// address data
+                            sizeof(iTunesSignature),	// address length
+                            kAutoGenerateReturnID,	// return ID
+                            kAnyTransactionID,	//transaction ID
+                            &getEvent,	// result
+                            &buildError,	// error
+                            [gizmo UTF8String], // params format
+                            alias,	// ... (var args)
+                            [playlist descriptor]);    
+	}
 	
 	DisposeHandle((Handle)alias);
 
-	if (err != noErr) {
-		ETLog(@"Error creating Apple Event: %d", err);
+	if (err != noErr) {    
+		ETLog(@"Error creating AppleEvent: %d | %s | %s", err, GetMacOSStatusErrorString(err), GetMacOSStatusCommentString(err));
 		return nil;
 	}
 	
 	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
 	if (err != noErr) {
-		ETLog(@"Error sending AppleEvent: %d", err);
+		ETLog(@"Error sending AppleEvent: %d | %s | %s", err, GetMacOSStatusErrorString(err), GetMacOSStatusCommentString(err));
 		goto cleanup_get_event;
 	}
 	
 	/* Read Results */
 	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeAEList, &replyList);
 	if (err != noErr) {
-		ETLog(@"Error extracting from reply event: %d", err);
+		ETLog(@"Error extracting from reply event: %d | %s | %s", err, GetMacOSStatusErrorString(err), GetMacOSStatusCommentString(err));
 		goto cleanup_reply_event;
 	}
 	
 	long items, i;
 	err = AECountItems(&replyList, &items);
 	if (err != noErr) {
-		ETLog(@"Unable to access Reply List: %d", err);
+		ETLog(@"Unable to access Reply List: %d | %s | %s", err, GetMacOSStatusErrorString(err), GetMacOSStatusCommentString(err));
 		goto cleanup_reply_list;
 	}
 	
@@ -540,7 +547,7 @@ cleanup_get_event:
 						   0,
 						   &trackDesc);
 		if (err != noErr) {
-			ETLog(@"Error rextracting from List: %d", err);
+			ETLog(@"Error rextracting from List: %d | %s | %s", err, GetMacOSStatusErrorString(err), GetMacOSStatusCommentString(err));
 			goto cleanup_reply_list;
 		}
 		[trackList addObject:[[[ETTrack alloc] initWithDescriptor:&trackDesc] autorelease]];
@@ -777,6 +784,82 @@ cleanup_reply_event:
 {
 	unsigned int currentVersion = [self versionNumber];
 	return !!(currentVersion < version);
+}
+
+- (ETPlaylist*)addPlaylistWithName:(NSString*)name
+{
+	OSErr err;
+	AppleEvent getEvent, replyEvent;
+	AEDescList replyObject;
+	ETPlaylist* playlist;
+	NSString *gizmo = [NSString stringWithFormat:@"kocl:type('cPly'), prdt: {pnam:'utxt'(\"%@\")}", name];	
+	
+	AEBuildError buildError;		
+	err = AEBuildAppleEvent(kAECoreSuite,	// class 
+							kAECreateElement,		// ID
+							typeApplSignature,	// address type
+							&targetApplCode,	// address data
+							sizeof(targetApplCode),	// address length
+							kAutoGenerateReturnID,	// return ID
+							kAnyTransactionID,	//transaction ID
+							&getEvent,	// result
+							&buildError,	// error
+							[gizmo UTF8String]);	
+	
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return nil;
+	}
+
+	err = AESendMessage(&getEvent, &replyEvent, kAEWaitReply + kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
+		goto cleanup_get_event;
+	}
+	
+	err = AEGetParamDesc(&replyEvent, keyDirectObject, typeWildCard, &replyObject);
+	if (err != noErr) {
+		ETLog(@"Error extracting from reply event: %d", err);
+		goto cleanup_reply_event;
+	}
+	
+	playlist = [[[ETPlaylist alloc] initWithDescriptor:&replyObject] autorelease];
+	
+cleanup_reply_event:
+	AEDisposeDesc(&replyEvent);
+cleanup_get_event:
+	AEDisposeDesc(&getEvent);
+	
+	return playlist;
+}
+
+
+- (void)deleteTrack:(ETTrack *)track {
+	OSErr err;
+	AppleEvent cmdEvent;
+	
+	err = AEBuildAppleEvent(kAECoreSuite,	// class 
+                          kAEDelete,		// ID
+                          typeApplSignature,
+                          &iTunesSignature,
+                          sizeof(iTunesSignature),
+                          kAutoGenerateReturnID,
+                          kAnyTransactionID,
+                          &cmdEvent,
+                          NULL,
+                          "'----':@",
+                          [track descriptor]);
+	
+	if (err != noErr) {
+		ETLog(@"Error creating Apple Event: %d", err);
+		return;
+	}
+	
+	err = AESendMessage(&cmdEvent, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+	if (err != noErr) {
+		ETLog(@"Error sending AppleEvent: %d", err);
+	}
+	AEDisposeDesc(&cmdEvent);
 }
 
 @end

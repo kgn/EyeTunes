@@ -111,6 +111,9 @@
 - (void)stop;
 
 - (id)addTrack:(NSURL *)fromLocation toPlaylist:(ETPlaylist *)playlist;
+- (void)deleteTrack:(ETTrack *)track;
+
+- (ETPlaylist*)addPlaylistWithName:(NSString*)name;
 
 // TODO: - (id)convertTrack:(id)trackReference;
 // TODO: - (void)refresh:(id)fileTrack;

@@ -156,6 +156,12 @@ void rename_chinese_tracks(EyeTunes *e) {
 	}
 }
 
+void test_create_playlist(EyeTunes *e) {
+	ETPlaylist *playlist = [e addPlaylistWithName:@"test3"];
+	NSLog(@"created playlist %@", [playlist name]);
+}
+
+
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
 	EyeTunes *e = [EyeTunes sharedInstance];
@@ -171,6 +177,7 @@ int main (int argc, const char * argv[]) {
 	test_track_persistent_id(e);
 	
 	//rename_chinese_tracks(e);
+	//test_create_playlist(e);
 	
 	[pool release];
     return 0;
