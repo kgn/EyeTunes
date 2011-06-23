@@ -32,10 +32,3 @@ To grab an NSImage from the current playing track (say you're implementing some 
         }
         return nil;
     }
-
-Resources
-------
-
-For instructions on how to use it, please go to the [EyeTunes project page](http://code.google.com/p/eyetunes/).
-
-[Updating EyeTunes for a new version of iTunes](http://inscopeapps.com/blog/updating-eyetunes/).
