@@ -40,6 +40,7 @@
 #import "ETTrack.h"
 
 #import "NSString+LongLongValue.h"
+#import "NSImage+PICT.h"
 
 #import "ETDebug.h"
 
@@ -76,23 +77,9 @@
 {
 	AEDesc pictDesc;
 	OSErr err;
-	NSPasteboard *pboard = nil;
-	NSData	*tiffData;
 	
 	if (artwork != nil) {
-		tiffData = [artwork TIFFRepresentation];
-		if (tiffData == nil) {
-			ETLog(@"Unable to convert NSImage to TIFF");
-			return NO;
-		}
-		
-		// force NSPasteboard to do conversion for us?
-		pboard = [NSPasteboard pasteboardWithName:@"EyeTunes"];
-		[pboard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:nil];
-		[pboard setData:tiffData forType:NSTIFFPboardType];
-		[pboard types]; // need this for some reason to force pboard to present more datatypes
-		NSData *pictData = [pboard dataForType:NSPICTPboardType];
-		[pboard releaseGlobally];
+		NSData *pictData = [artwork pictRepresentation];
 		
 		if ([pictData length] < 512) {
 			ETLog(@"Unable to convert to PICT");
