@@ -40,6 +40,6 @@ def SaveHeader(output):
         
 if __name__ == '__main__':
     version = GetVersion()
-    basename = 'iTunes%s' % version
+    basename = 'iTunes_%s' % version
     SaveHeader(os.path.join(k_iTunesDir, '%s.h' % basename))    
-    SaveSdef(os.path.join(k_iTunesDir, '%s.sdef' % basename))
+    SaveSdef(os.path.join(k_iTunesDir, '%s_aete0.sdef' % basename))
