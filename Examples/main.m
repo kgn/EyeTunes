@@ -114,7 +114,7 @@ void rename_chinese_tracks(EyeTunes *e) {
 	NSString *chinese, *english, *newArtist;
 	NSCharacterSet *white = [NSCharacterSet whitespaceCharacterSet];
 	
-	int splitPos = NSNotFound;
+	NSInteger splitPos = NSNotFound;
 	
 	while (t = [trackEnum nextObject]) {
 		if ([[t genre] isEqual:@"Chinese"]) {
