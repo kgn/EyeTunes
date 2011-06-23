@@ -3,7 +3,7 @@ EyeTunes framework
 
 EyeTunes.framework is a Cocoa Framework that abstracts away all the ugly Carbon Apple Events magic and allows you to directly control iTunes from any Cocoa Application.
 
-This is a fork of the orinial [EyeTunes](http://www.liquidx.net/eyetunes/) project with support for iTunes 10 and other updated features.
+This is a fork of the original [EyeTunes](http://www.liquidx.net/eyetunes/) project with support for iTunes 10 and other updates.
 
 Features
 ------
