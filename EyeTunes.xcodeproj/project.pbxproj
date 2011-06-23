@@ -37,22 +37,20 @@
 		035B70BA0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
 		035B70BB0885537800D0B89E /* ETTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B70B80885537800D0B89E /* ETTrack.m */; };
 		037310CB0C15D92A004AAA53 /* ETEyeTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0313DE480C10E1ED00F401BB /* ETEyeTunes.m */; };
-		037310E30C15D98E004AAA53 /* NSString+LongLongValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 039620980C0DE71600786326 /* NSString+LongLongValue.m */; };
 		03748F04099D8B00002F09C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		03748F05099D8B07002F09C3 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031B48A9088444F60086F24B /* ApplicationServices.framework */; };
 		03748FD3099D8B0F002F09C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030BFB91098D517A00D68616 /* AppKit.framework */; };
 		03749078099D8B48002F09C3 /* debug_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03749077099D8B48002F09C3 /* debug_main.m */; };
 		03749091099D8BEB002F09C3 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03749090099D8BEB002F09C3 /* MainMenu.nib */; };
 		0374909C099D8CDE002F09C3 /* DebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374909B099D8CDE002F09C3 /* DebugController.m */; };
-		039620990C0DE71600786326 /* NSString+LongLongValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 039620970C0DE71600786326 /* NSString+LongLongValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 039620980C0DE71600786326 /* NSString+LongLongValue.m */; };
 		039620AC0C0DE78200786326 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		039620C80C0DE7CC00786326 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		638ADA371325160700B02DFB /* ETRootUserPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */; };
 		638ADA391325160700B02DFB /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
 		638ADA3D1325160700B02DFB /* ETPlaylistCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEBCBB70E8D0DAD00219086 /* ETPlaylistCache.m */; };
 		638ADA3F1325160700B02DFB /* NSNumber+ETPlaylistNameSorting.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEBCD330E8D245000219086 /* NSNumber+ETPlaylistNameSorting.m */; };
-		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		735028C813B339A700DD08C4 /* NSString+LongLongValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 735028C613B339A700DD08C4 /* NSString+LongLongValue.h */; };
+		735028C913B339A700DD08C4 /* NSString+LongLongValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 735028C713B339A700DD08C4 /* NSString+LongLongValue.m */; };
 		DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
 		DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DDB3AF3D0EC4A147003C7FE6 /* ETRootUserPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */; };
@@ -114,11 +112,10 @@
 		03749090099D8BEB002F09C3 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
 		0374909A099D8CDE002F09C3 /* DebugController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugController.h; sourceTree = "<group>"; };
 		0374909B099D8CDE002F09C3 /* DebugController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugController.m; sourceTree = "<group>"; };
-		039620970C0DE71600786326 /* NSString+LongLongValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LongLongValue.h"; sourceTree = SOURCE_ROOT; };
-		039620980C0DE71600786326 /* NSString+LongLongValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LongLongValue.m"; sourceTree = SOURCE_ROOT; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* EyeTunes_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeTunes_Prefix.pch; sourceTree = "<group>"; };
+		735028C613B339A700DD08C4 /* NSString+LongLongValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LongLongValue.h"; sourceTree = "<group>"; };
+		735028C713B339A700DD08C4 /* NSString+LongLongValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LongLongValue.m"; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* EyeTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EyeTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD233EAA0E66FCC4004B210F /* ETUserPlaylistEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETUserPlaylistEnumerator.h; sourceTree = "<group>"; };
@@ -201,7 +198,7 @@
 				031B484A08843CB10086F24B /* Test Program */,
 				03749076099D8B22002F09C3 /* Debug App */,
 			);
-			name = Examples;
+			path = Examples;
 			sourceTree = "<group>";
 		};
 		0867D691FE84028FC02AAC07 /* EyeTunes */ = {
@@ -211,26 +208,26 @@
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = EyeTunes;
 			sourceTree = "<group>";
 		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
-				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				030BFB91098D517A00D68616 /* AppKit.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+				031B48A9088444F60086F24B /* ApplicationServices.framework */,
 			);
-			name = "External Frameworks and Libraries";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
-				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -259,31 +256,15 @@
 				DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */,
 				030BF9AB098CFFD100D68616 /* ETDebug.h */,
 				030BF9AC098CFFD100D68616 /* ETDebug.m */,
-				039620970C0DE71600786326 /* NSString+LongLongValue.h */,
-				039620980C0DE71600786326 /* NSString+LongLongValue.m */,
 				DDEBCBB60E8D0DAD00219086 /* ETPlaylistCache.h */,
 				DDEBCBB70E8D0DAD00219086 /* ETPlaylistCache.m */,
+				735028C613B339A700DD08C4 /* NSString+LongLongValue.h */,
+				735028C713B339A700DD08C4 /* NSString+LongLongValue.m */,
 				DDEBCD320E8D245000219086 /* NSNumber+ETPlaylistNameSorting.h */,
 				DDEBCD330E8D245000219086 /* NSNumber+ETPlaylistNameSorting.m */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				030BFB91098D517A00D68616 /* AppKit.framework */,
-				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
-				031B48A9088444F60086F24B /* ApplicationServices.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Other Frameworks";
+			path = Source;
 			sourceTree = "<group>";
 		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
@@ -309,13 +290,13 @@
 				032E44B0098A4F2C00C55ECB /* ETTrackEnumerator.h in Headers */,
 				032E476D098A8FDF00C55ECB /* ETPlaylistEnumerator.h in Headers */,
 				030BF9AD098CFFD100D68616 /* ETDebug.h in Headers */,
-				039620990C0DE71600786326 /* NSString+LongLongValue.h in Headers */,
 				0313DDED0C10DFB400F401BB /* ETEyeTunes.h in Headers */,
 				0313DE1D0C10E09900F401BB /* EyeTunesVersions.h in Headers */,
 				DD233EB80E66FD45004B210F /* ETUserPlaylistEnumerator.h in Headers */,
 				DDEBCD350E8D255600219086 /* NSNumber+ETPlaylistNameSorting.h in Headers */,
 				DDEBCC910E8D1EF700219086 /* ETPlaylistCache.h in Headers */,
 				DDB3AF3E0EC4A148003C7FE6 /* ETRootUserPlaylist.h in Headers */,
+				735028C813B339A700DD08C4 /* NSString+LongLongValue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,7 +397,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +416,6 @@
 				638ADA371325160700B02DFB /* ETRootUserPlaylist.m in Sources */,
 				638ADA391325160700B02DFB /* ETUserPlaylistEnumerator.m in Sources */,
 				030BF9AF098CFFD100D68616 /* ETDebug.m in Sources */,
-				037310E30C15D98E004AAA53 /* NSString+LongLongValue.m in Sources */,
 				638ADA3D1325160700B02DFB /* ETPlaylistCache.m in Sources */,
 				638ADA3F1325160700B02DFB /* NSNumber+ETPlaylistNameSorting.m in Sources */,
 				031B486908843CF90086F24B /* main.m in Sources */,
@@ -467,7 +446,7 @@
 				032E44B1098A4F2C00C55ECB /* ETTrackEnumerator.m in Sources */,
 				DD233EB70E66FD45004B210F /* ETUserPlaylistEnumerator.m in Sources */,
 				DDEBCD360E8D255600219086 /* NSNumber+ETPlaylistNameSorting.m in Sources */,
-				0396209A0C0DE71600786326 /* NSString+LongLongValue.m in Sources */,
+				735028C913B339A700DD08C4 /* NSString+LongLongValue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,17 +459,6 @@
 			targetProxy = 039620DB0C0DE81C00786326 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				089C1667FE841158C02AAC07 /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		031B481D088429A70086F24B /* Debug */ = {
