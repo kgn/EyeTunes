@@ -43,7 +43,7 @@
 		03749078099D8B48002F09C3 /* debug_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03749077099D8B48002F09C3 /* debug_main.m */; };
 		03749091099D8BEB002F09C3 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03749090099D8BEB002F09C3 /* MainMenu.nib */; };
 		0374909C099D8CDE002F09C3 /* DebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0374909B099D8CDE002F09C3 /* DebugController.m */; };
-		039620AC0C0DE78200786326 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
+		039620AC0C0DE78200786326 /* EyeTunes.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		039620C80C0DE7CC00786326 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EyeTunes.framework */; };
 		638ADA371325160700B02DFB /* ETRootUserPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2AB89A0E97A88800178457 /* ETRootUserPlaylist.m */; };
 		638ADA391325160700B02DFB /* ETUserPlaylistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD233EAB0E66FCC4004B210F /* ETUserPlaylistEnumerator.m */; };
@@ -72,14 +72,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0396209B0C0DE72600786326 /* CopyFiles */ = {
+		0396209B0C0DE72600786326 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				039620AC0C0DE78200786326 /* EyeTunes.framework in CopyFiles */,
+				039620AC0C0DE78200786326 /* EyeTunes.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -326,7 +327,7 @@
 				03748E76099D8AD4002F09C3 /* Resources */,
 				03748E77099D8AD4002F09C3 /* Sources */,
 				03748E78099D8AD4002F09C3 /* Frameworks */,
-				0396209B0C0DE72600786326 /* CopyFiles */,
+				0396209B0C0DE72600786326 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -467,6 +468,7 @@
 		031B481D088429A70086F24B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -485,6 +487,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
 				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = EyeTunes;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -495,7 +498,7 @@
 		031B481E088429A70086F24B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -539,6 +542,7 @@
 		031B484C08843CB20086F24B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
@@ -548,6 +552,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
 				INSTALL_PATH = /usr/local/bin;
 				KEEP_PRIVATE_EXTERNS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -569,6 +574,7 @@
 		031B484D08843CB20086F24B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
@@ -577,6 +583,7 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
 				INSTALL_PATH = /usr/local/bin;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -598,6 +605,7 @@
 		03748E7E099D8AD8002F09C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -606,8 +614,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = ET_DEBUG;
-				INFOPLIST_FILE = "EyeTunesDebug-Info.plist";
+				INFOPLIST_FILE = "Examples/EyeTunesDebug-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -623,17 +632,15 @@
 		03748E7F099D8AD8002F09C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "EyeTunesDebug-Info.plist";
+				INFOPLIST_FILE = "Examples/EyeTunesDebug-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
