@@ -1,3 +1,16 @@
+23 Jun 2011; EyeTunes-1.5; David Keegan <contact@inscopeapps.com>
+   * Added support for iTunes 10.
+   * Updated for OSX 10.6, Xcode 4 and AppStore compliance!
+   * Switched to the LLVM compiler.
+   * Added isSmart to test if a playlist is smart.
+   * Added containsTrack to test if a track belongs to a playlist.
+   * Added isEqualToTrack to compare tracks.
+   * Added launch and isRunning to launch iTunes and check if it's running, 
+     updated by clee who also added a quit method!
+   * Added addPlaylistWithName to add new playlists, thanks k7d!
+   * Added deleteTrack to delete tracks from iTunes, thanks k7d!
+   
+
 03 Aug 08; Alastair Tse <alastair@liquidx.net>
   * Workaround changed track descriptor returned from iTunes 7.7.1.
     Thanks to Simon Haertel for the patch.

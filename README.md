@@ -8,11 +8,14 @@ This is a fork of the original [EyeTunes](http://www.liquidx.net/eyetunes/) proj
 Features
 ------
 
+* AppStore compliant.
 * Get all references to iTunes playlists, tracks and album art.
+* Add playlists, update playlists and delete tracks.
 * Set any writable fields that iTunes exposes such as Track name, artwork and much more.
 * Control iTunes and select playlists and tracks by using either track filenames or database ids.
 * Search the iTunes library just like the search box does.
 * Extract persistent ID and fetch tracks using such ids.
+* Launch and quit iTunes.
 
 Example
 ------
