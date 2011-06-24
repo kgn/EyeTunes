@@ -40,7 +40,6 @@
 #import "ETTrack.h"
 
 #import "NSString+LongLongValue.h"
-#import "NSImage+PICT.h"
 
 #import "ETDebug.h"
 
@@ -79,16 +78,16 @@
 	OSErr err;
 	
 	if (artwork != nil) {
-		NSData *pictData = [artwork pictRepresentation];
+		NSData *tiffData = [artwork TIFFRepresentation];
 		
-		if ([pictData length] < 512) {
+		if ([tiffData length] < 512) {
 			ETLog(@"Unable to convert to PICT");
 			return NO;
 		}
 		
 		err = AEBuildDesc(&pictDesc, NULL, "'PICT'(@)",
-							[pictData length],
-							[pictData bytes]);
+							[tiffData length],
+							[tiffData bytes]);
 		
 		if (err != noErr) {
 			ETLog(@"Error with constructing PICT: %d", err);

@@ -164,22 +164,22 @@ void test_create_playlist(EyeTunes *e) {
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
-	EyeTunes *e = [EyeTunes sharedInstance];
-	
-  test_get_playlists(e);
-  test_get_track(e);
-  test_get_tracks_by_search(e);
-  test_get_selected(e);
-	//test_dupe_selected_image(e);
-	//test_set_track_details(e);
-	test_playlist_persistent_id(e);
-	//test_select_playlist_by_persistent_id(e);
-	test_track_persistent_id(e);
-	
-	//rename_chinese_tracks(e);
-	//test_create_playlist(e);
-	
-	[pool release];
+    EyeTunes *e = [EyeTunes sharedInstance];
+
+    test_get_playlists(e);
+    test_get_track(e);
+    test_get_tracks_by_search(e);
+    test_get_selected(e);
+    //test_dupe_selected_image(e);
+    //test_set_track_details(e);
+    test_playlist_persistent_id(e);
+    //test_select_playlist_by_persistent_id(e);
+    test_track_persistent_id(e);
+
+    //rename_chinese_tracks(e);
+    //test_create_playlist(e);
+
+    [pool release];
     return 0;
 }
 
