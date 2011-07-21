@@ -159,7 +159,7 @@
 		}
 		
 		unsigned char *pictBytes = malloc(resultSize);
-		err = AEGetParamPtr(dataReplyEvent, keyDirectObject, typePict, &resultType, 
+		err = AEGetParamPtr(dataReplyEvent, keyDirectObject, resultType, &resultType, 
 							pictBytes, resultSize, &resultSize);
 		if (err != noErr) {
 			ETLog(@"Failed to extract PICT data to buffer: %d", err);
