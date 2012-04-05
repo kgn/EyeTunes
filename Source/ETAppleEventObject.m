@@ -158,8 +158,9 @@
 
 - (NSString *) stringForOSType: (DescType) descType;
 {
-    NSString * descString = (NSString *) UTCreateStringForOSType(descType);
-    [descString autorelease];
+    CFStringRef descRef = UTCreateStringForOSType(descType);
+    NSString * descString = [NSString stringWithString:(NSString *)descRef];
+    CFRelease(descRef);
     return descString;
 }
 
@@ -1158,7 +1159,7 @@ cleanup_reply:
 	DescType	resultType;
 	Size		resultSize;
 	NSString	*replyString = nil;
-	
+	NSArray     *valueAndDump = nil;
 	AppleEvent *replyEvent = [self getPropertyOfType:descType];
 	if (!replyEvent) {
 		// TODO: raise exception?
@@ -1197,7 +1198,7 @@ cleanup_reply:
 											length:resultSize 
 										  encoding:NSUnicodeStringEncoding] autorelease];
 	
-	NSArray *valueAndDump = [NSArray arrayWithObjects:replyString,
+    valueAndDump = [NSArray arrayWithObjects:replyString,
 		[ETAppleEventObject debugHexDump:replyValue ofLength:resultSize], nil];
 	
 	

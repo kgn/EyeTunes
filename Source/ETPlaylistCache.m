@@ -132,14 +132,13 @@
 	while ((playlist = [en2 nextObject])) 
 	{
 		unsigned long long playlistPersistentID = [playlist persistentId];
-		NSString * playlistName = [playlist name];
 		if (playlistPersistentID == 0) // root
 			continue;
 		
 		long long parentPersistentId = [playlist parentPlaylistId];
 		
 		ETPlaylist * parentPlaylist = [self playlistForPersistentId:parentPersistentId];
-		if (NO) NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", playlistName, [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
+		if (NO) NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", [playlist name], [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
 		[parentPlaylist addChildPlaylistId:[playlist persistentIdNumber]];
 	}	
 	
@@ -181,14 +180,13 @@
 	while ((playlist = [en2 nextObject])) 
 	{
 		unsigned long long playlistPersistentID = [playlist persistentId];
-		NSString * playlistName = [playlist name];
 		if (playlistPersistentID == 0) // root
 			continue;
 		
 		long long parentPersistentId = [playlist parentPlaylistId];
 		
 		ETPlaylist * parentPlaylist = [self userPlaylistForPersistentId:parentPersistentId];
-		if (NO) NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", playlistName, [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
+		if (NO) NSLog (@"playlist: %@ (%@) [%qi] -- parent: %@", [playlist name], [playlist stringForOSType:[playlist specialKind]], [playlist persistentId], [parentPlaylist name]);
 		[parentPlaylist addChildPlaylistId:[playlist persistentIdNumber]];
 	}	
 }

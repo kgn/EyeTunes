@@ -791,7 +791,7 @@ cleanup_reply_event:
 	OSErr err;
 	AppleEvent getEvent, replyEvent;
 	AEDescList replyObject;
-	ETPlaylist* playlist;
+	ETPlaylist* playlist = nil;
 	NSString *gizmo = [NSString stringWithFormat:@"kocl:type('cPly'), prdt: {pnam:'utxt'(\"%@\")}", name];	
 	
 	AEBuildError buildError;		

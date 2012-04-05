@@ -111,7 +111,7 @@ static const BOOL doLog = NO;
 	}
 	
 	Handle stringHandle;
-	OSErr err = AEPrintDescToHandle(replyEvent, &stringHandle);
+	OSErr __unused err = AEPrintDescToHandle(replyEvent, &stringHandle);
 	if (doLog) NSLog(@"-[ETPlaylist parentplaylist] %@ -- replyEvent: %s (AEPrintDescToHandle result %d)", [self name], *stringHandle, err);
 	
 	/* Read Results */
