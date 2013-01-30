@@ -88,6 +88,29 @@
 	return refDescriptor;
 }
 
+// returns PID for targetApplCode to work around AESendMessage bug in OS X 10.8.2: http://www.openradar.me/12424662
+- (pid_t)targetProcessID
+{
+	NSString *targetFileCreator = [self stringForOSType:targetApplCode];
+	
+	ProcessSerialNumber psn;
+	psn.highLongOfPSN = 0;
+	psn.lowLongOfPSN = kNoProcess;
+	while (GetNextProcess(&psn) == noErr)
+	{
+		CFDictionaryRef infoCF = ProcessInformationCopyDictionary(&psn, kProcessDictionaryIncludeAllInformationMask);
+		if (infoCF)
+		{
+			NSDictionary *info = [(id)infoCF autorelease];
+			NSString *fileCreator = [info objectForKey:@"FileCreator"];
+			if ([fileCreator isEqualToString:targetFileCreator])
+				return [[info objectForKey:@"pid"] longValue];
+		}
+	}
+	
+	return 0;
+}
+
 #ifdef ET_DEBUG
 
 + (void) printDescriptor:(AEDesc *)desc
@@ -258,13 +281,14 @@
 - (BOOL) setPropertyWithValue:(AEDesc *)valueDesc ofType:(DescType)descType forObject:(AEDesc *)targetObject;
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent setEvent;
 
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'setd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&setEvent,
@@ -292,14 +316,15 @@
 - (AppleEvent *) getPropertyOfType:(DescType)descType forObject:(AEDesc *)targetObject;
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -343,6 +368,7 @@
 - (int) getCountOfElementsOfClass:(DescType)descType
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	DescType	resultType;
@@ -351,9 +377,9 @@
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'cnte',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -391,15 +417,16 @@
 - (AppleEvent *) deleteAllElementsOfClass:(DescType)descType
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'delo',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -427,15 +454,16 @@
 - (AppleEvent *) deleteElement:(int)index OfClass:(DescType)descType
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'delo',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -464,14 +492,15 @@
 - (AppleEvent *) getElementOfClass:(DescType)classType atIndex:(int)index;
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -500,6 +529,7 @@
 - (AppleEvent *)	getElementOfClass:(DescType)classType byKey:(DescType)key withIntValue:(int)value
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	
@@ -509,9 +539,9 @@
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -542,6 +572,7 @@
 					 withLongIntValue:(long long int)value
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	AEDesc	   longValue = {typeNull,nil};
@@ -561,9 +592,9 @@
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -598,6 +629,7 @@
 					  withStringValue:(NSString *)value
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent;
 	AppleEvent *replyEvent = nil;
 	
@@ -606,9 +638,9 @@
 
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -639,13 +671,14 @@
 - (BOOL) setElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent setEvent;
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'setd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&setEvent,
@@ -673,13 +706,14 @@
 - (BOOL) setProperty:(DescType)propertyType OfElementOfClass:(DescType)classType atIndex:(int)index withValue:(AEDesc *)value
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent setEvent;
 	
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'setd',
-							typeApplSignature,
-							&targetApplCode,
-							sizeof(targetApplCode),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&setEvent,

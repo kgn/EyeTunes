@@ -77,12 +77,13 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 - (AppleEvent *) newCommandEvent:(AEEventID)eventID
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent *cmdEvent = malloc(sizeof(AppleEvent));
 	err = AEBuildAppleEvent(iTunesSignature,
 							eventID,
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							cmdEvent,
@@ -170,6 +171,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 - (void)playTrackWithPath:(NSString *)path
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent cmdEvent;
 	AliasHandle alias =  [EyeTunes newAliasHandleWithPath:path];
 	
@@ -180,9 +182,9 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	
 	err = AEBuildAppleEvent(iTunesSignature,
 							ET_PLAY,
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&cmdEvent,
@@ -208,13 +210,14 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 - (void)playTrack:(ETTrack *)track
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent cmdEvent;
 	
 	err = AEBuildAppleEvent(iTunesSignature,
 							ET_PLAY,
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&cmdEvent,
@@ -251,6 +254,7 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 - (ETTrack *)currentTrack
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	ETTrack *currentTrack = nil;
 	
 	/* Vars for getting reference to the current track */
@@ -260,9 +264,9 @@ const OSType iTunesSignature = ET_APPLE_EVENT_OBJECT_DEFAULT_APPL;
 	/* create the apple event to GET something*/
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -301,6 +305,7 @@ cleanup_get_event:
 - (ETPlaylist *)currentPlaylist
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	ETPlaylist *currentPlaylist = nil;
 	
 	/* Vars for getting reference to the current track */
@@ -310,9 +315,9 @@ cleanup_get_event:
 	/* create the apple event to GET something*/
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -389,6 +394,7 @@ cleanup_reply_event:
 - (NSArray *)search:(ETPlaylist *)playlist forString:(NSString *)searchString inField:(DescType)typeCode
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent, replyEvent;
 	AEDescList replyList;
 	NSString *gizmo = nil;
@@ -405,9 +411,9 @@ cleanup_reply_event:
 	
 	err = AEBuildAppleEvent(iTunesSignature,
 							ET_SEARCH,
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -473,6 +479,7 @@ cleanup_get_event:
 - (id)addTrack:(NSURL *)fromLocation toPlaylist:(ETPlaylist *)playlist;
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent, replyEvent;
 	AEDescList replyList;
 	NSString *gizmo = nil;
@@ -486,9 +493,9 @@ cleanup_get_event:
 		gizmo = @"'----':alis(@@)";
     err = AEBuildAppleEvent(iTunesSignature,	// class 
                             ET_ADD_FILE,		// ID
-                            typeApplSignature,	// address type
-                            &iTunesSignature,	// address data
-                            sizeof(iTunesSignature),	// address length
+                            typeKernelProcessID,	// address type
+                            &targetProcessID,	// address data
+                            sizeof(targetProcessID),	// address length
                             kAutoGenerateReturnID,	// return ID
                             kAnyTransactionID,	//transaction ID
                             &getEvent,	// result
@@ -499,9 +506,9 @@ cleanup_get_event:
 		gizmo = [NSString stringWithFormat:@"'----':alis(@@), insh:(@)"];
     err = AEBuildAppleEvent(iTunesSignature,	// class 
                             ET_ADD_FILE,		// ID
-                            typeApplSignature,	// address type
-                            &iTunesSignature,	// address data
-                            sizeof(iTunesSignature),	// address length
+                            typeKernelProcessID,	// address type
+                            &targetProcessID,	// address data
+                            sizeof(targetProcessID),	// address length
                             kAutoGenerateReturnID,	// return ID
                             kAnyTransactionID,	//transaction ID
                             &getEvent,	// result
@@ -567,6 +574,7 @@ cleanup_get_event:
 - (NSArray *)selectedTracks
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent, replyEvent;
 	AEDescList replyList;
 	NSMutableArray *trackList = nil;
@@ -574,9 +582,9 @@ cleanup_get_event:
 	/* create the apple event to GET something*/
 	err = AEBuildAppleEvent(kAECoreSuite,
 							'getd',
-							typeApplSignature,
-							&iTunesSignature,
-							sizeof(iTunesSignature),
+							typeKernelProcessID,
+							&targetProcessID,
+							sizeof(targetProcessID),
 							kAutoGenerateReturnID,
 							kAnyTransactionID,
 							&getEvent,
@@ -789,17 +797,18 @@ cleanup_reply_event:
 - (ETPlaylist*)addPlaylistWithName:(NSString*)name
 {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent getEvent, replyEvent;
 	AEDescList replyObject;
 	ETPlaylist* playlist = nil;
 	NSString *gizmo = [NSString stringWithFormat:@"kocl:type('cPly'), prdt: {pnam:'utxt'(\"%@\")}", name];	
 	
-	AEBuildError buildError;		
+	AEBuildError buildError;
 	err = AEBuildAppleEvent(kAECoreSuite,	// class 
 							kAECreateElement,		// ID
-							typeApplSignature,	// address type
-							&targetApplCode,	// address data
-							sizeof(targetApplCode),	// address length
+							typeKernelProcessID,	// address type
+							&targetProcessID,	// address data
+							sizeof(targetProcessID),	// address length
 							kAutoGenerateReturnID,	// return ID
 							kAnyTransactionID,	//transaction ID
 							&getEvent,	// result
@@ -836,13 +845,14 @@ cleanup_get_event:
 
 - (void)deleteTrack:(ETTrack *)track {
 	OSErr err;
+	pid_t targetProcessID = [self targetProcessID];
 	AppleEvent cmdEvent;
 	
 	err = AEBuildAppleEvent(kAECoreSuite,	// class 
                           kAEDelete,		// ID
-                          typeApplSignature,
-                          &iTunesSignature,
-                          sizeof(iTunesSignature),
+                          typeKernelProcessID,
+                          &targetProcessID,
+                          sizeof(targetProcessID),
                           kAutoGenerateReturnID,
                           kAnyTransactionID,
                           &cmdEvent,

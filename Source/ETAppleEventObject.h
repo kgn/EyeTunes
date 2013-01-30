@@ -52,6 +52,7 @@
 
 - (id) initWithDescriptor:(AEDesc *)aDesc applCode:(OSType)applCode;
 - (AEDesc *)descriptor;
+- (pid_t)targetProcessID;
 
 
 + (AliasHandle)newAliasHandleWithPath:(NSString *)path;
